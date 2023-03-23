@@ -32,7 +32,7 @@ Sensor  | Status | Composable
 Accelerometer  | ✅ | rememberAccelerometerState()
 Magnetic Field  | ✅ | rememberMagneticFieldState()
 Gyroscope  | ✅ | rememberGyroscopeState()
-Light  | ⚠️ | WIP
+Light  | ✅️ | rememberLightState()
 Pressure | ⚠️ | WIP
 Proximity | ⚠️ | WIP
 Gravity | ⚠️ | WIP
