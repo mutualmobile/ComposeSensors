@@ -3,7 +3,6 @@ package com.mutualmobile.composesensors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -48,10 +47,10 @@ class AccelerometerState internal constructor(
 }
 
 /**
- * Creates and remembers an instance of [AccelerometerState].
+ * Creates and [remember]s an instance of [AccelerometerState].
  */
 @Composable
-fun rememberAccelerometerState(): State<AccelerometerState> {
+fun rememberAccelerometerState(): AccelerometerState {
     val sensorState = rememberSensorState(sensorType = SensorType.Accelerometer)
     val accelerometerState = remember { mutableStateOf(AccelerometerState()) }
 
@@ -69,5 +68,5 @@ fun rememberAccelerometerState(): State<AccelerometerState> {
         }
     )
 
-    return accelerometerState
+    return accelerometerState.value
 }

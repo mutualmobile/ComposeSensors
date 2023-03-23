@@ -3,7 +3,6 @@ package com.mutualmobile.composesensors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -48,10 +47,10 @@ class MagneticFieldState internal constructor(
 }
 
 /**
- * Creates and remembers an instance of [MagneticFieldState].
+ * Creates and [remember]s an instance of [MagneticFieldState].
  */
 @Composable
-fun rememberMagneticFieldState(): State<MagneticFieldState> {
+fun rememberMagneticFieldState(): MagneticFieldState {
     val sensorState = rememberSensorState(sensorType = SensorType.MagneticField)
     val magneticFieldState = remember { mutableStateOf(MagneticFieldState()) }
 
@@ -69,5 +68,5 @@ fun rememberMagneticFieldState(): State<MagneticFieldState> {
         }
     )
 
-    return magneticFieldState
+    return magneticFieldState.value
 }

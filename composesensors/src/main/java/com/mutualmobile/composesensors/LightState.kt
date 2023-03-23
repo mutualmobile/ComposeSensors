@@ -3,7 +3,6 @@ package com.mutualmobile.composesensors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -38,10 +37,10 @@ class LightState internal constructor(
 }
 
 /**
- * Creates and remembers an instance of [LightState].
+ * Creates and [remember]s an instance of [LightState].
  */
 @Composable
-fun rememberLightState(): State<LightState> {
+fun rememberLightState(): LightState {
     val sensorState = rememberSensorState(sensorType = SensorType.Light)
     val lightState = remember { mutableStateOf(LightState()) }
 
@@ -55,5 +54,5 @@ fun rememberLightState(): State<LightState> {
         }
     )
 
-    return lightState
+    return lightState.value
 }

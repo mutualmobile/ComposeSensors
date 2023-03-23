@@ -3,7 +3,6 @@ package com.mutualmobile.composesensors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -49,10 +48,10 @@ class GyroscopeState internal constructor(
 }
 
 /**
- * Creates and remembers an instance of [GyroscopeState].
+ * Creates and [remember]s an instance of [GyroscopeState].
  */
 @Composable
-fun rememberGyroscopeState(): State<GyroscopeState> {
+fun rememberGyroscopeState(): GyroscopeState {
     val sensorState = rememberSensorState(sensorType = SensorType.Gyroscope)
     val gyroscopeState = remember { mutableStateOf(GyroscopeState()) }
 
@@ -70,5 +69,5 @@ fun rememberGyroscopeState(): State<GyroscopeState> {
         }
     )
 
-    return gyroscopeState
+    return gyroscopeState.value
 }

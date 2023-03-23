@@ -11,11 +11,11 @@ This library is a work-in-progress and is subject to major changes. Our team is 
 ## Usage 🚀
 The library provides straightforward state methods for multiple sensors like Accelerometer, Gyroscope, etc (more mentioned below). Following is an example on how to get the current values from the `Accelerometer`:
 ```
-val accelerometerState by rememberAccelerometerState()
+val accelerometerState = rememberAccelerometerState()
 ```
 Use it in an example:
 ```
-val accelerometerState by rememberAccelerometerState()
+val accelerometerState = rememberAccelerometerState()
 
 Text(
     text = "Force X: ${accelerometerState.xForce}" +
