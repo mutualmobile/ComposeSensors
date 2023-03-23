@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mutualmobile.composesensors.ui.theme.ComposeSensorsTheme
@@ -22,7 +23,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val accelerometerState by rememberAccelerometerState()
+                    Text(
+                        text = "Force X: ${accelerometerState.xForce}" +
+                                "\nForce Y: ${accelerometerState.yForce}" +
+                                "\nForce Z: ${accelerometerState.zForce}" +
+                                "\nIs Available?: ${accelerometerState.isAvailable}"
+                    )
                 }
             }
         }
