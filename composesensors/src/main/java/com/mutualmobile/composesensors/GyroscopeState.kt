@@ -1,6 +1,7 @@
 package com.mutualmobile.composesensors
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
  * @param yRotation Rate of rotation around the y axis.
  * @param zRotation Rate of rotation around the z axis.
  */
+@Immutable
 class GyroscopeState internal constructor(
     val xRotation: Float = 0f,
     val yRotation: Float = 0f,

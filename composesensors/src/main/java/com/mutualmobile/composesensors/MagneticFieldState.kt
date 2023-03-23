@@ -1,6 +1,7 @@
 package com.mutualmobile.composesensors
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +13,7 @@ import androidx.compose.runtime.remember
  * @param yStrength Geomagnetic field strength along the y axis.
  * @param zStrength Geomagnetic field strength along the z axis.
  */
+@Immutable
 class MagneticFieldState internal constructor(
     val xStrength: Float = 0f,
     val yStrength: Float = 0f,
