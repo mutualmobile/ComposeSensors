@@ -3,6 +3,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.vanniktech.maven.publish") version "0.25.1"
 }
 
 android {
