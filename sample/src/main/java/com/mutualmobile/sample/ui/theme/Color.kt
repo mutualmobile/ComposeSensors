@@ -1,4 +1,4 @@
-package com.mutualmobile.composesensors.ui.theme
+package com.mutualmobile.sample.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

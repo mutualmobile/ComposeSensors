@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mutualmobile.composesensors"
+    namespace = "com.mutualmobile.sample"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.mutualmobile.composesensors"
+        applicationId = "com.mutualmobile.sample"
         minSdk = 21
         targetSdk = 33
         versionCode = 1

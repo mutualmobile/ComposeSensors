@@ -1,4 +1,4 @@
-package com.mutualmobile.composesensors
+package com.mutualmobile.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.mutualmobile.composesensors.ui.theme.ComposeSensorsTheme
+import com.mutualmobile.composesensors.rememberAccelerometerState
+import com.mutualmobile.sample.ui.theme.ComposeSensorsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

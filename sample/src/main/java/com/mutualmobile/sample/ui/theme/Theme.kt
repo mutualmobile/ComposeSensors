@@ -1,4 +1,4 @@
-package com.mutualmobile.composesensors.ui.theme
+package com.mutualmobile.sample.ui.theme
 
 import android.app.Activity
 import android.os.Build
