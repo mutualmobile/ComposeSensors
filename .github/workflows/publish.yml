@@ -32,7 +32,7 @@ jobs:
       - name: Publish Library
         run: |
           echo "Publishing library 🚀"
-          ./gradlew publish --no-daemon --no-parallel
+          ./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache
           echo "Published ✅"
 
           echo "Releasing repository... 🚀"
