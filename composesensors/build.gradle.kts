@@ -1,9 +1,16 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.vanniktech.maven.publish") version "0.25.1"
+}
+
+mavenPublishing {
+    publishToMavenCentral(host = SonatypeHost.S01, automaticRelease = true)
+    signAllPublications()
 }
 
 android {
