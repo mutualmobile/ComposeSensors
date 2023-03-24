@@ -50,8 +50,11 @@ class MagneticFieldState internal constructor(
  * Creates and [remember]s an instance of [MagneticFieldState].
  */
 @Composable
-fun rememberMagneticFieldState(): MagneticFieldState {
-    val sensorState = rememberSensorState(sensorType = SensorType.MagneticField)
+fun rememberMagneticFieldState(sensorDelay: SensorDelay = SensorDelay.Normal): MagneticFieldState {
+    val sensorState = rememberSensorState(
+        sensorType = SensorType.MagneticField,
+        sensorDelay = sensorDelay
+    )
     val magneticFieldState = remember { mutableStateOf(MagneticFieldState()) }
 
     LaunchedEffect(

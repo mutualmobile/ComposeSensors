@@ -3,7 +3,7 @@
 
 Accessing sensor data of your Android devices just became quick and easy ⚡️
 
-This library provides a convenice wrapper over the [Sensor APIs](https://developer.android.com/guide/topics/sensors/sensors_overview) for Android to be used with Jetpack Compose.
+This library provides a convenience wrapper over the [Sensor APIs](https://developer.android.com/guide/topics/sensors/sensors_overview) for Android to be used with Jetpack Compose.
 
 ## WIP 🚧
 This library is a work-in-progress and is subject to major changes. Our team is working hard to get it stable as soon as possible. Thank you for your patience 🌺
@@ -16,6 +16,7 @@ val accelerometerState = rememberAccelerometerState()
 Use it in an example:
 ```
 val accelerometerState = rememberAccelerometerState()
+// Optional: You could also write: rememberAccelerometerState(sensorDelay = SensorDelay.Fastest) for fetching sensor data faster
 
 Text(
     text = "Force X: ${accelerometerState.xForce}" +

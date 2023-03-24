@@ -40,8 +40,8 @@ class LightState internal constructor(
  * Creates and [remember]s an instance of [LightState].
  */
 @Composable
-fun rememberLightState(): LightState {
-    val sensorState = rememberSensorState(sensorType = SensorType.Light)
+fun rememberLightState(sensorDelay: SensorDelay = SensorDelay.Normal): LightState {
+    val sensorState = rememberSensorState(sensorType = SensorType.Light, sensorDelay = sensorDelay)
     val lightState = remember { mutableStateOf(LightState()) }
 
     LaunchedEffect(

@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * Measures a device's rate of rotation in rad/s around each of the three physical axes 
+ * Measures a device's rate of rotation in rad/s around each of the three physical axes
  * (x, y, and z).
  * @param xRotation Rate of rotation around the x axis.
  * @param yRotation Rate of rotation around the y axis.
@@ -51,8 +51,11 @@ class GyroscopeState internal constructor(
  * Creates and [remember]s an instance of [GyroscopeState].
  */
 @Composable
-fun rememberGyroscopeState(): GyroscopeState {
-    val sensorState = rememberSensorState(sensorType = SensorType.Gyroscope)
+fun rememberGyroscopeState(sensorDelay: SensorDelay = SensorDelay.Normal): GyroscopeState {
+    val sensorState = rememberSensorState(
+        sensorType = SensorType.Gyroscope,
+        sensorDelay = sensorDelay
+    )
     val gyroscopeState = remember { mutableStateOf(GyroscopeState()) }
 
     LaunchedEffect(

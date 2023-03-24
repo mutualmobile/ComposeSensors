@@ -50,8 +50,11 @@ class AccelerometerState internal constructor(
  * Creates and [remember]s an instance of [AccelerometerState].
  */
 @Composable
-fun rememberAccelerometerState(): AccelerometerState {
-    val sensorState = rememberSensorState(sensorType = SensorType.Accelerometer)
+fun rememberAccelerometerState(sensorDelay: SensorDelay = SensorDelay.Normal): AccelerometerState {
+    val sensorState = rememberSensorState(
+        sensorType = SensorType.Accelerometer,
+        sensorDelay = sensorDelay
+    )
     val accelerometerState = remember { mutableStateOf(AccelerometerState()) }
 
     LaunchedEffect(

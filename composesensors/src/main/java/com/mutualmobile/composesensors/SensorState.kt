@@ -21,7 +21,10 @@ interface SensorState {
 }
 
 @Composable
-internal fun rememberSensorState(sensorType: SensorType): State<List<Float>> {
+internal fun rememberSensorState(
+    sensorType: SensorType,
+    sensorDelay: SensorDelay
+): State<List<Float>> {
     val sensorData: MutableState<List<Float>> = remember { mutableStateOf(emptyList()) }
 
     val sensorManager =
@@ -32,6 +35,7 @@ internal fun rememberSensorState(sensorType: SensorType): State<List<Float>> {
 
     DisposableEffect(
         key1 = sensor,
+        key2 = sensorDelay,
         effect = {
 
             val sensorEventListener = object : SensorEventListener {
@@ -49,7 +53,7 @@ internal fun rememberSensorState(sensorType: SensorType): State<List<Float>> {
             sensorManager.registerListener(
                 sensorEventListener,
                 sensor,
-                SensorManager.SENSOR_DELAY_NORMAL
+                sensorDelay.toAndroidSensorDelay()
             )
 
             onDispose {
