@@ -75,7 +75,7 @@ Accelerometer  | ✅ | rememberAccelerometerState()
 Magnetic Field  | ✅ | rememberMagneticFieldState()
 Gyroscope  | ✅ | rememberGyroscopeState()
 Light  | ✅️ | rememberLightState()
-Pressure | ⚠️ | WIP
+Pressure | ✅️ | rememberPressureState()
 Proximity | ⚠️ | WIP
 Gravity | ⚠️ | WIP
 Linear Acceleration | ⚠️ | WIP
