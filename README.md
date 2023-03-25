@@ -52,12 +52,12 @@ dependencyResolutionManagement {
 
 The library provides straightforward state methods for multiple sensors like Accelerometer, Gyroscope, etc (more mentioned below). Following is an example on how to get the current values from the `Accelerometer`:
 ```
-val accelerometerState = rememberAccelerometerState()
+val accelerometerState = rememberAccelerometerSensorState()
 ```
 Use it in an example:
 ```
-val accelerometerState = rememberAccelerometerState()
-// Optional: You could also write: rememberAccelerometerState(sensorDelay = SensorDelay.Fastest) for fetching sensor data faster
+val accelerometerState = rememberAccelerometerSensorState()
+// Optional: You could also write: rememberAccelerometerSensorState(sensorDelay = SensorDelay.Fastest) for fetching sensor data faster
 
 Text(
     text = "Force X: ${accelerometerState.xForce}" +
@@ -71,11 +71,11 @@ Text(
 ComposeSensors plans to support the following Android sensors:
 Sensor  | Status | Composable
 ------------- | ------------- | -------------
-Accelerometer  | ✅ | rememberAccelerometerState()
-Magnetic Field  | ✅ | rememberMagneticFieldState()
-Gyroscope  | ✅ | rememberGyroscopeState()
-Light  | ✅️ | rememberLightState()
-Pressure | ✅️ | rememberPressureState()
+Accelerometer  | ✅ | rememberAccelerometerSensorState()
+Magnetic Field  | ✅ | rememberMagneticFieldSensorState()
+Gyroscope  | ✅ | rememberGyroscopeSensorState()
+Light  | ✅️ | rememberLightSensorState()
+Pressure | ✅️ | rememberPressureSensorState()
 Proximity | ⚠️ | WIP
 Gravity | ⚠️ | WIP
 Linear Acceleration | ⚠️ | WIP
