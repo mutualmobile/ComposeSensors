@@ -9,6 +9,47 @@ This library provides a convenience wrapper over the [Sensor APIs](https://devel
 This library is a work-in-progress and is subject to major changes. Our team is working hard to get it stable as soon as possible. Thank you for your patience 🌺
 
 ## Usage 🚀
+### Install dependency 📲
+#### Kotlin `build.gradle.kts (:module-name)`
+```
+dependencies {
+    ...
+    implementation("com.mutualmobile.composesensors:composesensors:x.y.z")
+}
+```
+#### Groovy `build.gradle (:module-name)`
+```
+dependencies {
+    ...
+    implementation 'com.mutualmobile.composesensors:composesensors:x.y.z'
+}
+```
+
+### Snapshots 📸
+Add `https://oss.sonatype.org/content/repositories/snapshots` as a maven repository resource to be able to access SNAPSHOT versions of this library. Check `tags` for the latest library version.
+#### Kotlin `settings.gradle.kts`
+```
+dependencyResolutionManagement {
+    ...
+    repositories {
+        ...
+        maven("https://oss.sonatype.org/content/repositories/snapshots")
+    }
+}
+```
+#### Groovy `settings.gradle`
+```
+dependencyResolutionManagement {
+    ...
+    repositories {
+        ...
+        maven {
+            url = 'https://oss.sonatype.org/content/repositories/snapshots'
+        }
+    }
+}
+```
+
 The library provides straightforward state methods for multiple sensors like Accelerometer, Gyroscope, etc (more mentioned below). Following is an example on how to get the current values from the `Accelerometer`:
 ```
 val accelerometerState = rememberAccelerometerState()
