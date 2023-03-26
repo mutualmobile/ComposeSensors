@@ -77,7 +77,7 @@ Gyroscope  | ✅ | rememberGyroscopeSensorState()
 Light  | ✅️ | rememberLightSensorState()
 Pressure | ✅️ | rememberPressureSensorState()
 Proximity | ⚠️ | WIP
-Gravity | ⚠️ | WIP
+Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ⚠️ | WIP
 Rotation Vector | ⚠️ | WIP
 Relative Humidity | ⚠️ | WIP
