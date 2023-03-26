@@ -14,14 +14,14 @@ This library is a work-in-progress and is subject to major changes. Our team is 
 ```
 dependencies {
     ...
-    implementation("com.mutualmobile.composesensors:composesensors:x.y.z")
+    implementation("com.mutualmobile:composesensors:x.y.z")
 }
 ```
 #### Groovy `build.gradle (:module-name)`
 ```
 dependencies {
     ...
-    implementation 'com.mutualmobile.composesensors:composesensors:x.y.z'
+    implementation 'com.mutualmobile:composesensors:x.y.z'
 }
 ```
 
