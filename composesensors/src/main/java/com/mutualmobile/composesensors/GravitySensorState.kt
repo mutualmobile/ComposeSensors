@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * Measures the Gravity of gravity in m/s2 that is applied to a device on all three physical axes
+ * Measures the force of gravity in m/s2 that is applied to a device on all three physical axes
  * (x, y, z).
  * @param xForce Force of gravity along the x axis. Defaults to 0f.
  * @param yForce Force of gravity along the y axis. Defaults to 0f.
