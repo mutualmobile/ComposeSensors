@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Build
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 
 sealed class SensorType(val name: String) {
@@ -95,10 +96,12 @@ sealed class SensorType(val name: String) {
     }
 
     @Composable
-    internal fun isSensorAvailable(): Boolean {
+    internal fun rememberIsSensorAvailable(): Boolean {
         val context = LocalContext.current
         val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        return sensorManager.getDefaultSensor(this.toAndroidSensorType()) != null
+        return remember(context, sensorManager) {
+            sensorManager.getDefaultSensor(this.toAndroidSensorType()) != null
+        }
     }
 }
 
