@@ -78,7 +78,7 @@ Light  | ✅️ | rememberLightSensorState()
 Pressure | ✅️ | rememberPressureSensorState()
 Proximity | ⚠️ | WIP
 Gravity | ✅️ | rememberGravitySensorState()
-Linear Acceleration | ⚠️ | WIP
+Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ⚠️ | WIP
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ⚠️ | WIP
