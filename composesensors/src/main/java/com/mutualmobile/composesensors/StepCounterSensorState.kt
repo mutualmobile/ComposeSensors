@@ -9,13 +9,13 @@ import androidx.compose.runtime.remember
 /**
  * The step counter sensor provides the number of steps taken by the user since the last reboot while the sensor was activated.
  * The step counter has more latency (up to 10 seconds) but more accuracy than the step detector sensor.
- * @param noOfSteps Number of steps taken by the user since the last reboot while the sensor was activated.
+ * @param stepCount Number of steps taken by the user since the last reboot while the sensor was activated.
  * @param isAvailable Whether the current device has an accelerometer sensor. Defaults to false.
  * @param accuracy Accuracy factor of the accelerometer sensor. Defaults to 0.
  */
 @Immutable
 class StepCounterSensorState internal constructor(
-    val noOfSteps: Float = 0f,
+    val stepCount: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
 ) {
@@ -23,7 +23,7 @@ class StepCounterSensorState internal constructor(
         if (this === other) return true
         if (other !is StepCounterSensorState) return false
 
-        if (noOfSteps != other.noOfSteps) return false
+        if (stepCount != other.stepCount) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
 
@@ -31,14 +31,14 @@ class StepCounterSensorState internal constructor(
     }
 
     override fun hashCode(): Int {
-        var result = noOfSteps.hashCode()
+        var result = stepCount.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "StepCounterSensorState(noOfSteps=$noOfSteps isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "StepCounterSensorState(stepCount=$stepCount isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -66,7 +66,7 @@ fun rememberStepCounterSensorState(
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
                 stepCounterSensorState.value = StepCounterSensorState(
-                    noOfSteps = sensorStateValues[0],
+                    stepCount = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy,
                 )
