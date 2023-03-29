@@ -65,7 +65,7 @@ fun rememberHumiditySensorState(
     onError: (throwable: Throwable) -> Unit = {},
 ): HumiditySensorState {
     val sensorState = rememberSensorState(
-        sensorType = SensorType.Light,
+        sensorType = SensorType.RelativeHumidity,
         sensorDelay = sensorDelay,
         onError = onError,
     )
