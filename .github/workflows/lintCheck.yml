@@ -4,6 +4,9 @@ jobs:
   ktlint:
     name: Check Code Quality
     runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        pull-requests: write
 
     steps:
       - name: Clone repo
@@ -13,5 +16,5 @@ jobs:
       - name: ktlint
         uses: ScaCap/action-ktlint@master
         with:
-          github_token: ${{ secrets.github_token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
