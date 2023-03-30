@@ -81,7 +81,7 @@ Pressure | ✅️ | rememberPressureSensorState()
 Proximity | ✅️️ | rememberProximitySensorState()
 Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
-Rotation Vector | ⚠️ | WIP
+Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ⚠️ | WIP
 Magnetic Field (Uncalibrated) | ⚠️ | WIP
