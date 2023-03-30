@@ -9,13 +9,13 @@ import androidx.compose.runtime.remember
 /**
  * The step detector sensor triggers an event each time the user takes a step.
  * The latency is expected to be below 2 seconds.
- * @param steps Number of steps taken by the user.
+ * @param stepCount Number of steps taken by the user.
  * @param isAvailable Whether the current device has an step detector sensor. Defaults to false.
  * @param accuracy Accuracy factor of the accelerometer sensor. Defaults to 0.
  */
 @Immutable
 class StepDetectorSensorState internal constructor(
-    val steps: Float = 0f,
+    val stepCount: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
 ) {
@@ -23,7 +23,7 @@ class StepDetectorSensorState internal constructor(
         if (this === other) return true
         if (other !is StepDetectorSensorState) return false
 
-        if (steps != other.steps) return false
+        if (stepCount != other.stepCount) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
 
@@ -31,14 +31,14 @@ class StepDetectorSensorState internal constructor(
     }
 
     override fun hashCode(): Int {
-        var result = steps.hashCode()
+        var result = stepCount.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "StepDetectorSensorState(stepCount=$steps isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "StepDetectorSensorState(stepCount=$stepCount isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -66,7 +66,7 @@ fun rememberStepDetectorSensorState(
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
                 stepDetectorSensorState.value = StepDetectorSensorState(
-                    steps = sensorStateValues[0],
+                    stepCount = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy,
                 )
