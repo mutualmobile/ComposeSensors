@@ -78,7 +78,7 @@ Magnetic Field  | ✅ | rememberMagneticFieldSensorState()
 Gyroscope  | ✅ | rememberGyroscopeSensorState()
 Light  | ✅️ | rememberLightSensorState()
 Pressure | ✅️ | rememberPressureSensorState()
-Proximity | ⚠️ | WIP
+Proximity | ✅️️ | rememberProximitySensorState()
 Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ⚠️ | WIP
