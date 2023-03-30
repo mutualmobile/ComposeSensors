@@ -52,7 +52,7 @@ internal class SensorState(
 
     override fun toString(): String {
         return "SensorState(isAvailable=$isAvailable, data=${data.joinToString()}, " +
-                "accuracy=$accuracy)"
+            "accuracy=$accuracy)"
     }
 }
 
@@ -70,7 +70,7 @@ internal fun rememberSensorState(
             SensorState(
                 isAvailable = isSensorAvailable,
                 data = sensorData.value,
-                accuracy = sensorAccuracy.value
+                accuracy = sensorAccuracy.value,
             )
         }
     }
@@ -86,7 +86,6 @@ internal fun rememberSensorState(
             key1 = sensor,
             key2 = sensorDelay,
             effect = {
-
                 val sensorEventListener = object : SensorEventListener {
                     override fun onSensorChanged(event: SensorEvent?) {
                         event?.let { nnEvent ->
@@ -104,13 +103,13 @@ internal fun rememberSensorState(
                 sensorManager.registerListener(
                     sensorEventListener,
                     sensor,
-                    sensorDelay.toAndroidSensorDelay()
+                    sensorDelay.toAndroidSensorDelay(),
                 )
 
                 onDispose {
                     sensorManager.unregisterListener(sensorEventListener)
                 }
-            }
+            },
         )
     }.onFailure(onError)
 
