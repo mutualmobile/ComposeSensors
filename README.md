@@ -89,7 +89,7 @@ GameRotation Vector | ⚠️ | WIP
 Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | ⚠️ | WIP
 Step Detector | ⚠️ | WIP
-Step Counter | ⚠️ | WIP
+Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ⚠️ | WIP
 Heart Rate | ⚠️ | WIP
 Pose6DOF | ⚠️ | WIP
