@@ -58,7 +58,7 @@ class GeomagneticRotationVectorSensorState internal constructor(
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberGameRotationVectorSensorState(
+fun rememberGeomagneticRotationVectorSensorState(
   sensorDelay: SensorDelay = SensorDelay.Normal,
   onError: (throwable: Throwable) -> Unit = {},
 ): GeomagneticRotationVectorSensorState {

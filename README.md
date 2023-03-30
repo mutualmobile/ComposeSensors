@@ -90,7 +90,7 @@ Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | ⚠️ | WIP
 Step Detector | ⚠️ | WIP
 Step Counter | ✅️ | rememberStepCounterSensorState()
-Geomagnetic Rotation Vector | ⚠️ | WIP
+Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
 Heart Rate | ⚠️ | WIP
 Pose6DOF | ⚠️ | WIP
 Stationary Detect | ⚠️ | WIP
