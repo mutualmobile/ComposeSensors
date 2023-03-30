@@ -4,7 +4,7 @@
  * changes to the libraries and their usages.
  */
 
-package com.compose.wearsample.presentation
+package com.mutualmobile.wearablesample.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,8 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import com.compose.wearsample.presentation.theme.ComposeSensorsTheme
 import com.mutualmobile.composesensors.rememberHeartRateSensorState
+import com.mutualmobile.wearablesample.presentation.theme.ComposeSensorsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

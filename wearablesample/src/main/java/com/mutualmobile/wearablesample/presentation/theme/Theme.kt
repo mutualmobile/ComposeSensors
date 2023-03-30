@@ -1,4 +1,4 @@
-package com.compose.wearsample.presentation.theme
+package com.mutualmobile.wearablesample.presentation.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme

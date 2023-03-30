@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * The HeartRate sensor provided value is heart rate in beats per minute
- * @param heartRate This value is indicate current heart rate.
- * @param isAvailable Whether the current device has an accelerometer sensor. Defaults to false.
+ * The HeartRate sensor provides the speed at which the current user's heart beats per minute (denoted by BPM).
+ * @param heartRate Indicates the current heart rate (in BPM).
+ * @param isAvailable Whether the current device has an heart rate sensor. Defaults to false.
  * @param accuracy Accuracy factor of the heart rate sensor. Defaults to 0.
  */
 @Immutable

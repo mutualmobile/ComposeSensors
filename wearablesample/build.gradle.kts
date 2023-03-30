@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.compose.wearsample"
+    namespace = "com.mutualmobile.wearablesample"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.compose.wearsample"
+        applicationId = "com.mutualmobile.wearablesample"
         minSdk = 26
         targetSdk = 33
         versionCode = 1

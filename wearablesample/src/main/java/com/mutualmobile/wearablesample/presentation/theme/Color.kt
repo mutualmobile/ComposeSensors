@@ -1,4 +1,4 @@
-package com.compose.wearsample.presentation.theme
+package com.mutualmobile.wearablesample.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
