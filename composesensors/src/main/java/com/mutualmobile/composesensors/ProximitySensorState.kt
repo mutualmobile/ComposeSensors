@@ -8,19 +8,19 @@ import androidx.compose.runtime.remember
 
 /**
  * Measures the proximity of an object in cm relative to the view screen of a device.
- * @param isAvailable Whether the current device has a proximity sensor. Defaults to false.
  * @param sensorDistance Proximity of an object from the sensor (in cm).
+ * @param isAvailable Whether the current device has a proximity sensor. Defaults to false.
  * @param accuracy Accuracy factor of the proximity sensor. Defaults to 0.
  */
 @Immutable
 class ProximitySensorState internal constructor(
-  val isAvailable: Boolean = false,
   val sensorDistance: Float = 0f,
+  val isAvailable: Boolean = false,
   val accuracy: Int = 0
 ) {
   override fun toString(): String {
-    return "ProximitySensorState(isAvailable=$isAvailable, " +
-        "sensorDistance=$sensorDistance, accuracy=$accuracy)"
+    return "ProximitySensorState(sensorDistance=$sensorDistance, " +
+        "isAvailable=$isAvailable, accuracy=$accuracy)"
   }
 
   override fun equals(other: Any?): Boolean {
