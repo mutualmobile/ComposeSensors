@@ -85,7 +85,7 @@ Rotation Vector | ⚠️ | WIP
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ⚠️ | WIP
 Magnetic Field (Uncalibrated) | ⚠️ | WIP
-GameRotation Vector | ⚠️ | WIP
+GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
 Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | ⚠️ | WIP
 Step Detector | ⚠️ | WIP
