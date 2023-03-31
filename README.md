@@ -91,7 +91,7 @@ Significant Motion | ⚠️ | WIP
 Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ⚠️ | WIP
-Heart Rate | ⚠️ | WIP
+Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | ⚠️ | WIP
 Stationary Detect | ⚠️ | WIP
 Motion Detect | ⚠️ | WIP
