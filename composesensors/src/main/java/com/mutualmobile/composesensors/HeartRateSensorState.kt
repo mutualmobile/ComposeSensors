@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
  */
 @Immutable
 class HeartRateSensorState internal constructor(
-    val heartRate: Int = 0,
+    val heartRate: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
 ) {
@@ -65,7 +65,7 @@ fun rememberHeartRateSensorState(
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
                 heartRateSensorState.value = HeartRateSensorState(
-                    heartRate = sensorStateValues[0].toInt(),
+                    heartRate = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy,
                 )
