@@ -88,7 +88,7 @@ Magnetic Field (Uncalibrated) | ⚠️ | WIP
 GameRotation Vector | ⚠️ | WIP
 Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | ⚠️ | WIP
-Step Detector | ⚠️ | WIP
+Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ⚠️ | WIP
 Heart Rate | ⚠️ | WIP
