@@ -93,7 +93,7 @@ Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | — | N/A
 Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
-Geomagnetic Rotation Vector | ⚠️ | WIP
+Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
 Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | — | N/A
 Stationary Detect | — | N/A
