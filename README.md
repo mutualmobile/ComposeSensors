@@ -7,6 +7,9 @@ Accessing sensor data of your Android devices just became quick and easy ⚡️
 
 This library provides a convenience wrapper over the [Sensor APIs](https://developer.android.com/guide/topics/sensors/sensors_overview) for Android to be used with Jetpack Compose.
 
+## Demo ❤️
+![Screen Recording 2023-04-03 at 1 00 08 PM](https://user-images.githubusercontent.com/89389061/229441943-6339d18f-c704-4d92-9fe8-28c2fd94fdeb.gif)
+
 ## WIP 🚧
 This library is a work-in-progress and is subject to major changes. Our team is working hard to get it stable as soon as possible. Thank you for your patience 🌺
 
