@@ -87,28 +87,28 @@ Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ⚠️ | WIP
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
-Magnetic Field (Uncalibrated) | ⚠️ | WIP
+Magnetic Field (Uncalibrated) | — | N/A
 GameRotation Vector | ⚠️ | WIP
 Gyroscope (Uncalibrated) | ⚠️ | WIP
-Significant Motion | ⚠️ | WIP
+Significant Motion | — | N/A
 Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ⚠️ | WIP
 Heart Rate | ✅️ | rememberHeartRateSensorState()
-Pose6DOF | ⚠️ | WIP
-Stationary Detect | ⚠️ | WIP
-Motion Detect | ⚠️ | WIP
-Heart Beat | ⚠️ | WIP
-Low Latency Off-Body Detect | ⚠️ | WIP
+Pose6DOF | — | N/A
+Stationary Detect | — | N/A
+Motion Detect | — | N/A
+Heart Beat | — | N/A
+Low Latency Off-Body Detect | — | N/A
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ⚠️ | WIP
-Head Tracker | ⚠️ | WIP
-Accelerometer Limited Axes | ⚠️ | WIP
-Gyroscope Limited Axes | ⚠️ | WIP
-Accelerometer Limited Axes (Uncalibrated) | ⚠️ | WIP
-Gyroscope Limited Axes (Uncalibrated) | ⚠️ | WIP
+Head Tracker | — | N/A
+Accelerometer Limited Axes | — | N/A
+Gyroscope Limited Axes | — | N/A
+Accelerometer Limited Axes (Uncalibrated) | — | N/A
+Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ⚠️ | WIP
-All | ⚠️ | WIP
+All | — | N/A
 
 ## License 🔖
 ```
