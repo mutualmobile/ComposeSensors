@@ -88,7 +88,7 @@ Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
 Magnetic Field (Uncalibrated) | — | N/A
-GameRotation Vector | ⚠️ | WIP
+GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
 Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | — | N/A
 Step Detector | ✅️ | rememberStepDetectorSensorState()
