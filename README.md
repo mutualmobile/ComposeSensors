@@ -7,6 +7,9 @@ Accessing sensor data of your Android devices just became quick and easy ⚡️
 
 This library provides a convenience wrapper over the [Sensor APIs](https://developer.android.com/guide/topics/sensors/sensors_overview) for Android to be used with Jetpack Compose.
 
+## Demo ❤️
+![Screen Recording 2023-04-03 at 1 00 08 PM](https://user-images.githubusercontent.com/89389061/229441943-6339d18f-c704-4d92-9fe8-28c2fd94fdeb.gif)
+
 ## WIP 🚧
 This library is a work-in-progress and is subject to major changes. Our team is working hard to get it stable as soon as possible. Thank you for your patience 🌺
 
@@ -81,31 +84,31 @@ Pressure | ✅️ | rememberPressureSensorState()
 Proximity | ✅️️ | rememberProximitySensorState()
 Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
-Rotation Vector | ⚠️ | WIP
+Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
 Relative Humidity | ⚠️ | WIP
-Ambient Temperature | ⚠️ | WIP
-Magnetic Field (Uncalibrated) | ⚠️ | WIP
+Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
+Magnetic Field (Uncalibrated) | — | N/A
 GameRotation Vector | ⚠️ | WIP
 Gyroscope (Uncalibrated) | ⚠️ | WIP
-Significant Motion | ⚠️ | WIP
-Step Detector | ⚠️ | WIP
+Significant Motion | — | N/A
+Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
-Heart Rate | ⚠️ | WIP
-Pose6DOF | ⚠️ | WIP
-Stationary Detect | ⚠️ | WIP
-Motion Detect | ⚠️ | WIP
-Heart Beat | ⚠️ | WIP
-Low Latency Off-Body Detect | ⚠️ | WIP
+Heart Rate | ✅️ | rememberHeartRateSensorState()
+Pose6DOF | — | N/A
+Stationary Detect | — | N/A
+Motion Detect | — | N/A
+Heart Beat | — | N/A
+Low Latency Off-Body Detect | — | N/A
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ⚠️ | WIP
-Head Tracker | ⚠️ | WIP
-Accelerometer Limited Axes | ⚠️ | WIP
-Gyroscope Limited Axes | ⚠️ | WIP
-Accelerometer Limited Axes (Uncalibrated) | ⚠️ | WIP
-Gyroscope Limited Axes (Uncalibrated) | ⚠️ | WIP
+Head Tracker | — | N/A
+Accelerometer Limited Axes | — | N/A
+Gyroscope Limited Axes | — | N/A
+Accelerometer Limited Axes (Uncalibrated) | — | N/A
+Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ⚠️ | WIP
-All | ⚠️ | WIP
+All | — | N/A
 
 ## License 🔖
 ```
