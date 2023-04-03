@@ -83,7 +83,7 @@ Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ⚠️ | WIP
 Relative Humidity | ⚠️ | WIP
-Ambient Temperature | ⚠️ | WIP
+Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
 Magnetic Field (Uncalibrated) | ⚠️ | WIP
 GameRotation Vector | ⚠️ | WIP
 Gyroscope (Uncalibrated) | ⚠️ | WIP
