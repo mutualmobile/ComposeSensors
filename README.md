@@ -97,7 +97,7 @@ Stationary Detect | ⚠️ | WIP
 Motion Detect | ⚠️ | WIP
 Heart Beat | ⚠️ | WIP
 Low Latency Off-Body Detect | ⚠️ | WIP
-Accelerometer (Uncalibrated) | ⚠️ | WIP
+Accelerometer (Uncalibrated) | ✅️ | rememberUncalibratedAccelerometerSensorState()
 Hinge Angle | ⚠️ | WIP
 Head Tracker | ⚠️ | WIP
 Accelerometer Limited Axes | ⚠️ | WIP

@@ -58,7 +58,7 @@ class UncalibratedAccelerometerSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, " +
+        return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, xBiased=$xBiased, yBiased=$yBiased, zBiased=$zBiased," +
                 "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
@@ -75,7 +75,7 @@ fun rememberUncalibratedAccelerometerSensorState(
     onError: (throwable: Throwable) -> Unit = {},
 ): UncalibratedAccelerometerSensorState {
     val sensorState = rememberSensorState(
-        sensorType = SensorType.Accelerometer,
+        sensorType = SensorType.AccelerometerUncalibrated,
         sensorDelay = sensorDelay,
         onError = onError,
     )
