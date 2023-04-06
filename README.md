@@ -86,7 +86,7 @@ Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ⚠️ | WIP
 Magnetic Field (Uncalibrated) | ⚠️ | WIP
 GameRotation Vector | ⚠️ | WIP
-Gyroscope (Uncalibrated) | ⚠️ | WIP
+Gyroscope (Uncalibrated) | ✅️ | rememberUncalibratedGyroscopeSensorState()
 Significant Motion | ⚠️ | WIP
 Step Detector | ⚠️ | WIP
 Step Counter | ✅️ | rememberStepCounterSensorState()

@@ -77,7 +77,7 @@ fun rememberUncalibratedGyroscopeSensorState(
     onError: (throwable: Throwable) -> Unit = {},
 ): UncalibratedGyroscopeSensorState {
     val sensorState = rememberSensorState(
-        sensorType = SensorType.Gyroscope,
+        sensorType = SensorType.GyroscopeUncalibrated,
         sensorDelay = sensorDelay,
         onError = onError,
     )
