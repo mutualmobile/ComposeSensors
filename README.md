@@ -104,7 +104,7 @@ Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ⚠️ | WIP
 Head Tracker | — | N/A
 Accelerometer Limited Axes | — | N/A
-Gyroscope Limited Axes | — | N/A
+Gyroscope Limited Axes | ⚠️ | WIP
 Accelerometer Limited Axes (Uncalibrated) | — | N/A
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ⚠️ | WIP
