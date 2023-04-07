@@ -43,7 +43,7 @@ class GyroscopeLimitedAxesSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "GyroscopeLimitedAxisSensorState(xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, zAxisSupported=$zAxisSupported, xRotation=$xRotation, yRotation=$yRotation, zRotation=$zRotation, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "GyroscopeLimitedAxesSensorState(xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, zAxisSupported=$zAxisSupported, xRotation=$xRotation, yRotation=$yRotation, zRotation=$zRotation, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
 }
