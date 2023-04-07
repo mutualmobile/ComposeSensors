@@ -3,7 +3,7 @@ package com.mutualmobile.composesensors
 import androidx.compose.runtime.*
 
 @Immutable
-class GyroscopeLimitedAxisSensorState internal constructor(
+class GyroscopeLimitedAxesSensorState internal constructor(
     val xAxisSupported: Float = 0f,
     val yAxisSupported: Float = 0f,
     val zAxisSupported: Float = 0f,
@@ -18,7 +18,7 @@ class GyroscopeLimitedAxisSensorState internal constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as GyroscopeLimitedAxisSensorState
+        other as GyroscopeLimitedAxesSensorState
 
         if (xAxisSupported != other.xAxisSupported) return false
         if (yAxisSupported != other.yAxisSupported) return false
@@ -49,22 +49,22 @@ class GyroscopeLimitedAxisSensorState internal constructor(
 }
 
 @Composable
-fun rememberGyroscopeLimitedAxisSensorState(
+fun rememberGyroscopeLimitedAxesSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {},
-): GyroscopeLimitedAxisSensorState {
+): GyroscopeLimitedAxesSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeLimitedAxes,
         sensorDelay = sensorDelay,
         onError = onError
     )
 
-    val gyroscopeLimitedAxisSensor = remember { mutableStateOf(GyroscopeLimitedAxisSensorState()) }
+    val gyroscopeLimitedAxesSensor = remember { mutableStateOf(GyroscopeLimitedAxesSensorState()) }
 
     LaunchedEffect(key1 = sensorState, block = {
         val sensorStateValues = sensorState.data
         if (sensorStateValues.isNotEmpty()) {
-            gyroscopeLimitedAxisSensor.value = GyroscopeLimitedAxisSensorState(
+            gyroscopeLimitedAxesSensor.value = GyroscopeLimitedAxesSensorState(
                 xAxisSupported = sensorStateValues[0],
                 yAxisSupported = sensorStateValues[1],
                 zAxisSupported = sensorStateValues[2],
@@ -77,5 +77,5 @@ fun rememberGyroscopeLimitedAxisSensorState(
         }
     })
 
-    return gyroscopeLimitedAxisSensor.value
+    return gyroscopeLimitedAxesSensor.value
 }
