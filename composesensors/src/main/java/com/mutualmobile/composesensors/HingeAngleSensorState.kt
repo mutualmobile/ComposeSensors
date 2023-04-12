@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
 class HingeAngleSensorState internal constructor(
     val angle: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -53,12 +53,12 @@ class HingeAngleSensorState internal constructor(
 @Composable
 fun rememberHingeAngleSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): HingeAngleSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.HingeAngle,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val hingeAngleSensorState = remember { mutableStateOf(HingeAngleSensorState()) }
 
