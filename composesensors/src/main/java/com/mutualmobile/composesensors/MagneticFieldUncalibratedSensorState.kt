@@ -28,7 +28,7 @@ class MagneticFieldUncalibratedSensorState internal constructor(
     val yBias: Float = 0f,
     val zBias: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -73,12 +73,12 @@ class MagneticFieldUncalibratedSensorState internal constructor(
 @Composable
 fun rememberMagneticFieldUncalibratedSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): MagneticFieldUncalibratedSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.MagneticFieldUncalibrated,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val magneticFieldUncalibratedSensorState =
         remember { mutableStateOf(MagneticFieldUncalibratedSensorState()) }
@@ -96,10 +96,10 @@ fun rememberMagneticFieldUncalibratedSensorState(
                     yBias = sensorStateValues[4],
                     zBias = sensorStateValues[5],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy,
+                    accuracy = sensorState.accuracy
                 )
             }
-        },
+        }
     )
 
     return magneticFieldUncalibratedSensorState.value
