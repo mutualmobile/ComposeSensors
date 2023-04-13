@@ -87,7 +87,7 @@ Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
-Magnetic Field (Uncalibrated) | ✅️️ | rememberMagneticFieldUncalibratedSensorState()
+Magnetic Field (Uncalibrated) | ✅️️ | rememberUncalibratedMagneticFieldSensorState()
 GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
 Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | — | N/A

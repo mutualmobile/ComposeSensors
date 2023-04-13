@@ -7,23 +7,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * An Magnetic Field Uncalibrated sensor is similar to Sensor.TYPE_MAGNETIC_FIELD here the hard iron calibration is reported separately instead of being included in the measurement.
+ * An Uncalibrated Magnetic Field sensor is similar to [SensorType.MagneticField] but the hard iron calibration is reported separately instead of being included in the measurement.
  * Factory calibration and temperature compensation will still be applied to the "uncalibrated" measurement.
- * Assumptions that the magnetic field is due to the Earth's poles is avoided
- * @param xUncalib Magnetic field in x axes (Including Soft Iron and temperature calibration) measured in micro tesla (uT).
- * @param yUncalib Magnetic field in y axes (Including soft iron and temperature calibration) measured in micro tesla (uT).
- * @param zUncalib Magnetic field in z axes (Including soft iron and temperature calibration) measured in micro tesla (uT).
+ * Assumptions are that the magnetic field is due to the Earth's poles being avoided.
+ * @param xStrength Magnetic field in x axes (Including Soft Iron and temperature calibration) measured in micro tesla (uT).
+ * @param yStrength Magnetic field in y axes (Including soft iron and temperature calibration) measured in micro tesla (uT).
+ * @param zStrength Magnetic field in z axes (Including soft iron and temperature calibration) measured in micro tesla (uT).
  * @param xBias Magnetic field in x axes (Including Hard iron calibration) measured in micro tesla (uT).
  * @param yBias Magnetic field in y axes (Including Hard iron calibration) measured in micro tesla (uT).
  * @param zBias Magnetic field in z axes (Including Hard iron calibration) measured in micro tesla (uT).
- * @param isAvailable Whether the current device has an accelerometer sensor. Defaults to false.
- * @param accuracy Accuracy factor of the accelerometer sensor. Defaults to 0.
+ * @param isAvailable Whether the current device has an uncalibrated magnetic field sensor. Defaults to false.
+ * @param accuracy Accuracy factor of the uncalibrated magnetic field sensor. Defaults to 0.
  */
 @Immutable
-class MagneticFieldUncalibratedSensorState internal constructor(
-    val xUncalib: Float = 0f,
-    val yUncalib: Float = 0f,
-    val zUncalib: Float = 0f,
+class UncalibratedMagneticFieldSensorState internal constructor(
+    val xStrength: Float = 0f,
+    val yStrength: Float = 0f,
+    val zStrength: Float = 0f,
     val xBias: Float = 0f,
     val yBias: Float = 0f,
     val zBias: Float = 0f,
@@ -32,11 +32,11 @@ class MagneticFieldUncalibratedSensorState internal constructor(
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is MagneticFieldUncalibratedSensorState) return false
+        if (other !is UncalibratedMagneticFieldSensorState) return false
 
-        if (xUncalib != other.xUncalib) return false
-        if (yUncalib != other.yUncalib) return false
-        if (zUncalib != other.zUncalib) return false
+        if (xStrength != other.xStrength) return false
+        if (yStrength != other.yStrength) return false
+        if (zStrength != other.zStrength) return false
         if (xBias != other.xBias) return false
         if (yBias != other.yBias) return false
         if (zBias != other.zBias) return false
@@ -47,9 +47,9 @@ class MagneticFieldUncalibratedSensorState internal constructor(
     }
 
     override fun hashCode(): Int {
-        var result = xUncalib.hashCode()
-        result = 31 * result + yUncalib.hashCode()
-        result = 31 * result + zUncalib.hashCode()
+        var result = xStrength.hashCode()
+        result = 31 * result + yStrength.hashCode()
+        result = 31 * result + zStrength.hashCode()
         result = 31 * result + xBias.hashCode()
         result = 31 * result + yBias.hashCode()
         result = 31 * result + zBias.hashCode()
@@ -59,40 +59,40 @@ class MagneticFieldUncalibratedSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "MagneticFieldUncalibratedSensorState(xUncalib=$xUncalib, yUncalib=$yUncalib, zUncalib=$zUncalib, " +
+        return "UncalibratedMagneticFieldSensorState(xStrength=$xStrength, yStrength=$yStrength, zStrength=$zStrength, " +
             "xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
             "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
 /**
- * Creates and [remember]s an instance of [MagneticFieldUncalibratedSensorState].
+ * Creates and [remember]s an instance of [UncalibratedMagneticFieldSensorState].
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberMagneticFieldUncalibratedSensorState(
+fun rememberUncalibratedMagneticFieldSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
-): MagneticFieldUncalibratedSensorState {
+): UncalibratedMagneticFieldSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.MagneticFieldUncalibrated,
         sensorDelay = sensorDelay,
         onError = onError
     )
-    val magneticFieldUncalibratedSensorState =
-        remember { mutableStateOf(MagneticFieldUncalibratedSensorState()) }
+    val uncalibratedMagneticFieldSensorState =
+        remember { mutableStateOf(UncalibratedMagneticFieldSensorState()) }
 
     LaunchedEffect(
         key1 = sensorState,
         block = {
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
-                magneticFieldUncalibratedSensorState.value = MagneticFieldUncalibratedSensorState(
-                    xUncalib = sensorStateValues[0],
-                    yUncalib = sensorStateValues[1],
-                    zUncalib = sensorStateValues[2],
+                uncalibratedMagneticFieldSensorState.value = UncalibratedMagneticFieldSensorState(
+                    xStrength = sensorStateValues[0],
+                    yStrength = sensorStateValues[1],
+                    zStrength = sensorStateValues[2],
                     xBias = sensorStateValues[3],
                     yBias = sensorStateValues[4],
                     zBias = sensorStateValues[5],
@@ -103,5 +103,5 @@ fun rememberMagneticFieldUncalibratedSensorState(
         }
     )
 
-    return magneticFieldUncalibratedSensorState.value
+    return uncalibratedMagneticFieldSensorState.value
 }
