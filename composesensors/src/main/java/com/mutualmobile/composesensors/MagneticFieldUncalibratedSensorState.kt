@@ -54,6 +54,7 @@ class MagneticFieldUncalibratedSensorState internal constructor(
         result = 31 * result + yBias.hashCode()
         result = 31 * result + zBias.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + isAvailable.hashCode()
         return result
     }
 
