@@ -7,15 +7,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * An Uncalibrated Magnetic Field sensor is similar to [SensorType.MagneticField] but the hard iron calibration is reported separately instead of being included in the measurement.
- * Factory calibration and temperature compensation will still be applied to the "uncalibrated" measurement.
- * Assumptions are that the magnetic field is due to the Earth's poles being avoided.
- * @param xStrength Magnetic field in x axes (Including Soft Iron and temperature calibration) measured in micro tesla (uT).
- * @param yStrength Magnetic field in y axes (Including soft iron and temperature calibration) measured in micro tesla (uT).
- * @param zStrength Magnetic field in z axes (Including soft iron and temperature calibration) measured in micro tesla (uT).
- * @param xBias Magnetic field in x axes (Including Hard iron calibration) measured in micro tesla (uT).
- * @param yBias Magnetic field in y axes (Including Hard iron calibration) measured in micro tesla (uT).
- * @param zBias Magnetic field in z axes (Including Hard iron calibration) measured in micro tesla (uT).
+ * An Uncalibrated Magnetic Field sensor is similar to [SensorType.MagneticField] but the hard iron calibration is reported separately instead of being included in the measurement. Factory calibration and temperature compensation will still be applied to the "uncalibrated" measurement. Assumptions are that the magnetic field is due to the Earth's poles being avoided.
+ * Hard iron - These distortions arise due to the magnetized iron, steel or permanent magnets on the device.
+ * Soft iron - These distortions arise due to the interaction with the earth's magnetic field.
+ * @param xStrength The measured magnetic field in X-axis. Soft iron and temperature calibrations are applied. But the hard iron calibration is not applied. The value is calculated in micro-Tesla (uT).
+ * @param yStrength The measured magnetic field in Y-axis. Soft iron and temperature calibrations are applied. But the hard iron calibration is not applied. The value is calculated in micro-Tesla (uT).
+ * @param zStrength The measured magnetic field in Z-axis. Soft iron and temperature calibrations are applied. But the hard iron calibration is not applied. The value is calculated in micro-Tesla (uT).
+ * @param xBias The iron bias estimated in X-axis. It is a component of the estimated hard iron calibration. The value is calculated in micro-Tesla (uT).
+ * @param yBias The iron bias estimated in Y-axis. It is a component of the estimated hard iron calibration. The value is calculated in micro-Tesla (uT).
+ * @param zBias The iron bias estimated in Z-axis. It is a component of the estimated hard iron calibration. The value is calculated in micro-Tesla (uT).
  * @param isAvailable Whether the current device has an uncalibrated magnetic field sensor. Defaults to false.
  * @param accuracy Accuracy factor of the uncalibrated magnetic field sensor. Defaults to 0.
  */
