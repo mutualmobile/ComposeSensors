@@ -103,7 +103,7 @@ Low Latency Off-Body Detect | — | N/A
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
 Head Tracker | — | N/A
-Accelerometer Limited Axes | — | N/A
+Accelerometer Limited Axes | ✅️ | rememberAccelerometerLimitedAxesSensorState()
 Gyroscope Limited Axes | — | N/A
 Accelerometer Limited Axes (Uncalibrated) | — | N/A
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
