@@ -23,58 +23,58 @@ import androidx.compose.runtime.remember
  */
 @Immutable
 class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
-  val xForce: Float = 0f,
-  val yForce: Float = 0f,
-  val zForce: Float = 0f,
-  val xBias: Float = 0f,
-  val yBias: Float = 0f,
-  val zBias: Float = 0f,
-  val isXSupported: Boolean = false,
-  val isYSupported: Boolean = false,
-  val isZSupported: Boolean = false,
-  val isAvailable: Boolean = false,
-  val accuracy: Int = 0,
+    val xForce: Float = 0f,
+    val yForce: Float = 0f,
+    val zForce: Float = 0f,
+    val xBias: Float = 0f,
+    val yBias: Float = 0f,
+    val zBias: Float = 0f,
+    val isXSupported: Boolean = false,
+    val isYSupported: Boolean = false,
+    val isZSupported: Boolean = false,
+    val isAvailable: Boolean = false,
+    val accuracy: Int = 0,
 ) {
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is AccelerometerLimitedAxesUncalibratedSensorState) return false
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AccelerometerLimitedAxesUncalibratedSensorState) return false
 
-    if (xForce != other.xForce) return false
-    if (yForce != other.yForce) return false
-    if (zForce != other.zForce) return false
-    if (xBias != other.xBias) return false
-    if (yBias != other.yBias) return false
-    if (zBias != other.zBias) return false
-    if (isXSupported != other.isXSupported) return false
-    if (isYSupported != other.isYSupported) return false
-    if (isZSupported != other.isZSupported) return false
-    if (isAvailable != other.isAvailable) return false
-    if (accuracy != other.accuracy) return false
+        if (xForce != other.xForce) return false
+        if (yForce != other.yForce) return false
+        if (zForce != other.zForce) return false
+        if (xBias != other.xBias) return false
+        if (yBias != other.yBias) return false
+        if (zBias != other.zBias) return false
+        if (isXSupported != other.isXSupported) return false
+        if (isYSupported != other.isYSupported) return false
+        if (isZSupported != other.isZSupported) return false
+        if (isAvailable != other.isAvailable) return false
+        if (accuracy != other.accuracy) return false
 
-    return true
-  }
+        return true
+    }
 
-  override fun hashCode(): Int {
-    var result = xForce.hashCode()
-    result = 31 * result + yForce.hashCode()
-    result = 31 * result + zForce.hashCode()
-    result = 31 * result + xBias.hashCode()
-    result = 31 * result + yBias.hashCode()
-    result = 31 * result + zBias.hashCode()
-    result = 31 * result + isXSupported.hashCode()
-    result = 31 * result + isYSupported.hashCode()
-    result = 31 * result + isZSupported.hashCode()
-    result = 31 * result + isAvailable.hashCode()
-    result = 31 * result + accuracy
-    return result
-  }
+    override fun hashCode(): Int {
+        var result = xForce.hashCode()
+        result = 31 * result + yForce.hashCode()
+        result = 31 * result + zForce.hashCode()
+        result = 31 * result + xBias.hashCode()
+        result = 31 * result + yBias.hashCode()
+        result = 31 * result + zBias.hashCode()
+        result = 31 * result + isXSupported.hashCode()
+        result = 31 * result + isYSupported.hashCode()
+        result = 31 * result + isZSupported.hashCode()
+        result = 31 * result + isAvailable.hashCode()
+        result = 31 * result + accuracy
+        return result
+    }
 
-  override fun toString(): String {
-    return "AccelerometerLimitedAxesUncalibratedSensorState(xForce=$xForce, " +
-        "yForce=$yForce, zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
-        "isXSupported=$isXSupported, isYSupported=$isYSupported, isZSupported=$isZSupported, " +
-        "isAvailable=$isAvailable, accuracy=$accuracy)"
-  }
+    override fun toString(): String {
+        return "AccelerometerLimitedAxesUncalibratedSensorState(xForce=$xForce, " +
+            "yForce=$yForce, zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
+            "isXSupported=$isXSupported, isYSupported=$isYSupported, isZSupported=$isZSupported, " +
+            "isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
 }
 
 /**
@@ -85,37 +85,37 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
  */
 @Composable
 fun rememberAccelerometerLimitedAxesUncalibratedSensorState(
-  sensorDelay: SensorDelay = SensorDelay.Normal,
-  onError: (throwable: Throwable) -> Unit = {},
+    sensorDelay: SensorDelay = SensorDelay.Normal,
+    onError: (throwable: Throwable) -> Unit = {},
 ): AccelerometerLimitedAxesUncalibratedSensorState {
-  val sensorState = rememberSensorState(
-    sensorType = SensorType.AccelerometerLimitedAxesUncalibrated,
-    sensorDelay = sensorDelay,
-    onError = onError,
-  )
-  val accelerometerSensorState = remember { mutableStateOf(AccelerometerLimitedAxesUncalibratedSensorState()) }
+    val sensorState = rememberSensorState(
+        sensorType = SensorType.AccelerometerLimitedAxesUncalibrated,
+        sensorDelay = sensorDelay,
+        onError = onError,
+    )
+    val accelerometerSensorState = remember { mutableStateOf(AccelerometerLimitedAxesUncalibratedSensorState()) }
 
-  LaunchedEffect(
-    key1 = sensorState,
-    block = {
-      val sensorStateValues = sensorState.data
-      if (sensorStateValues.isNotEmpty()) {
-        accelerometerSensorState.value = AccelerometerLimitedAxesUncalibratedSensorState(
-          xForce = sensorStateValues[0],
-          yForce = sensorStateValues[1],
-          zForce = sensorStateValues[2],
-          xBias = sensorStateValues[3],
-          yBias = sensorStateValues[4],
-          zBias = sensorStateValues[5],
-          isXSupported = sensorStateValues[6] != 0f,
-          isYSupported = sensorStateValues[7] != 0f,
-          isZSupported = sensorStateValues[8] != 0f,
-          isAvailable = sensorState.isAvailable,
-          accuracy = sensorState.accuracy
-        )
-      }
-    }
-  )
+    LaunchedEffect(
+        key1 = sensorState,
+        block = {
+            val sensorStateValues = sensorState.data
+            if (sensorStateValues.isNotEmpty()) {
+                accelerometerSensorState.value = AccelerometerLimitedAxesUncalibratedSensorState(
+                    xForce = sensorStateValues[0],
+                    yForce = sensorStateValues[1],
+                    zForce = sensorStateValues[2],
+                    xBias = sensorStateValues[3],
+                    yBias = sensorStateValues[4],
+                    zBias = sensorStateValues[5],
+                    isXSupported = sensorStateValues[6] != 0f,
+                    isYSupported = sensorStateValues[7] != 0f,
+                    isZSupported = sensorStateValues[8] != 0f,
+                    isAvailable = sensorState.isAvailable,
+                    accuracy = sensorState.accuracy,
+                )
+            }
+        },
+    )
 
-  return accelerometerSensorState.value
+    return accelerometerSensorState.value
 }
