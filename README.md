@@ -105,7 +105,7 @@ Hinge Angle | ✅️ | rememberHingeAngleSensorState()
 Head Tracker | — | N/A
 Accelerometer Limited Axes | — | N/A
 Gyroscope Limited Axes | — | N/A
-Accelerometer Limited Axes (Uncalibrated) | — | N/A
+Accelerometer Limited Axes (Uncalibrated) | ✅ | rememberAccelerometerLimitedAxesUncalibratedSensorState()
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ⚠️ | WIP
 All | — | N/A
