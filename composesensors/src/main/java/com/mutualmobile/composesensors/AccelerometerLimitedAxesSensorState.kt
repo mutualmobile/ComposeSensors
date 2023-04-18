@@ -27,7 +27,7 @@ class AccelerometerLimitedAxesSensorState internal constructor(
     val isYSupported: Boolean = false,
     val isZSupported: Boolean = false,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -67,7 +67,7 @@ class AccelerometerLimitedAxesSensorState internal constructor(
 @Composable
 fun rememberAccelerometerLimitedAxesSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): AccelerometerLimitedAxesSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxes,
@@ -89,10 +89,10 @@ fun rememberAccelerometerLimitedAxesSensorState(
                     isYSupported = sensorStateValues[4] != 0f,
                     isZSupported = sensorStateValues[5] != 0f,
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy,
+                    accuracy = sensorState.accuracy
                 )
             }
-        },
+        }
     )
 
     return accelerometerSensorState.value
