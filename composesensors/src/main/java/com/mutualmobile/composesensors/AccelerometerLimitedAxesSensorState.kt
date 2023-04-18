@@ -72,7 +72,7 @@ fun rememberAccelerometerLimitedAxesSensorState(
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxes,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val accelerometerSensorState = remember { mutableStateOf(AccelerometerLimitedAxesSensorState()) }
 
