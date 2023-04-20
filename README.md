@@ -87,7 +87,7 @@ Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
 Relative Humidity | ⚠️ | WIP
 Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
-Magnetic Field (Uncalibrated) | — | N/A
+Magnetic Field (Uncalibrated) | ✅️️ | rememberUncalibratedMagneticFieldSensorState()
 GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
 Gyroscope (Uncalibrated) | ⚠️ | WIP
 Significant Motion | — | N/A
@@ -101,7 +101,7 @@ Motion Detect | — | N/A
 Heart Beat | — | N/A
 Low Latency Off-Body Detect | — | N/A
 Accelerometer (Uncalibrated) | ⚠️ | WIP
-Hinge Angle | ⚠️ | WIP
+Hinge Angle | ✅️ | rememberHingeAngleSensorState()
 Head Tracker | — | N/A
 Accelerometer Limited Axes | — | N/A
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
