@@ -2,6 +2,7 @@
 <img src="https://raw.githubusercontent.com/mutualmobile/ComposeSensors/main/art/thumnail.png" width=200 />
 
 [![Sonatype](https://img.shields.io/nexus/s/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
+[![Sonatype](https://img.shields.io/nexus/r/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org%2F)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
 
 Accessing sensor data of your Android devices just became quick and easy ⚡️
 
