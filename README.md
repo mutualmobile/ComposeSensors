@@ -96,16 +96,16 @@ Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
 Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | — | N/A
-Stationary Detect | — | N/A
-Motion Detect | — | N/A
+Stationary Detect | ⚠️ | WIP
+Motion Detect | ⚠️ | WIP
 Heart Beat | — | N/A
 Low Latency Off-Body Detect | — | N/A
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
 Head Tracker | — | N/A
-Accelerometer Limited Axes | — | N/A
+Accelerometer Limited Axes | ⚠️ | WIP
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
-Accelerometer Limited Axes (Uncalibrated) | — | N/A
+Accelerometer Limited Axes (Uncalibrated) | ⚠️ | WIP
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ⚠️ | WIP
 All | — | N/A
