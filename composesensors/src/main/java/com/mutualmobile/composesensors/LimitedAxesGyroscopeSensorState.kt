@@ -26,7 +26,7 @@ class LimitedAxesGyroscopeSensorState internal constructor(
     val yAxisSupported: Float = 0f,
     val zAxisSupported: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -62,7 +62,6 @@ class LimitedAxesGyroscopeSensorState internal constructor(
     override fun toString(): String {
         return "LimitedAxesGyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, zRotation=$zRotation, xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
-
 }
 
 /**
@@ -75,7 +74,7 @@ class LimitedAxesGyroscopeSensorState internal constructor(
 @Composable
 fun rememberLimitedAxesGyroscopeSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): LimitedAxesGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeLimitedAxes,
