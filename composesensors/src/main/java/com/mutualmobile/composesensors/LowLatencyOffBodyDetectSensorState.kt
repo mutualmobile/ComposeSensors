@@ -18,7 +18,7 @@ import androidx.compose.runtime.remember
 class LowLatencyOffBodyDetectSensorState internal constructor(
     val offBody: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -52,12 +52,12 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
 @Composable
 fun rememberLowLatencyOffBodyDetectSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): LowLatencyOffBodyDetectSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.LowLatencyOffBodyDetect,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val lowLatencyOffBodyDetectSensorState =
         remember { mutableStateOf(LowLatencyOffBodyDetectSensorState()) }
@@ -70,10 +70,10 @@ fun rememberLowLatencyOffBodyDetectSensorState(
                 lowLatencyOffBodyDetectSensorState.value = LowLatencyOffBodyDetectSensorState(
                     offBody = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy,
+                    accuracy = sensorState.accuracy
                 )
             }
-        },
+        }
     )
 
     return lowLatencyOffBodyDetectSensorState.value
