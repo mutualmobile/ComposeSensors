@@ -10,13 +10,13 @@ import androidx.compose.runtime.remember
  * An low latency off body detect sensor returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
  * This sensor deliver the initial on-body or off-body event representing the current device state within 5 seconds of activating the sensor.
  * This sensor must be able to detect and report an on-body to off-body transition within 1 second of the device being removed from the body, and must be able to detect and report an off-body to on-body transition within 5 seconds of the device being put back onto the body.
- * @param offBody This sensor produces only two values 0.0 and 1.0 where 0.0 means currently device is in off-body state and 1.0 means device is in on-body state. Defaults to 0f.
+ * @param isDeviceOnBody This sensor produces only two values true and false where true means currently device is in on-body state and false means device is in off-body state and Defaults set to false.
  * @param isAvailable Whether the current device has an low latency off body detect sensor. Defaults to false.
  * @param accuracy Accuracy factor of the low latency off body detect sensor. Defaults to 0.
  */
 @Immutable
 class LowLatencyOffBodyDetectSensorState internal constructor(
-    val offBody: Float = 0f,
+    val isDeviceOnBody: Boolean = false,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0
 ) {
@@ -24,7 +24,7 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
         if (this === other) return true
         if (other !is LowLatencyOffBodyDetectSensorState) return false
 
-        if (offBody != other.offBody) return false
+        if (isDeviceOnBody != other.isDeviceOnBody) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
 
@@ -32,14 +32,14 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
     }
 
     override fun hashCode(): Int {
-        var result = offBody.hashCode()
+        var result = isDeviceOnBody.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "LowLatencyOffBodyDetectSensorState(offBody=$offBody, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "LowLatencyOffBodyDetectSensorState(isDeviceOnBody=$isDeviceOnBody, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -68,7 +68,7 @@ fun rememberLowLatencyOffBodyDetectSensorState(
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
                 lowLatencyOffBodyDetectSensorState.value = LowLatencyOffBodyDetectSensorState(
-                    offBody = sensorStateValues[0],
+                    isDeviceOnBody = sensorStateValues[0].toInt() == 1,
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy
                 )
