@@ -100,7 +100,7 @@ Pose6DOF | — | N/A
 Stationary Detect | ⚠️ | WIP
 Motion Detect | ⚠️ | WIP
 Heart Beat | — | N/A
-Low Latency Off-Body Detect | — | N/A
+Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
 Head Tracker | — | N/A
