@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -55,7 +54,7 @@ fun SensorItem(
                     if (isAvailable) "(Available)" else "(Unavailable)",
                     style = MaterialTheme.typography.labelMedium,
                     color = if (isAvailable) {
-                        LocalContentColor.current
+                        MaterialTheme.colorScheme.primary
                     } else {
                         MaterialTheme.colorScheme.error
                     }
