@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * An low latency off body detect sensor returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
+ * A low latency off body detect sensor that returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
  * This sensor deliver the initial on-body or off-body event representing the current device state within 5 seconds of activating the sensor.
  * This sensor must be able to detect and report an on-body to off-body transition within 1 second of the device being removed from the body, and must be able to detect and report an off-body to on-body transition within 5 seconds of the device being put back onto the body.
  * @param isDeviceOnBody This sensor produces only two values true and false where true means currently device is in on-body state and false means device is in off-body state and Defaults set to false.
