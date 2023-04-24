@@ -61,6 +61,7 @@ fun SensorsListScreen() {
     val lightState = rememberLightSensorState()
     val pressureState = rememberPressureState()
 
+    // Trigger TopBar animation once
     LaunchedEffect(Unit) {
         delay(2000)
         isTopBarTitleCollapsed = true
