@@ -15,7 +15,9 @@
         <activity
             android:name="com.mutualmobile.sample.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.ComposeSensors">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ComposeSensors"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
