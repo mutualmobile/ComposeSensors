@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * A sensor of this type measures the orientation of a user's head relative to an arbitrary reference frame, as well as the rate of rotation.
+ * The HeadTracker sensor measures the orientation of a user's head relative to an arbitrary reference frame, as well as the rate of rotation.
  * @param xRotation X component of Euler vector representing rotation. Defaults to 0f.
  * @param yRotation Y component of Euler vector representing rotation. Defaults to 0f.
  * @param zRotation Z component of Euler vector representing rotation. Defaults to 0f.
