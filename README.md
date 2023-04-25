@@ -103,7 +103,7 @@ Heart Beat | — | N/A
 Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
-Head Tracker | — | N/A
+Head Tracker | ✅️ | rememberHeadTrackerSensorState()
 Accelerometer Limited Axes | ⚠️ | WIP
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
 Accelerometer Limited Axes (Uncalibrated) | ⚠️ | WIP
