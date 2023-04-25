@@ -2,6 +2,7 @@
 <img src="https://raw.githubusercontent.com/mutualmobile/ComposeSensors/main/art/thumnail.png" width=200 />
 
 [![Sonatype](https://img.shields.io/nexus/s/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
+[![Sonatype](https://img.shields.io/nexus/r/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org%2F)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
 
 Accessing sensor data of your Android devices just became quick and easy ⚡️
 
@@ -96,16 +97,16 @@ Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
 Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | — | N/A
-Stationary Detect | — | N/A
-Motion Detect | — | N/A
+Stationary Detect | ⚠️ | WIP
+Motion Detect | ⚠️ | WIP
 Heart Beat | — | N/A
-Low Latency Off-Body Detect | — | N/A
+Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
 Accelerometer (Uncalibrated) | ⚠️ | WIP
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
 Head Tracker | ✅️ | rememberHeadTrackerSensorState()
-Accelerometer Limited Axes | — | N/A
+Accelerometer Limited Axes | ⚠️ | WIP
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
-Accelerometer Limited Axes (Uncalibrated) | — | N/A
+Accelerometer Limited Axes (Uncalibrated) | ⚠️ | WIP
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ⚠️ | WIP
 All | — | N/A
