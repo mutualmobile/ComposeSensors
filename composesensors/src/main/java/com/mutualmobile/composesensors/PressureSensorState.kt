@@ -37,7 +37,7 @@ class PressureSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "PressureState(pressure=$pressure, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "PressureSensorState(pressure=$pressure, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -48,7 +48,7 @@ class PressureSensorState internal constructor(
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberPressureState(
+fun rememberPressureSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {},
 ): PressureSensorState {
