@@ -18,12 +18,9 @@ class PressureSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
 ) {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as PressureSensorState
+        if (other !is PressureSensorState) return false
 
         if (pressure != other.pressure) return false
         if (isAvailable != other.isAvailable) return false
@@ -35,7 +32,7 @@ class PressureSensorState internal constructor(
     override fun hashCode(): Int {
         var result = pressure.hashCode()
         result = 31 * result + isAvailable.hashCode()
-        result = 31 * result + accuracy
+        result = 31 * result + accuracy.hashCode()
         return result
     }
 
