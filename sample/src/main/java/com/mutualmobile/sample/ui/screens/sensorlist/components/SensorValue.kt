@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SensorValue(
     title: String,
-    value: Float,
+    value: Any,
     scrollProgress: State<Float>
 ) {
     Row(

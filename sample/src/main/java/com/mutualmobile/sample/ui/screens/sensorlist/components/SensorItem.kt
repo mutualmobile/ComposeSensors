@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlin.math.absoluteValue
 
@@ -29,7 +30,7 @@ fun SensorItem(
     name: String,
     scrollProgress: State<Float>,
     @DrawableRes imageRef: Int,
-    sensorValues: Map<String, Float>,
+    sensorValues: Map<String, Any>,
     isAvailable: Boolean
 ) {
     Box(
@@ -48,7 +49,8 @@ fun SensorItem(
             ) {
                 Text(
                     text = "$name Sensor",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
                 )
                 Text(
                     if (isAvailable) "(Available)" else "(Unavailable)",
