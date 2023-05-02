@@ -1,5 +1,7 @@
 package com.mutualmobile.composesensors
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,6 +59,7 @@ class LinearAccelerationSensorState internal constructor(
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun rememberLinearAccelerationSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
