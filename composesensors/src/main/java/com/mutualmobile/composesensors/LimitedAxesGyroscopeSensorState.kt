@@ -11,9 +11,9 @@ import androidx.compose.runtime.remember
  * @param xRotation Angular speed around the x-axis (if supported). Defaults to 0f.
  * @param yRotation Angular speed around the y-axis (if supported). Defaults to 0f.
  * @param zRotation Angular speed around the z-axis (if supported). Defaults to 0f.
- * @param xAxisSupported Angular speed supported for x-axis. Defaults to 0f.
- * @param yAxisSupported Angular speed supported for y-axis. Defaults to 0f.
- * @param zAxisSupported Angular speed supported for z-axis. Defaults to 0f.
+ * @param xAxisSupported Whether angular speed is supported for x-axis. Defaults to false.
+ * @param yAxisSupported Whether angular speed is supported for y-axis. Defaults to false.
+ * @param zAxisSupported Whether angular speed is supported for z-axis. Defaults to false.
  * @param isAvailable Whether the current device has a gyroscope sensor. Defaults to false.
  * @param accuracy Accuracy factor of the gyroscope sensor. Defaults to 0.
  */
@@ -22,9 +22,9 @@ class LimitedAxesGyroscopeSensorState internal constructor(
     val xRotation: Float = 0f,
     val yRotation: Float = 0f,
     val zRotation: Float = 0f,
-    val xAxisSupported: Float = 0f,
-    val yAxisSupported: Float = 0f,
-    val zAxisSupported: Float = 0f,
+    val xAxisSupported: Boolean = false,
+    val yAxisSupported: Boolean = false,
+    val zAxisSupported: Boolean = false,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0
 ) {
@@ -94,9 +94,9 @@ fun rememberLimitedAxesGyroscopeSensorState(
                 xRotation = sensorStateValues[0],
                 yRotation = sensorStateValues[1],
                 zRotation = sensorStateValues[2],
-                xAxisSupported = sensorStateValues[3],
-                yAxisSupported = sensorStateValues[4],
-                zAxisSupported = sensorStateValues[5],
+                xAxisSupported = sensorStateValues[3] != 0f,
+                yAxisSupported = sensorStateValues[4] != 0f,
+                zAxisSupported = sensorStateValues[5] != 0f,
                 isAvailable = sensorState.isAvailable,
                 accuracy = sensorState.accuracy
             )

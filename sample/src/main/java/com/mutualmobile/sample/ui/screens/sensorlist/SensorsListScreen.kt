@@ -18,12 +18,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,6 +53,8 @@ import com.mutualmobile.composesensors.rememberProximitySensorState
 import com.mutualmobile.composesensors.rememberRotationVectorSensorState
 import com.mutualmobile.composesensors.rememberUncalibratedMagneticFieldSensorState
 import com.mutualmobile.sample.R
+import com.mutualmobile.sample.ui.screens.sensorlist.components.CSButton
+import com.mutualmobile.sample.ui.screens.sensorlist.components.CSButtonPosition
 import com.mutualmobile.sample.ui.screens.sensorlist.components.SensorItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -129,7 +128,9 @@ fun SensorsListScreen() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(
+                CSButton(
+                    text = "Previous",
+                    icon = Icons.Default.KeyboardArrowLeft,
                     onClick = {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(
@@ -138,14 +139,17 @@ fun SensorsListScreen() {
                             )
                         }
                     },
-                    shape = MaterialTheme.shapes.small,
-                    contentPadding = PaddingValues(start = 4.dp, end = 16.dp),
+                    onLongClick = {
+                        coroutineScope.launch {
+                            pagerState.scrollToPage(0)
+                        }
+                    },
+                    position = CSButtonPosition.Start,
                     enabled = pagerState.currentPage != 0
-                ) {
-                    Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = null)
-                    Text(text = "Previous")
-                }
-                Button(
+                )
+                CSButton(
+                    text = "Next",
+                    icon = Icons.Default.KeyboardArrowRight,
                     onClick = {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(
@@ -154,13 +158,14 @@ fun SensorsListScreen() {
                             )
                         }
                     },
-                    shape = MaterialTheme.shapes.small,
-                    contentPadding = PaddingValues(start = 16.dp, end = 8.dp),
+                    onLongClick = {
+                        coroutineScope.launch {
+                            pagerState.scrollToPage(totalPageCount)
+                        }
+                    },
+                    position = CSButtonPosition.End,
                     enabled = pagerState.currentPage != totalPageCount - 1
-                ) {
-                    Text(text = "Next")
-                    Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = null)
-                }
+                )
             }
         }
     ) {

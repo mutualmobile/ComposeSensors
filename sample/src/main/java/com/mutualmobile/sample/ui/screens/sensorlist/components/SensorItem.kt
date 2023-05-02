@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,6 +22,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -48,7 +51,7 @@ fun SensorItem(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "$name Sensor",
+                    text = name,
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center
                 )
@@ -84,12 +87,30 @@ fun SensorItem(
                             )
                     )
                 }
-                sensorValues.forEach { sensorValue ->
-                    SensorValue(
-                        title = sensorValue.key,
-                        value = sensorValue.value,
-                        scrollProgress = scrollProgress
+                LazyColumn(
+                    modifier = Modifier.heightIn(
+                        max = LocalConfiguration.current.screenHeightDp.dp.times(0.1f)
                     )
+                ) {
+                    val sensorValueList = sensorValues.entries.toList()
+                    if (sensorValueList.size > 3) {
+                        item {
+                            Text(
+                                modifier = Modifier.padding(start = 8.dp),
+                                text = "Scroll down to see more",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                    items(sensorValueList.size) { index ->
+                        val sensorValue: Map.Entry<String, Any> = sensorValueList[index]
+                        SensorValue(
+                            title = sensorValue.key,
+                            value = sensorValue.value,
+                            scrollProgress = scrollProgress
+                        )
+                    }
                 }
             }
         }
