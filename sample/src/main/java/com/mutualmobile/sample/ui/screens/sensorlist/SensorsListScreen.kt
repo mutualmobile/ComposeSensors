@@ -51,7 +51,7 @@ import com.mutualmobile.composesensors.rememberLimitedAxesGyroscopeSensorState
 import com.mutualmobile.composesensors.rememberLinearAccelerationSensorState
 import com.mutualmobile.composesensors.rememberLowLatencyOffBodyDetectSensorState
 import com.mutualmobile.composesensors.rememberMagneticFieldSensorState
-import com.mutualmobile.composesensors.rememberPressureState
+import com.mutualmobile.composesensors.rememberPressureSensorState
 import com.mutualmobile.composesensors.rememberProximitySensorState
 import com.mutualmobile.composesensors.rememberRotationVectorSensorState
 import com.mutualmobile.composesensors.rememberUncalibratedMagneticFieldSensorState
@@ -74,7 +74,7 @@ fun SensorsListScreen() {
     val magneticFieldState = rememberMagneticFieldSensorState()
     val gyroscopeState = rememberGyroscopeSensorState()
     val lightState = rememberLightSensorState()
-    val pressureState = rememberPressureState()
+    val pressureState = rememberPressureSensorState()
     val proximityState = rememberProximitySensorState()
     val gravityState = rememberGravitySensorState()
     val linearAccelerationState = rememberLinearAccelerationSensorState()
