@@ -1,5 +1,7 @@
 package com.mutualmobile.composesensors
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,6 +51,7 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun rememberLowLatencyOffBodyDetectSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
