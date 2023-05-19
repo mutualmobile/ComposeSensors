@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
  * @param accuracy Accuracy factor of the accelerometer with limited axes sensor. Defaults to 0.
  */
 @Immutable
-class AccelerometerLimitedAxesSensorState internal constructor(
+class LimitedAxesAccelerometerSensorState internal constructor(
     val xForce: Float = 0f,
     val yForce: Float = 0f,
     val zForce: Float = 0f,
@@ -32,7 +32,7 @@ class AccelerometerLimitedAxesSensorState internal constructor(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AccelerometerLimitedAxesSensorState) return false
+        if (other !is LimitedAxesAccelerometerSensorState) return false
 
         if (xForce != other.xForce) return false
         if (yForce != other.yForce) return false
@@ -59,36 +59,36 @@ class AccelerometerLimitedAxesSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "AccelerometerLimitedAxesSensorState(xForce=$xForce, yForce=$yForce, " +
+        return "LimitedAxesAccelerometerSensorState(xForce=$xForce, yForce=$yForce, " +
             "zForce=$zForce, xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
             "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
 /**
- * Creates and [remember]s an instance of [AccelerometerLimitedAxesSensorState].
+ * Creates and [remember]s an instance of [LimitedAxesAccelerometerSensorState].
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberAccelerometerLimitedAxesSensorState(
+fun rememberLimitedAxesAccelerometerSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
-): AccelerometerLimitedAxesSensorState {
+): LimitedAxesAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxes,
         sensorDelay = sensorDelay,
         onError = onError
     )
-    val accelerometerSensorState = remember { mutableStateOf(AccelerometerLimitedAxesSensorState()) }
+    val accelerometerSensorState = remember { mutableStateOf(LimitedAxesAccelerometerSensorState()) }
 
     LaunchedEffect(
         key1 = sensorState,
         block = {
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
-                accelerometerSensorState.value = AccelerometerLimitedAxesSensorState(
+                accelerometerSensorState.value = LimitedAxesAccelerometerSensorState(
                     xForce = sensorStateValues[0],
                     yForce = sensorStateValues[1],
                     zForce = sensorStateValues[2],
