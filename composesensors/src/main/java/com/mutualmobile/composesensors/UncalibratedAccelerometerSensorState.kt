@@ -19,6 +19,12 @@ import androidx.compose.runtime.remember
  *     m/s^2. Defaults to 0f.
  * @param zForce Acceleration force along the z axis (including gravity) in
  *     m/s^2. Defaults to 0f.
+ * @param xBiased Estimated bias in the x direction in
+ *     m/s^2. Defaults to 0f.
+ * @param yBiased Estimated bias in the y direction in
+ *     m/s^2. Defaults to 0f.
+ * @param zBiased Estimated bias in the z direction in
+ *     m/s^2. Defaults to 0f.
  * @param isAvailable Whether the current device has an accelerometer
  *     sensor. Defaults to false.
  * @param accuracy Accuracy factor of the accelerometer sensor. Defaults
