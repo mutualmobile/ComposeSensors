@@ -6,7 +6,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
-
 /**
  * Measures a device's heading value in degrees (anti-clockwise),
  * @param degrees Indicates direction in which the device is pointing relative to true north in degrees. Defaults to 0f.
@@ -17,7 +16,7 @@ import androidx.compose.runtime.remember
 class HeadingSensorState(
     val degrees: Float = 0f,
     val confidence: Float = 0f,
-    val isAvailable: Boolean = false,
+    val isAvailable: Boolean = false
 ) {
     override fun hashCode(): Int {
         var result = degrees.hashCode()
@@ -28,13 +27,12 @@ class HeadingSensorState(
 
     override fun toString(): String {
         return "HeadingSensorState(degrees=$degrees, confidence=$confidence, " +
-                "isAvailable=$isAvailable)"
+            "isAvailable=$isAvailable)"
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HeadingSensorState) return false
-
 
         if (degrees != other.degrees) return false
         if (confidence != other.confidence) return false
@@ -43,7 +41,6 @@ class HeadingSensorState(
         return true
     }
 }
-
 
 /**
  * Creates and [remember]s an instance of [HeadingSensorState].
@@ -54,12 +51,12 @@ class HeadingSensorState(
 @Composable
 fun rememberHeadingSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): HeadingSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Heading,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
 
     val headingSensorState = remember { mutableStateOf(HeadingSensorState()) }
