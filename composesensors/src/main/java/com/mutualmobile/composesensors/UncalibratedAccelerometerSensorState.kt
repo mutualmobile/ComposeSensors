@@ -7,16 +7,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * An acceleration sensor determines the acceleration that is applied to a device by measuring the
- * forces that are applied to the sensor itself.
- * In uncalibrated sensor, there are extra biases as estimated in x, y, z direction, such that
- * uncalibrated =_value = calibrated_value + bias in that particular direction
+ * An acceleration sensor determines the acceleration that is applied to a
+ * device by measuring the forces that are applied to the sensor itself.
+ * In uncalibrated sensor, there are extra biases as estimated in x, y, z
+ * direction, such that uncalibrated =_value = calibrated_value + bias in
+ * that particular direction
  *
- * @param xForce Acceleration force along the x axis (including gravity) in m/s^2. Defaults to 0f.
- * @param yForce Acceleration force along the y axis (including gravity) in m/s^2. Defaults to 0f.
- * @param zForce Acceleration force along the z axis (including gravity) in m/s^2. Defaults to 0f.
- * @param isAvailable Whether the current device has an accelerometer sensor. Defaults to false.
- * @param accuracy Accuracy factor of the accelerometer sensor. Defaults to 0.
+ * @param xForce Acceleration force along the x axis (including gravity) in
+ *     m/s^2. Defaults to 0f.
+ * @param yForce Acceleration force along the y axis (including gravity) in
+ *     m/s^2. Defaults to 0f.
+ * @param zForce Acceleration force along the z axis (including gravity) in
+ *     m/s^2. Defaults to 0f.
+ * @param isAvailable Whether the current device has an accelerometer
+ *     sensor. Defaults to false.
+ * @param accuracy Accuracy factor of the accelerometer sensor. Defaults
+ *     to 0.
  */
 @Immutable
 class UncalibratedAccelerometerSensorState internal constructor(
@@ -64,9 +70,11 @@ class UncalibratedAccelerometerSensorState internal constructor(
 }
 
 /**
- * Creates and [remember]s an instance of [UncalibratedAccelerometerSensorState].
- * @param sensorDelay The rate at which the raw sensor data should be received.
- * Defaults to [SensorDelay.Normal].
+ * Creates and [remember]s an instance of
+ * [UncalibratedAccelerometerSensorState].
+ *
+ * @param sensorDelay The rate at which the raw sensor data should be
+ *     received. Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
