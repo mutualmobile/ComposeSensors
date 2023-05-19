@@ -7,10 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * Measures a device's rate of rotation in rad/s around each of the three physical axes
- * (x, y, and z).
- * Uncalibrated gyroscope sensor estimates an extra drift on x, y, z axes, to the effect
- * that uncalibrated_value = calibrated_value + drift in that particular axis.
+ * Measures a device's rate of rotation in rad/s around each of the three
+ * physical axes (x, y, and z). Uncalibrated gyroscope sensor estimates an
+ * extra drift on x, y, z axes, to the effect that uncalibrated_value =
+ * calibrated_value + drift in that particular axis.
  *
  * @param xRotation Rate of rotation around the x axis. Defaults to 0f.
  * @param yRotation Rate of rotation around the y axis. Defaults to 0f.
@@ -18,7 +18,8 @@ import androidx.compose.runtime.remember
  * @param xBias Bias around the x axis. Defaults to 0f.
  * @param yBias Bias around the y axis. Defaults to 0f.
  * @param zBias Bias around the z axis. Defaults to 0f.
- * @param isAvailable Whether the current device has a gyroscope sensor. Defaults to false.
+ * @param isAvailable Whether the current device has a gyroscope sensor.
+ *     Defaults to false.
  * @param accuracy Accuracy factor of the gyroscope sensor. Defaults to 0.
  */
 @Immutable
@@ -30,7 +31,7 @@ class UncalibratedGyroscopeSensorState internal constructor(
     val yBias: Float = 0f,
     val zBias: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -60,26 +61,27 @@ class UncalibratedGyroscopeSensorState internal constructor(
 
     override fun toString(): String {
         return "GyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, " +
-                "zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
-                " isAvailable=$isAvailable, accuracy=$accuracy)"
+            "zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
+            " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
 /**
  * Creates and [remember]s an instance of [GyroscopeSensorState].
- * @param sensorDelay The rate at which the raw sensor data should be received.
- * Defaults to [SensorDelay.Normal].
+ *
+ * @param sensorDelay The rate at which the raw sensor data should be
+ *     received. Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberUncalibratedGyroscopeSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): UncalibratedGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeUncalibrated,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val uncalibratedGyroscopeSensorState =
         remember { mutableStateOf(UncalibratedGyroscopeSensorState()) }
