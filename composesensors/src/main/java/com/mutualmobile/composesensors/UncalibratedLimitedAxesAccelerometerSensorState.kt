@@ -9,12 +9,12 @@ import androidx.compose.runtime.remember
 /**
  * An acceleration sensor determines the acceleration that is applied to a device by measuring the
  * forces that are applied to the sensor itself.
- * @param xForce Uncalibrated X force without bias compensation (if supported).
- * @param yForce Uncalibrated Y force without bias compensation (if supported).
- * @param zForce Uncalibrated Z force without bias compensation (if supported).
- * @param xBias Estimated X bias (if supported).
- * @param yBias Estimated Y bias (if supported).
- * @param zBias Estimated Z bias (if supported).
+ * @param xForce Uncalibrated X force without bias compensation (if supported). Defaults to 0f.
+ * @param yForce Uncalibrated Y force without bias compensation (if supported). Defaults to 0f.
+ * @param zForce Uncalibrated Z force without bias compensation (if supported). Defaults to 0f.
+ * @param xBias Estimated X bias (if supported). Defaults to 0f.
+ * @param yBias Estimated Y bias (if supported). Defaults to 0f.
+ * @param zBias Estimated Z bias (if supported). Defaults to 0f.
  * @param xAxisSupported  Acceleration supported for x-axis. Defaults to false.
  * @param yAxisSupported Acceleration supported for y-axis. Defaults to false.
  * @param zAxisSupported Acceleration supported for z-axis. Defaults to false.
@@ -22,7 +22,7 @@ import androidx.compose.runtime.remember
  * @param accuracy Accuracy factor of the accelerometer limited axes (uncalibrated) sensor. Defaults to 0.
  */
 @Immutable
-class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
+class UncalibratedLimitedAxesAccelerometerSensorState internal constructor(
     val xForce: Float = 0f,
     val yForce: Float = 0f,
     val zForce: Float = 0f,
@@ -37,7 +37,7 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AccelerometerLimitedAxesUncalibratedSensorState) return false
+        if (other !is UncalibratedLimitedAxesAccelerometerSensorState) return false
 
         if (xForce != other.xForce) return false
         if (yForce != other.yForce) return false
@@ -70,7 +70,7 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "AccelerometerLimitedAxesUncalibratedSensorState(xForce=$xForce, yForce=$yForce, " +
+        return "UncalibratedLimitedAxesAccelerometerSensorState(xForce=$xForce, yForce=$yForce, " +
             "zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
             "xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
             "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
@@ -78,29 +78,29 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
 }
 
 /**
- * Creates and [remember]s an instance of [AccelerometerLimitedAxesUncalibratedSensorState].
+ * Creates and [remember]s an instance of [UncalibratedLimitedAxesAccelerometerSensorState].
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberAccelerometerLimitedAxesUncalibratedSensorState(
+fun rememberUncalibratedLimitedAxesAccelerometerSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
-): AccelerometerLimitedAxesUncalibratedSensorState {
+): UncalibratedLimitedAxesAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxesUncalibrated,
         sensorDelay = sensorDelay,
         onError = onError
     )
-    val accelerometerSensorState = remember { mutableStateOf(AccelerometerLimitedAxesUncalibratedSensorState()) }
+    val accelerometerSensorState = remember { mutableStateOf(UncalibratedLimitedAxesAccelerometerSensorState()) }
 
     LaunchedEffect(
         key1 = sensorState,
         block = {
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
-                accelerometerSensorState.value = AccelerometerLimitedAxesUncalibratedSensorState(
+                accelerometerSensorState.value = UncalibratedLimitedAxesAccelerometerSensorState(
                     xForce = sensorStateValues[0],
                     yForce = sensorStateValues[1],
                     zForce = sensorStateValues[2],
