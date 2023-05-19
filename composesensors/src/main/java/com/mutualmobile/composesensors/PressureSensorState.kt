@@ -16,7 +16,7 @@ import androidx.compose.runtime.remember
 class PressureSensorState internal constructor(
     val pressure: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -37,7 +37,7 @@ class PressureSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "PressureState(pressure=$pressure, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "PressureSensorState(pressure=$pressure, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -48,14 +48,14 @@ class PressureSensorState internal constructor(
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberPressureState(
+fun rememberPressureSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): PressureSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Pressure,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val pressureSensorState = remember { mutableStateOf(PressureSensorState()) }
 
