@@ -12,9 +12,9 @@ import androidx.compose.runtime.remember
  * @param xForce Acceleration minus Gx on the x-axis (if supported)
  * @param yForce  Acceleration minus Gy on the y-axis (if supported)
  * @param zForce Acceleration minus Gz on the z-axis (if supported)
- * @param isXSupported  Acceleration supported for x-axis. Defaults to false.
- * @param isYSupported Acceleration supported for y-axis. Defaults to false.
- * @param isZSupported Acceleration supported for z-axis. Defaults to false.
+ * @param xAxisSupported  Acceleration supported for x-axis. Defaults to false.
+ * @param yAxisSupported Acceleration supported for y-axis. Defaults to false.
+ * @param zAxisSupported Acceleration supported for z-axis. Defaults to false.
  * @param isAvailable Whether the current device has an accelerometer with limited axes sensor. Defaults to false.
  * @param accuracy Accuracy factor of the accelerometer with limited axes sensor. Defaults to 0.
  */
@@ -23,12 +23,13 @@ class AccelerometerLimitedAxesSensorState internal constructor(
     val xForce: Float = 0f,
     val yForce: Float = 0f,
     val zForce: Float = 0f,
-    val isXSupported: Boolean = false,
-    val isYSupported: Boolean = false,
-    val isZSupported: Boolean = false,
+    val xAxisSupported: Boolean = false,
+    val yAxisSupported: Boolean = false,
+    val zAxisSupported: Boolean = false,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0
 ) {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AccelerometerLimitedAxesSensorState) return false
@@ -36,9 +37,9 @@ class AccelerometerLimitedAxesSensorState internal constructor(
         if (xForce != other.xForce) return false
         if (yForce != other.yForce) return false
         if (zForce != other.zForce) return false
-        if (isXSupported != other.isXSupported) return false
-        if (isYSupported != other.isYSupported) return false
-        if (isZSupported != other.isZSupported) return false
+        if (xAxisSupported != other.xAxisSupported) return false
+        if (yAxisSupported != other.yAxisSupported) return false
+        if (zAxisSupported != other.zAxisSupported) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
 
@@ -49,12 +50,18 @@ class AccelerometerLimitedAxesSensorState internal constructor(
         var result = xForce.hashCode()
         result = 31 * result + yForce.hashCode()
         result = 31 * result + zForce.hashCode()
-        result = 31 * result + isXSupported.hashCode()
-        result = 31 * result + isYSupported.hashCode()
-        result = 31 * result + isZSupported.hashCode()
+        result = 31 * result + xAxisSupported.hashCode()
+        result = 31 * result + yAxisSupported.hashCode()
+        result = 31 * result + zAxisSupported.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy
         return result
+    }
+
+    override fun toString(): String {
+        return "AccelerometerLimitedAxesSensorState(xForce=$xForce, yForce=$yForce, " +
+            "zForce=$zForce, xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
+            "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -85,9 +92,9 @@ fun rememberAccelerometerLimitedAxesSensorState(
                     xForce = sensorStateValues[0],
                     yForce = sensorStateValues[1],
                     zForce = sensorStateValues[2],
-                    isXSupported = sensorStateValues[3] != 0f,
-                    isYSupported = sensorStateValues[4] != 0f,
-                    isZSupported = sensorStateValues[5] != 0f,
+                    xAxisSupported = sensorStateValues[3] != 0f,
+                    yAxisSupported = sensorStateValues[4] != 0f,
+                    zAxisSupported = sensorStateValues[5] != 0f,
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy
                 )
