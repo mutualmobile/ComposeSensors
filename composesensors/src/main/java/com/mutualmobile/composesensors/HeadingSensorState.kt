@@ -8,25 +8,29 @@ import androidx.compose.runtime.remember
 
 /**
  * Measures a device's heading value in degrees (anti-clockwise),
- * @param degrees Indicates direction in which the device is pointing relative to true north in degrees. Defaults to 0f.
- * @param confidence Indicates the confidence of prediction, under Gaussian standard normal distribution. Defaults to 0f.
- * @param isAvailable Whether the current device has a heading sensor. Defaults to false.
+ *
+ * @param degrees Indicates direction in which the device is pointing
+ *     relative to true north in degrees. Defaults to 0f.
+ * @param accuracy Indicates the confidence of prediction, under Gaussian
+ *     standard normal distribution. Defaults to 0f.
+ * @param isAvailable Whether the current device has a heading sensor.
+ *     Defaults to false.
  */
 @Immutable
-class HeadingSensorState(
+class HeadingSensorState internal constructor(
     val degrees: Float = 0f,
-    val confidence: Float = 0f,
+    val accuracy: Float = 0f,
     val isAvailable: Boolean = false
 ) {
     override fun hashCode(): Int {
         var result = degrees.hashCode()
-        result = 31 * result + confidence.hashCode()
+        result = 31 * result + accuracy.hashCode()
         result = 31 * result + isAvailable.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "HeadingSensorState(degrees=$degrees, confidence=$confidence, " +
+        return "HeadingSensorState(degrees=$degrees, accuracy=$accuracy, " +
             "isAvailable=$isAvailable)"
     }
 
@@ -35,7 +39,7 @@ class HeadingSensorState(
         if (other !is HeadingSensorState) return false
 
         if (degrees != other.degrees) return false
-        if (confidence != other.confidence) return false
+        if (accuracy != other.accuracy) return false
         if (isAvailable != other.isAvailable) return false
 
         return true
@@ -44,8 +48,9 @@ class HeadingSensorState(
 
 /**
  * Creates and [remember]s an instance of [HeadingSensorState].
- * @param sensorDelay The rate at which the raw sensor data should be received.
- * Defaults to [SensorDelay.Normal].
+ *
+ * @param sensorDelay The rate at which the raw sensor data should be
+ *     received. Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
@@ -66,7 +71,7 @@ fun rememberHeadingSensorState(
         if (sensorStateValues.isNotEmpty()) {
             headingSensorState.value = HeadingSensorState(
                 degrees = sensorStateValues[0],
-                confidence = sensorStateValues[1],
+                accuracy = sensorStateValues[1],
                 isAvailable = sensorState.isAvailable
             )
         }
