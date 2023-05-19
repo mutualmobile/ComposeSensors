@@ -1,5 +1,7 @@
 package com.mutualmobile.composesensors
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,7 +23,7 @@ class LinearAccelerationSensorState internal constructor(
     val yForce: Float = 0f,
     val zForce: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -47,7 +49,7 @@ class LinearAccelerationSensorState internal constructor(
 
     override fun toString(): String {
         return "LinearAccelerationSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, " +
-                "isAvailable=$isAvailable, accuracy=$accuracy)"
+            "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -57,15 +59,16 @@ class LinearAccelerationSensorState internal constructor(
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun rememberLinearAccelerationSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): LinearAccelerationSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.LinearAcceleration,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val linearAccelerationSensorState = remember { mutableStateOf(LinearAccelerationSensorState()) }
 
