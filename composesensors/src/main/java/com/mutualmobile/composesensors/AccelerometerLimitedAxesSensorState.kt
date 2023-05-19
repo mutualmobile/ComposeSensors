@@ -67,7 +67,7 @@ class AccelerometerLimitedAxesSensorState internal constructor(
 @Composable
 fun rememberAccelerometerLimitedAxesSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): AccelerometerLimitedAxesSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxes,
