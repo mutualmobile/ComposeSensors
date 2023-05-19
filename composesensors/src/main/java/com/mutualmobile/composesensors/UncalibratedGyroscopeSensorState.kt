@@ -7,10 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * Measures a device's rate of rotation in rad/s around each of the three physical axes
- * (x, y, and z).
- * Uncalibrated gyroscope sensor estimates an extra drift on x, y, z axes, to the effect
- * that uncalibrated_value = calibrated_value + drift in that particular axis.
+ * Measures a device's rate of rotation in rad/s around each of the three
+ * physical axes (x, y, and z). Uncalibrated gyroscope sensor estimates an
+ * extra drift on x, y, z axes, to the effect that uncalibrated_value =
+ * calibrated_value + drift in that particular axis.
  *
  * @param xRotation Rate of rotation around the x axis. Defaults to 0f.
  * @param yRotation Rate of rotation around the y axis. Defaults to 0f.
@@ -18,7 +18,8 @@ import androidx.compose.runtime.remember
  * @param xBias Bias around the x axis. Defaults to 0f.
  * @param yBias Bias around the y axis. Defaults to 0f.
  * @param zBias Bias around the z axis. Defaults to 0f.
- * @param isAvailable Whether the current device has a gyroscope sensor. Defaults to false.
+ * @param isAvailable Whether the current device has a gyroscope sensor.
+ *     Defaults to false.
  * @param accuracy Accuracy factor of the gyroscope sensor. Defaults to 0.
  */
 @Immutable
@@ -67,8 +68,9 @@ class UncalibratedGyroscopeSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [GyroscopeSensorState].
- * @param sensorDelay The rate at which the raw sensor data should be received.
- * Defaults to [SensorDelay.Normal].
+ *
+ * @param sensorDelay The rate at which the raw sensor data should be
+ *     received. Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
