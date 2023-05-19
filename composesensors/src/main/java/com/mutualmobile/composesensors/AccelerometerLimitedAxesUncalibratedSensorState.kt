@@ -15,9 +15,9 @@ import androidx.compose.runtime.remember
  * @param xBias Estimated X bias (if supported).
  * @param yBias Estimated Y bias (if supported).
  * @param zBias Estimated Z bias (if supported).
- * @param isXSupported  Acceleration supported for x-axis. Defaults to false.
- * @param isYSupported Acceleration supported for y-axis. Defaults to false.
- * @param isZSupported Acceleration supported for z-axis. Defaults to false.
+ * @param xAxisSupported  Acceleration supported for x-axis. Defaults to false.
+ * @param yAxisSupported Acceleration supported for y-axis. Defaults to false.
+ * @param zAxisSupported Acceleration supported for z-axis. Defaults to false.
  * @param isAvailable Whether the current device has an accelerometer limited axes (uncalibrated) sensor. Defaults to false.
  * @param accuracy Accuracy factor of the accelerometer limited axes (uncalibrated) sensor. Defaults to 0.
  */
@@ -29,9 +29,9 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
     val xBias: Float = 0f,
     val yBias: Float = 0f,
     val zBias: Float = 0f,
-    val isXSupported: Boolean = false,
-    val isYSupported: Boolean = false,
-    val isZSupported: Boolean = false,
+    val xAxisSupported: Boolean = false,
+    val yAxisSupported: Boolean = false,
+    val zAxisSupported: Boolean = false,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0
 ) {
@@ -45,9 +45,9 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
         if (xBias != other.xBias) return false
         if (yBias != other.yBias) return false
         if (zBias != other.zBias) return false
-        if (isXSupported != other.isXSupported) return false
-        if (isYSupported != other.isYSupported) return false
-        if (isZSupported != other.isZSupported) return false
+        if (xAxisSupported != other.xAxisSupported) return false
+        if (yAxisSupported != other.yAxisSupported) return false
+        if (zAxisSupported != other.zAxisSupported) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
 
@@ -61,19 +61,19 @@ class AccelerometerLimitedAxesUncalibratedSensorState internal constructor(
         result = 31 * result + xBias.hashCode()
         result = 31 * result + yBias.hashCode()
         result = 31 * result + zBias.hashCode()
-        result = 31 * result + isXSupported.hashCode()
-        result = 31 * result + isYSupported.hashCode()
-        result = 31 * result + isZSupported.hashCode()
+        result = 31 * result + xAxisSupported.hashCode()
+        result = 31 * result + yAxisSupported.hashCode()
+        result = 31 * result + zAxisSupported.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy
         return result
     }
 
     override fun toString(): String {
-        return "AccelerometerLimitedAxesUncalibratedSensorState(xForce=$xForce, " +
-            "yForce=$yForce, zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
-            "isXSupported=$isXSupported, isYSupported=$isYSupported, isZSupported=$isZSupported, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "AccelerometerLimitedAxesUncalibratedSensorState(xForce=$xForce, yForce=$yForce, " +
+            "zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
+            "xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
+            "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -107,9 +107,9 @@ fun rememberAccelerometerLimitedAxesUncalibratedSensorState(
                     xBias = sensorStateValues[3],
                     yBias = sensorStateValues[4],
                     zBias = sensorStateValues[5],
-                    isXSupported = sensorStateValues[6] != 0f,
-                    isYSupported = sensorStateValues[7] != 0f,
-                    isZSupported = sensorStateValues[8] != 0f,
+                    xAxisSupported = sensorStateValues[6] != 0f,
+                    yAxisSupported = sensorStateValues[7] != 0f,
+                    zAxisSupported = sensorStateValues[8] != 0f,
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy
                 )
