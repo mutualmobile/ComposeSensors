@@ -108,7 +108,7 @@ Accelerometer Limited Axes | ✅️ | rememberLimitedAxesAccelerometerSensorStat
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
 Accelerometer Limited Axes (Uncalibrated) | ✅ | rememberUncalibratedLimitedAxesAccelerometerSensorState()
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
-Heading | ⚠️ | WIP
+Heading | ✅ | rememberHeadingSensorState()
 All | — | N/A
 
 ## License 🔖
