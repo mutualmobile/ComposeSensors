@@ -11,7 +11,7 @@ import kotlin.math.ln
 /**
  * Measures the Relative humidity value.
  *
- * Dew Point is dew point is the temperature to which a given parcel of air must be cooled.
+ * Dew Point is the temperature to which a given parcel of air must be cooled. The unit is Centigrade.
  * Absolute humidity is the mass of water vapor in a particular volume of dry air. The unit is g/m3
  * [Relative Humidity](https://developer.android.com/reference/android/hardware/SensorEvent#sensor.type_relative_humidity:)
  *
