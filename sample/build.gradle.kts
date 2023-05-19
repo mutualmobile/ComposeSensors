@@ -60,6 +60,7 @@ dependencies {
     val jUnitVersion = "4.13.2"
     val androidJUnitVersion = "1.1.5"
     val espressoVersion = "3.5.1"
+    val splashScreenVersion = "1.0.1"
 
     implementation(project(mapOf("path" to ":composesensors")))
     implementation("androidx.core:core-ktx:$coreKtxVersion")
@@ -75,4 +76,5 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+    implementation("androidx.core:core-splashscreen:$splashScreenVersion")
 }
