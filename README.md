@@ -82,7 +82,7 @@ Proximity | ⚠️ | WIP
 Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ⚠️ | WIP
-Relative Humidity | ⚠️ | WIP
+Relative Humidity | ✅️ | rememberRelativeHumiditySensorState()
 Ambient Temperature | ⚠️ | WIP
 Magnetic Field (Uncalibrated) | ⚠️ | WIP
 GameRotation Vector | ⚠️ | WIP

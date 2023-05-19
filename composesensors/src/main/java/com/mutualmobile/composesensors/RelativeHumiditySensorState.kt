@@ -15,14 +15,14 @@ import kotlin.math.ln
  * @param accuracy Accuracy factor of the relative humidity sensor. Defaults to 0.
  */
 @Immutable
-class HumiditySensorState internal constructor(
+class RelativeHumiditySensorState internal constructor(
     val relativeHumidity: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is HumiditySensorState) return false
+        if (other !is RelativeHumiditySensorState) return false
 
         if (relativeHumidity != other.relativeHumidity) return false
         if (isAvailable != other.isAvailable) return false
@@ -39,10 +39,10 @@ class HumiditySensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "HumiditySensorState(relativeHumidity=$relativeHumidity, isAvailable=$isAvailable, " +
-                "accuracy=$accuracy)"
+        return "HumiditySensorState(relativeHumidity=$relativeHumidity, " +
+            "isAvailable=$isAvailable, " +
+            "accuracy=$accuracy)"
     }
-
 
     fun getDewPointTemp(relativeHumidity: Float, actualTemp: Float): Double {
         val h = ln(relativeHumidity / 100.0) + (17.62 * actualTemp) / (243.12 + actualTemp)
@@ -50,33 +50,38 @@ class HumiditySensorState internal constructor(
     }
 
     fun getAbsHumidity(relativeHumidity: Float, actualTemp: Float): Double = 216.7 *
-            (relativeHumidity / 100.0 * 6.112 * exp(17.62 * actualTemp / (243.12 + actualTemp)) / (273.15 + actualTemp));
+        (
+            relativeHumidity / 100.0 * 6.112 * exp(
+                17.62 * actualTemp /
+                    (243.12 + actualTemp)
+            ) / (273.15 + actualTemp)
+            )
 }
 
 /**
- * Creates and [remember]s an instance of [HumiditySensorState].
+ * Creates and [remember]s an instance of [RelativeHumiditySensorState].
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
-fun rememberHumiditySensorState(
+fun rememberRelativeHumiditySensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
-): HumiditySensorState {
+    onError: (throwable: Throwable) -> Unit = {}
+): RelativeHumiditySensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.RelativeHumidity,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
-    val humiditySensorState = remember { mutableStateOf(HumiditySensorState()) }
+    val relativeHumiditySensorState = remember { mutableStateOf(RelativeHumiditySensorState()) }
 
     LaunchedEffect(
         key1 = sensorState,
         block = {
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
-                humiditySensorState.value = HumiditySensorState(
+                relativeHumiditySensorState.value = RelativeHumiditySensorState(
                     relativeHumidity = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy
@@ -85,5 +90,5 @@ fun rememberHumiditySensorState(
         }
     )
 
-    return humiditySensorState.value
+    return relativeHumiditySensorState.value
 }
