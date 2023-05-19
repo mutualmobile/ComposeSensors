@@ -31,7 +31,7 @@ class UncalibratedGyroscopeSensorState internal constructor(
     val yBias: Float = 0f,
     val zBias: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -61,8 +61,8 @@ class UncalibratedGyroscopeSensorState internal constructor(
 
     override fun toString(): String {
         return "GyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, " +
-                "zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
-                " isAvailable=$isAvailable, accuracy=$accuracy)"
+            "zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
+            " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -76,12 +76,12 @@ class UncalibratedGyroscopeSensorState internal constructor(
 @Composable
 fun rememberUncalibratedGyroscopeSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): UncalibratedGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeUncalibrated,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val uncalibratedGyroscopeSensorState =
         remember { mutableStateOf(UncalibratedGyroscopeSensorState()) }
