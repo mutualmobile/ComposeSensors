@@ -33,7 +33,7 @@ class UncalibratedAccelerometerSensorState internal constructor(
     val yBiased: Float = 0f,
     val zBiased: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0,
+    val accuracy: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -64,8 +64,9 @@ class UncalibratedAccelerometerSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, xBiased=$xBiased, yBiased=$yBiased, zBiased=$zBiased," +
-                "isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, " +
+            "zForce=$zForce, xBiased=$xBiased, yBiased=$yBiased, zBiased=$zBiased," +
+            "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 }
 
@@ -80,12 +81,12 @@ class UncalibratedAccelerometerSensorState internal constructor(
 @Composable
 fun rememberUncalibratedAccelerometerSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): UncalibratedAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerUncalibrated,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val uncalibratedAccelerometerSensorState =
         remember { mutableStateOf(UncalibratedAccelerometerSensorState()) }
