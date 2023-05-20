@@ -1,7 +1,6 @@
 # Compose Sensors
 <img src="https://raw.githubusercontent.com/mutualmobile/ComposeSensors/main/art/thumnail.png" width=200 />
 
-[![Sonatype](https://img.shields.io/nexus/s/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
 [![Sonatype](https://img.shields.io/nexus/r/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org%2F)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
 
 Accessing sensor data of your Android devices just became quick and easy ⚡️
@@ -28,31 +27,6 @@ dependencies {
 dependencies {
     ...
     implementation 'com.mutualmobile:composesensors:x.y.z'
-}
-```
-
-### Snapshots 📸
-Add `https://oss.sonatype.org/content/repositories/snapshots` as a maven repository resource to be able to access SNAPSHOT versions of this library. Check `tags` for the latest library version.
-#### Kotlin `settings.gradle.kts`
-```
-dependencyResolutionManagement {
-    ...
-    repositories {
-        ...
-        maven("https://oss.sonatype.org/content/repositories/snapshots")
-    }
-}
-```
-#### Groovy `settings.gradle`
-```
-dependencyResolutionManagement {
-    ...
-    repositories {
-        ...
-        maven {
-            url = 'https://oss.sonatype.org/content/repositories/snapshots'
-        }
-    }
 }
 ```
 
@@ -109,7 +83,6 @@ Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
 Accelerometer Limited Axes (Uncalibrated) | ✅ | rememberUncalibratedLimitedAxesAccelerometerSensorState()
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
 Heading | ✅ | rememberHeadingSensorState()
-All | — | N/A
 
 ## License 🔖
 ```
