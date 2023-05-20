@@ -86,11 +86,11 @@ Proximity | ✅️️ | rememberProximitySensorState()
 Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
-Relative Humidity | ⚠️ | WIP
+Relative Humidity | ✅️️ | rememberRelativeHumiditySensorState()
 Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
 Magnetic Field (Uncalibrated) | ✅️️ | rememberUncalibratedMagneticFieldSensorState()
 GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
-Gyroscope (Uncalibrated) | ⚠️ | WIP
+Gyroscope (Uncalibrated) | ✅️ | rememberUncalibratedGyroscopeSensorState()
 Significant Motion | — | N/A
 Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
@@ -100,15 +100,15 @@ Pose6DOF | — | N/A
 Stationary Detect | ⚠️ | WIP
 Motion Detect | ⚠️ | WIP
 Heart Beat | — | N/A
-Low Latency Off-Body Detect | — | N/A
-Accelerometer (Uncalibrated) | ⚠️ | WIP
+Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
+Accelerometer (Uncalibrated) | ✅️ | rememberUncalibratedAccelerometerSensorState()
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
-Head Tracker | — | N/A
-Accelerometer Limited Axes | ⚠️ | WIP
+Head Tracker | ✅️ | rememberHeadTrackerSensorState()
+Accelerometer Limited Axes | ✅️ | rememberLimitedAxesAccelerometerSensorState()
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
-Accelerometer Limited Axes (Uncalibrated) | ⚠️ | WIP
+Accelerometer Limited Axes (Uncalibrated) | ✅ | rememberUncalibratedLimitedAxesAccelerometerSensorState()
 Gyroscope Limited Axes (Uncalibrated) | — | N/A
-Heading | ⚠️ | WIP
+Heading | ✅ | rememberHeadingSensorState()
 All | — | N/A
 
 ## License 🔖
