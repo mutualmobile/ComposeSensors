@@ -86,7 +86,7 @@ Proximity | ✅️️ | rememberProximitySensorState()
 Gravity | ✅️ | rememberGravitySensorState()
 Linear Acceleration | ✅️ | rememberLinearAccelerationSensorState()
 Rotation Vector | ✅️️ | rememberRotationVectorSensorState()
-Relative Humidity | ⚠️ | WIP
+Relative Humidity | ✅️️ | rememberRelativeHumiditySensorState()
 Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
 Magnetic Field (Uncalibrated) | ✅️️ | rememberUncalibratedMagneticFieldSensorState()
 GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
