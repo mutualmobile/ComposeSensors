@@ -39,11 +39,16 @@ import androidx.compose.ui.unit.dp
 import com.mutualmobile.composesensors.rememberAccelerometerSensorState
 import com.mutualmobile.composesensors.rememberAmbientTemperatureSensorState
 import com.mutualmobile.composesensors.rememberGameRotationVectorSensorState
+import com.mutualmobile.composesensors.rememberGeomagneticRotationVectorSensorState
 import com.mutualmobile.composesensors.rememberGravitySensorState
 import com.mutualmobile.composesensors.rememberGyroscopeSensorState
+import com.mutualmobile.composesensors.rememberHeadTrackerSensorState
+import com.mutualmobile.composesensors.rememberHeadingSensorState
+import com.mutualmobile.composesensors.rememberHeartBeatSensorState
 import com.mutualmobile.composesensors.rememberHeartRateSensorState
 import com.mutualmobile.composesensors.rememberHingeAngleSensorState
 import com.mutualmobile.composesensors.rememberLightSensorState
+import com.mutualmobile.composesensors.rememberLimitedAxesAccelerometerSensorState
 import com.mutualmobile.composesensors.rememberLimitedAxesGyroscopeSensorState
 import com.mutualmobile.composesensors.rememberLinearAccelerationSensorState
 import com.mutualmobile.composesensors.rememberLowLatencyOffBodyDetectSensorState
@@ -51,6 +56,12 @@ import com.mutualmobile.composesensors.rememberMagneticFieldSensorState
 import com.mutualmobile.composesensors.rememberPressureSensorState
 import com.mutualmobile.composesensors.rememberProximitySensorState
 import com.mutualmobile.composesensors.rememberRotationVectorSensorState
+import com.mutualmobile.composesensors.rememberStationaryDetectSensorState
+import com.mutualmobile.composesensors.rememberStepCounterSensorState
+import com.mutualmobile.composesensors.rememberStepDetectorSensorState
+import com.mutualmobile.composesensors.rememberUncalibratedAccelerometerSensorState
+import com.mutualmobile.composesensors.rememberUncalibratedGyroscopeSensorState
+import com.mutualmobile.composesensors.rememberUncalibratedLimitedAxesAccelerometerSensorState
 import com.mutualmobile.composesensors.rememberUncalibratedMagneticFieldSensorState
 import com.mutualmobile.sample.R
 import com.mutualmobile.sample.ui.screens.sensorlist.components.CSButton
@@ -68,7 +79,7 @@ fun SensorsListScreen() {
     val coroutineScope = rememberCoroutineScope()
 
     // TODO: Keep this updated until a better option is found
-    val totalPageCount = rememberSaveable { 16 }
+    val totalPageCount = rememberSaveable { 27 }
     val accelerometerState = rememberAccelerometerSensorState()
     val magneticFieldState = rememberMagneticFieldSensorState()
     val gyroscopeState = rememberGyroscopeSensorState()
@@ -81,10 +92,22 @@ fun SensorsListScreen() {
     val ambientTemperatureState = rememberAmbientTemperatureSensorState()
     val uncalibratedMagneticFieldState = rememberUncalibratedMagneticFieldSensorState()
     val gameRotationVectorState = rememberGameRotationVectorSensorState()
+    val uncalibratedGyroscopeState = rememberUncalibratedGyroscopeSensorState()
+    val stepDetectState = rememberStepDetectorSensorState()
+    val stepCounterState = rememberStepCounterSensorState()
+    val geomagneticRotationVectorState = rememberGeomagneticRotationVectorSensorState()
     val heartRateState = rememberHeartRateSensorState()
+    val stationaryDetectState = rememberStationaryDetectSensorState()
+    val heartBeatState = rememberHeartBeatSensorState()
     val lowLatencyOffBodyDetectState = rememberLowLatencyOffBodyDetectSensorState()
+    val uncalibratedAccelerometerState = rememberUncalibratedAccelerometerSensorState()
     val hingeAngleState = rememberHingeAngleSensorState()
+    val headTrackerState = rememberHeadTrackerSensorState()
+    val limitedAxesAccelerometerState = rememberLimitedAxesAccelerometerSensorState()
     val limitedAxesGyroscopeState = rememberLimitedAxesGyroscopeSensorState()
+    val uncalibratedLimitedAxesAccelerometerState =
+        rememberUncalibratedLimitedAxesAccelerometerSensorState()
+    val headingState = rememberHeadingSensorState()
 
     // Trigger TopBar animation once
     LaunchedEffect(Unit) {
@@ -195,10 +218,21 @@ fun SensorsListScreen() {
                     9 -> "Ambient Temperature"
                     10 -> "Magnetic Field (Uncalibrated)"
                     11 -> "Game Rotation Vector"
-                    12 -> "Heart Rate"
-                    13 -> "Low Latency Off-Body Detection"
-                    14 -> "Hinge Angle"
-                    15 -> "Gyroscope (Limited Axes)"
+                    12 -> "Gyroscope (Uncalibrated)"
+                    13 -> "Step Detector"
+                    14 -> "Step Counter"
+                    15 -> "Geomagnetic Rotation Vector"
+                    16 -> "Heart Rate"
+                    17 -> "Stationary Detect"
+                    18 -> "Heart Beat"
+                    19 -> "Low Latency Off-Body Detect"
+                    20 -> "Accelerometer (Uncalibrated)"
+                    21 -> "Hinge Angle"
+                    22 -> "Head Tracker"
+                    23 -> "Accelerometer (Limited Axes)"
+                    24 -> "Gyroscope (Limited Axes)"
+                    25 -> "Accelerometer (Uncalibrated - Limited Axes)"
+                    26 -> "Heading"
                     else -> error("Invalid index '$index'")
                 },
                 scrollProgress = scrollProgress,
@@ -215,10 +249,21 @@ fun SensorsListScreen() {
                     9 -> R.drawable.ambient_temperature
                     10 -> R.drawable.magnetic_field
                     11 -> R.drawable.game_rotation_vector
-                    12 -> R.drawable.heart_rate
-                    13 -> R.drawable.low_latency_off_body_detect
-                    14 -> R.drawable.hinge_angle
-                    15 -> R.drawable.gyroscope
+                    12 -> R.drawable.gyroscope
+                    13 -> R.drawable.step_detection
+                    14 -> R.drawable.step_counter
+                    15 -> R.drawable.geomagnetic_rotation_vector
+                    16 -> R.drawable.heart_rate
+                    17 -> R.drawable.stationary_detect
+                    18 -> R.drawable.heart_rate
+                    19 -> R.drawable.low_latency_off_body_detect
+                    20 -> R.drawable.accelerometer
+                    21 -> R.drawable.hinge_angle
+                    22 -> R.drawable.head_tracker
+                    23 -> R.drawable.accelerometer
+                    24 -> R.drawable.gyroscope
+                    25 -> R.drawable.accelerometer
+                    26 -> R.drawable.heading
                     else -> error("Invalid index '$index'")
                 },
                 sensorValues = when (index) {
@@ -283,19 +328,85 @@ fun SensorsListScreen() {
                         "Vector Z" to gameRotationVectorState.vectorZ
                     )
 
-                    12 -> mapOf("Heart Rate" to heartRateState.heartRate)
+                    12 -> mapOf(
+                        "Rotation X" to uncalibratedGyroscopeState.xRotation,
+                        "Rotation Y" to uncalibratedGyroscopeState.yRotation,
+                        "Rotation Z" to uncalibratedGyroscopeState.zRotation,
+                        "Bias X" to uncalibratedGyroscopeState.xBias,
+                        "Bias Y" to uncalibratedGyroscopeState.yBias,
+                        "Bias Z" to uncalibratedGyroscopeState.zBias
+                    )
 
-                    13 -> mapOf("Is On Body?" to lowLatencyOffBodyDetectState.isDeviceOnBody)
+                    13 -> mapOf("Step Count" to stepDetectState.stepCount)
 
-                    14 -> mapOf("Angle" to hingeAngleState.angle)
+                    14 -> mapOf("Step Count" to stepCounterState.stepCount)
 
                     15 -> mapOf(
+                        "Vector X" to geomagneticRotationVectorState.vectorX,
+                        "Vector Y" to geomagneticRotationVectorState.vectorY,
+                        "Vector Z" to geomagneticRotationVectorState.vectorZ
+                    )
+
+                    16 -> mapOf("Heart Rate" to heartRateState.heartRate)
+
+                    17 -> mapOf("Is device stationary?" to stationaryDetectState.isDeviceStationary)
+
+                    18 -> mapOf("Is confident peak?" to heartBeatState.isConfidentPeak)
+
+                    19 -> mapOf("Is On Body?" to lowLatencyOffBodyDetectState.isDeviceOnBody)
+
+                    20 -> mapOf(
+                        "Force X" to uncalibratedAccelerometerState.xForce,
+                        "Force Y" to uncalibratedAccelerometerState.yForce,
+                        "Force Z" to uncalibratedAccelerometerState.zForce,
+                        "Bias X" to uncalibratedAccelerometerState.xBias,
+                        "Bias Y" to uncalibratedAccelerometerState.yBias,
+                        "Bias Z" to uncalibratedAccelerometerState.zBias
+                    )
+
+                    21 -> mapOf("Angle" to hingeAngleState.angle)
+
+                    22 -> mapOf(
+                        "Rotation X" to headTrackerState.xRotation,
+                        "Rotation Y" to headTrackerState.yRotation,
+                        "Rotation Z" to headTrackerState.zRotation,
+                        "Velocity X" to headTrackerState.xAngularVelocity,
+                        "Velocity Y" to headTrackerState.yAngularVelocity,
+                        "Velocity Z" to headTrackerState.zAngularVelocity
+                    )
+
+                    23 -> mapOf(
+                        "Force X" to limitedAxesAccelerometerState.xForce,
+                        "Force Y" to limitedAxesAccelerometerState.yForce,
+                        "Force Z" to limitedAxesAccelerometerState.zForce,
+                        "X Supported?" to limitedAxesAccelerometerState.xAxisSupported,
+                        "Y Supported?" to limitedAxesAccelerometerState.yAxisSupported,
+                        "Z Supported?" to limitedAxesAccelerometerState.zAxisSupported
+                    )
+
+                    24 -> mapOf(
                         "Rotation X" to limitedAxesGyroscopeState.xRotation,
                         "Rotation Y" to limitedAxesGyroscopeState.yRotation,
                         "Rotation Z" to limitedAxesGyroscopeState.zRotation,
                         "X Supported?" to limitedAxesGyroscopeState.xAxisSupported,
                         "Y Supported?" to limitedAxesGyroscopeState.yAxisSupported,
                         "Z Supported?" to limitedAxesGyroscopeState.zAxisSupported
+                    )
+
+                    25 -> mapOf(
+                        "Rotation X" to uncalibratedLimitedAxesAccelerometerState.xForce,
+                        "Rotation Y" to uncalibratedLimitedAxesAccelerometerState.yForce,
+                        "Rotation Z" to uncalibratedLimitedAxesAccelerometerState.zForce,
+                        "Bias X" to uncalibratedLimitedAxesAccelerometerState.xBias,
+                        "Bias Y" to uncalibratedLimitedAxesAccelerometerState.yBias,
+                        "Bias Z" to uncalibratedLimitedAxesAccelerometerState.zBias,
+                        "X Supported?" to uncalibratedLimitedAxesAccelerometerState.xAxisSupported,
+                        "Y Supported?" to uncalibratedLimitedAxesAccelerometerState.yAxisSupported,
+                        "Z Supported?" to uncalibratedLimitedAxesAccelerometerState.zAxisSupported
+                    )
+
+                    26 -> mapOf(
+                        "Degrees" to headingState.degrees
                     )
 
                     else -> error("Invalid index '$index'")
@@ -313,10 +424,21 @@ fun SensorsListScreen() {
                     9 -> ambientTemperatureState.isAvailable
                     10 -> uncalibratedMagneticFieldState.isAvailable
                     11 -> gameRotationVectorState.isAvailable
-                    12 -> heartRateState.isAvailable
-                    13 -> lowLatencyOffBodyDetectState.isAvailable
-                    14 -> hingeAngleState.isAvailable
-                    15 -> limitedAxesGyroscopeState.isAvailable
+                    12 -> uncalibratedGyroscopeState.isAvailable
+                    13 -> stepDetectState.isAvailable
+                    14 -> stepCounterState.isAvailable
+                    15 -> geomagneticRotationVectorState.isAvailable
+                    16 -> heartRateState.isAvailable
+                    17 -> stationaryDetectState.isAvailable
+                    18 -> heartBeatState.isAvailable
+                    19 -> lowLatencyOffBodyDetectState.isAvailable
+                    20 -> uncalibratedAccelerometerState.isAvailable
+                    21 -> hingeAngleState.isAvailable
+                    22 -> headTrackerState.isAvailable
+                    23 -> limitedAxesAccelerometerState.isAvailable
+                    24 -> limitedAxesGyroscopeState.isAvailable
+                    25 -> uncalibratedLimitedAxesAccelerometerState.isAvailable
+                    26 -> headingState.isAvailable
                     else -> error("Invalid index '$index'")
                 }
             )

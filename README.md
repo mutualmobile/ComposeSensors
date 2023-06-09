@@ -71,7 +71,7 @@ Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
 Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | — | N/A
-Stationary Detect | ⚠️ | WIP
+Stationary Detect | ✅️ | rememberStationaryDetectSensorState()
 Motion Detect | ⚠️ | WIP
 Heart Beat | ✅ | rememberHeartBeatSensorState()
 Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
