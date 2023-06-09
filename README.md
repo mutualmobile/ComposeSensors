@@ -73,7 +73,7 @@ Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | — | N/A
 Stationary Detect | ⚠️ | WIP
 Motion Detect | ⚠️ | WIP
-Heart Beat | — | N/A
+Heart Beat | ✅ | rememberHeartBeatSensorState()
 Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
 Accelerometer (Uncalibrated) | ✅️ | rememberUncalibratedAccelerometerSensorState()
 Hinge Angle | ✅️ | rememberHingeAngleSensorState()
