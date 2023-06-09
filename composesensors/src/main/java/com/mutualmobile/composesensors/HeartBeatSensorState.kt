@@ -1,6 +1,5 @@
 package com.mutualmobile.composesensors
 
-import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
@@ -12,8 +11,6 @@ import androidx.compose.runtime.remember
 /**
  * The HeartBeat sensor returns an event everytime a heart beat peak is detected. Peak here ideally
  * corresponds to the positive peak in the QRS complex of an ECG signal.
- *
- * This sensor requires the [Manifest.permission.BODY_SENSORS] app permission.
  *
  * For more info, please refer the [Android Documentation Reference](https://developer.android.com/reference/android/hardware/SensorEvent#sensor.type_heart_beat:)
  *
