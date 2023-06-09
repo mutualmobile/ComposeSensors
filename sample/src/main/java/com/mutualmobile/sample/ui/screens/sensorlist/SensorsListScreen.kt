@@ -53,6 +53,7 @@ import com.mutualmobile.composesensors.rememberLimitedAxesGyroscopeSensorState
 import com.mutualmobile.composesensors.rememberLinearAccelerationSensorState
 import com.mutualmobile.composesensors.rememberLowLatencyOffBodyDetectSensorState
 import com.mutualmobile.composesensors.rememberMagneticFieldSensorState
+import com.mutualmobile.composesensors.rememberMotionDetectSensorState
 import com.mutualmobile.composesensors.rememberPressureSensorState
 import com.mutualmobile.composesensors.rememberProximitySensorState
 import com.mutualmobile.composesensors.rememberRotationVectorSensorState
@@ -79,7 +80,7 @@ fun SensorsListScreen() {
     val coroutineScope = rememberCoroutineScope()
 
     // TODO: Keep this updated until a better option is found
-    val totalPageCount = rememberSaveable { 27 }
+    val totalPageCount = rememberSaveable { 28 }
     val accelerometerState = rememberAccelerometerSensorState()
     val magneticFieldState = rememberMagneticFieldSensorState()
     val gyroscopeState = rememberGyroscopeSensorState()
@@ -98,6 +99,7 @@ fun SensorsListScreen() {
     val geomagneticRotationVectorState = rememberGeomagneticRotationVectorSensorState()
     val heartRateState = rememberHeartRateSensorState()
     val stationaryDetectState = rememberStationaryDetectSensorState()
+    val motionDetectState = rememberMotionDetectSensorState()
     val heartBeatState = rememberHeartBeatSensorState()
     val lowLatencyOffBodyDetectState = rememberLowLatencyOffBodyDetectSensorState()
     val uncalibratedAccelerometerState = rememberUncalibratedAccelerometerSensorState()
@@ -224,15 +226,16 @@ fun SensorsListScreen() {
                     15 -> "Geomagnetic Rotation Vector"
                     16 -> "Heart Rate"
                     17 -> "Stationary Detect"
-                    18 -> "Heart Beat"
-                    19 -> "Low Latency Off-Body Detect"
-                    20 -> "Accelerometer (Uncalibrated)"
-                    21 -> "Hinge Angle"
-                    22 -> "Head Tracker"
-                    23 -> "Accelerometer (Limited Axes)"
-                    24 -> "Gyroscope (Limited Axes)"
-                    25 -> "Accelerometer (Uncalibrated - Limited Axes)"
-                    26 -> "Heading"
+                    18 -> "Motion Detect"
+                    19 -> "Heart Beat"
+                    20 -> "Low Latency Off-Body Detect"
+                    21 -> "Accelerometer (Uncalibrated)"
+                    22 -> "Hinge Angle"
+                    23 -> "Head Tracker"
+                    24 -> "Accelerometer (Limited Axes)"
+                    25 -> "Gyroscope (Limited Axes)"
+                    26 -> "Accelerometer (Uncalibrated - Limited Axes)"
+                    27 -> "Heading"
                     else -> error("Invalid index '$index'")
                 },
                 scrollProgress = scrollProgress,
@@ -255,15 +258,16 @@ fun SensorsListScreen() {
                     15 -> R.drawable.geomagnetic_rotation_vector
                     16 -> R.drawable.heart_rate
                     17 -> R.drawable.stationary_detect
-                    18 -> R.drawable.heart_rate
-                    19 -> R.drawable.low_latency_off_body_detect
-                    20 -> R.drawable.accelerometer
-                    21 -> R.drawable.hinge_angle
-                    22 -> R.drawable.head_tracker
-                    23 -> R.drawable.accelerometer
-                    24 -> R.drawable.gyroscope
-                    25 -> R.drawable.accelerometer
-                    26 -> R.drawable.heading
+                    18 -> R.drawable.motion_detect
+                    19 -> R.drawable.heart_rate
+                    20 -> R.drawable.low_latency_off_body_detect
+                    21 -> R.drawable.accelerometer
+                    22 -> R.drawable.hinge_angle
+                    23 -> R.drawable.head_tracker
+                    24 -> R.drawable.accelerometer
+                    25 -> R.drawable.gyroscope
+                    26 -> R.drawable.accelerometer
+                    27 -> R.drawable.heading
                     else -> error("Invalid index '$index'")
                 },
                 sensorValues = when (index) {
@@ -350,12 +354,13 @@ fun SensorsListScreen() {
                     16 -> mapOf("Heart Rate" to heartRateState.heartRate)
 
                     17 -> mapOf("Is device stationary?" to stationaryDetectState.isDeviceStationary)
+                    18 -> mapOf("Is device moving?" to motionDetectState.isDeviceInMotion)
 
-                    18 -> mapOf("Is confident peak?" to heartBeatState.isConfidentPeak)
+                    19 -> mapOf("Is confident peak?" to heartBeatState.isConfidentPeak)
 
-                    19 -> mapOf("Is On Body?" to lowLatencyOffBodyDetectState.isDeviceOnBody)
+                    20 -> mapOf("Is On Body?" to lowLatencyOffBodyDetectState.isDeviceOnBody)
 
-                    20 -> mapOf(
+                    21 -> mapOf(
                         "Force X" to uncalibratedAccelerometerState.xForce,
                         "Force Y" to uncalibratedAccelerometerState.yForce,
                         "Force Z" to uncalibratedAccelerometerState.zForce,
@@ -364,9 +369,9 @@ fun SensorsListScreen() {
                         "Bias Z" to uncalibratedAccelerometerState.zBias
                     )
 
-                    21 -> mapOf("Angle" to hingeAngleState.angle)
+                    22 -> mapOf("Angle" to hingeAngleState.angle)
 
-                    22 -> mapOf(
+                    23 -> mapOf(
                         "Rotation X" to headTrackerState.xRotation,
                         "Rotation Y" to headTrackerState.yRotation,
                         "Rotation Z" to headTrackerState.zRotation,
@@ -375,7 +380,7 @@ fun SensorsListScreen() {
                         "Velocity Z" to headTrackerState.zAngularVelocity
                     )
 
-                    23 -> mapOf(
+                    24 -> mapOf(
                         "Force X" to limitedAxesAccelerometerState.xForce,
                         "Force Y" to limitedAxesAccelerometerState.yForce,
                         "Force Z" to limitedAxesAccelerometerState.zForce,
@@ -384,7 +389,7 @@ fun SensorsListScreen() {
                         "Z Supported?" to limitedAxesAccelerometerState.zAxisSupported
                     )
 
-                    24 -> mapOf(
+                    25 -> mapOf(
                         "Rotation X" to limitedAxesGyroscopeState.xRotation,
                         "Rotation Y" to limitedAxesGyroscopeState.yRotation,
                         "Rotation Z" to limitedAxesGyroscopeState.zRotation,
@@ -393,7 +398,7 @@ fun SensorsListScreen() {
                         "Z Supported?" to limitedAxesGyroscopeState.zAxisSupported
                     )
 
-                    25 -> mapOf(
+                    26 -> mapOf(
                         "Rotation X" to uncalibratedLimitedAxesAccelerometerState.xForce,
                         "Rotation Y" to uncalibratedLimitedAxesAccelerometerState.yForce,
                         "Rotation Z" to uncalibratedLimitedAxesAccelerometerState.zForce,
@@ -405,7 +410,7 @@ fun SensorsListScreen() {
                         "Z Supported?" to uncalibratedLimitedAxesAccelerometerState.zAxisSupported
                     )
 
-                    26 -> mapOf(
+                    27 -> mapOf(
                         "Degrees" to headingState.degrees
                     )
 
@@ -430,15 +435,16 @@ fun SensorsListScreen() {
                     15 -> geomagneticRotationVectorState.isAvailable
                     16 -> heartRateState.isAvailable
                     17 -> stationaryDetectState.isAvailable
-                    18 -> heartBeatState.isAvailable
-                    19 -> lowLatencyOffBodyDetectState.isAvailable
-                    20 -> uncalibratedAccelerometerState.isAvailable
-                    21 -> hingeAngleState.isAvailable
-                    22 -> headTrackerState.isAvailable
-                    23 -> limitedAxesAccelerometerState.isAvailable
-                    24 -> limitedAxesGyroscopeState.isAvailable
-                    25 -> uncalibratedLimitedAxesAccelerometerState.isAvailable
-                    26 -> headingState.isAvailable
+                    18 -> motionDetectState.isAvailable
+                    19 -> heartBeatState.isAvailable
+                    20 -> lowLatencyOffBodyDetectState.isAvailable
+                    21 -> uncalibratedAccelerometerState.isAvailable
+                    22 -> hingeAngleState.isAvailable
+                    23 -> headTrackerState.isAvailable
+                    24 -> limitedAxesAccelerometerState.isAvailable
+                    25 -> limitedAxesGyroscopeState.isAvailable
+                    26 -> uncalibratedLimitedAxesAccelerometerState.isAvailable
+                    27 -> headingState.isAvailable
                     else -> error("Invalid index '$index'")
                 }
             )

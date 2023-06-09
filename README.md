@@ -72,7 +72,7 @@ Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSenso
 Heart Rate | ✅️ | rememberHeartRateSensorState()
 Pose6DOF | — | N/A
 Stationary Detect | ✅️ | rememberStationaryDetectSensorState()
-Motion Detect | ⚠️ | WIP
+Motion Detect | ✅️ | rememberMotionDetectSensorState()
 Heart Beat | ✅ | rememberHeartBeatSensorState()
 Low Latency Off-Body Detect | ✅️ | rememberLowLatencyOffBodyDetectSensorState()
 Accelerometer (Uncalibrated) | ✅️ | rememberUncalibratedAccelerometerSensorState()
