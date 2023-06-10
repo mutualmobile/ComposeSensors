@@ -18,7 +18,9 @@ class StepCounterSensorState internal constructor(
     val stepCount: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
-) {
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is StepCounterSensorState) return false
@@ -26,6 +28,8 @@ class StepCounterSensorState internal constructor(
         if (stepCount != other.stepCount) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -34,11 +38,22 @@ class StepCounterSensorState internal constructor(
         var result = stepCount.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "StepCounterSensorState(stepCount=$stepCount isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "StepCounterSensorState(stepCount=$stepCount isAvailable=$isAvailable," +
+            " accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -51,12 +66,12 @@ class StepCounterSensorState internal constructor(
 @Composable
 fun rememberStepCounterSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): StepCounterSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.StepCounter,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val stepCounterSensorState = remember { mutableStateOf(StepCounterSensorState()) }
 
@@ -69,9 +84,11 @@ fun rememberStepCounterSensorState(
                     stepCount = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
-        },
+        }
     )
 
     return stepCounterSensorState.value

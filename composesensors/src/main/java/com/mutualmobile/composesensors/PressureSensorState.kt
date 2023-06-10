@@ -16,8 +16,10 @@ import androidx.compose.runtime.remember
 class PressureSensorState internal constructor(
     val pressure: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0
-) {
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PressureSensorState) return false
@@ -25,6 +27,8 @@ class PressureSensorState internal constructor(
         if (pressure != other.pressure) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -33,11 +37,22 @@ class PressureSensorState internal constructor(
         var result = pressure.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "PressureSensorState(pressure=$pressure, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "PressureSensorState(pressure=$pressure, isAvailable=$isAvailable," +
+            " accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -67,7 +82,9 @@ fun rememberPressureSensorState(
                 pressureSensorState.value = PressureSensorState(
                     pressure = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

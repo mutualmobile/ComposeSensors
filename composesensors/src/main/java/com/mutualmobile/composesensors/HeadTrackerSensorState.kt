@@ -9,13 +9,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * The HeadTracker sensor measures the orientation of a user's head relative to an arbitrary reference frame, as well as the rate of rotation.
+ * The HeadTracker sensor measures the orientation of a user's head relative to an arbitrary
+ * reference frame, as well as the rate of rotation.
  * @param xRotation X component of Euler vector representing rotation. Defaults to 0f.
  * @param yRotation Y component of Euler vector representing rotation. Defaults to 0f.
  * @param zRotation Z component of Euler vector representing rotation. Defaults to 0f.
- * @param xAngularVelocity X component of Euler vector representing angular velocity (if supported, otherwise 0). Defaults to 0f.
- * @param yAngularVelocity Y component of Euler vector representing angular velocity (if supported, otherwise 0). Defaults to 0f.
- * @param zAngularVelocity Z component of Euler vector representing angular velocity (if supported, otherwise 0). Defaults to 0f.
+ * @param xAngularVelocity X component of Euler vector representing angular velocity (if supported,
+ * otherwise 0). Defaults to 0f.
+ * @param yAngularVelocity Y component of Euler vector representing angular velocity (if supported,
+ * otherwise 0). Defaults to 0f.
+ * @param zAngularVelocity Z component of Euler vector representing angular velocity (if supported,
+ * otherwise 0). Defaults to 0f.
  * @param isAvailable Whether the current device has a gyroscope sensor. Defaults to false.
  * @param accuracy Accuracy factor of the gyroscope sensor. Defaults to 0.
  **/
@@ -28,8 +32,10 @@ class HeadTrackerSensorState internal constructor(
     val yAngularVelocity: Float = 0f,
     val zAngularVelocity: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0
-) {
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,6 +51,8 @@ class HeadTrackerSensorState internal constructor(
         if (zAngularVelocity != other.zAngularVelocity) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -57,12 +65,25 @@ class HeadTrackerSensorState internal constructor(
         result = 31 * result + yAngularVelocity.hashCode()
         result = 31 * result + zAngularVelocity.hashCode()
         result = 31 * result + isAvailable.hashCode()
-        result = 31 * result + accuracy
+        result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "HeadTrackerSensorState(xRotation=$xRotation, yRotation=$yRotation, zRotation=$zRotation, xAngularVelocity=$xAngularVelocity, yAngularVelocity=$yAngularVelocity, zAngularVelocity=$zAngularVelocity, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "HeadTrackerSensorState(xRotation=$xRotation, yRotation=$yRotation," +
+            " zRotation=$zRotation, xAngularVelocity=$xAngularVelocity," +
+            " yAngularVelocity=$yAngularVelocity, zAngularVelocity=$zAngularVelocity," +
+            " isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -97,7 +118,9 @@ fun rememberHeadTrackerSensorState(
                 yAngularVelocity = sensorStateValues[4],
                 zAngularVelocity = sensorStateValues[5],
                 isAvailable = sensorState.isAvailable,
-                accuracy = sensorState.accuracy
+                accuracy = sensorState.accuracy,
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
             )
         }
     })

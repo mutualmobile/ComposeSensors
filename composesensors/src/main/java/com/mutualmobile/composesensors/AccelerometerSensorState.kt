@@ -22,7 +22,9 @@ class AccelerometerSensorState internal constructor(
     val zForce: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
-) {
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AccelerometerSensorState) return false
@@ -32,6 +34,8 @@ class AccelerometerSensorState internal constructor(
         if (zForce != other.zForce) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -42,12 +46,22 @@ class AccelerometerSensorState internal constructor(
         result = 31 * result + zForce.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
         return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, " +
-                "isAvailable=$isAvailable, accuracy=$accuracy)"
+            "isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -60,12 +74,12 @@ class AccelerometerSensorState internal constructor(
 @Composable
 fun rememberAccelerometerSensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): AccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Accelerometer,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val accelerometerSensorState = remember { mutableStateOf(AccelerometerSensorState()) }
 
@@ -79,7 +93,9 @@ fun rememberAccelerometerSensorState(
                     yForce = sensorStateValues[1],
                     zForce = sensorStateValues[2],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

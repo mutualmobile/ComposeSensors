@@ -28,8 +28,10 @@ class LimitedAxesGyroscopeSensorState internal constructor(
     val yAxisSupported: Boolean = false,
     val zAxisSupported: Boolean = false,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0
-) {
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,6 +47,8 @@ class LimitedAxesGyroscopeSensorState internal constructor(
         if (zAxisSupported != other.zAxisSupported) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -57,7 +61,9 @@ class LimitedAxesGyroscopeSensorState internal constructor(
         result = 31 * result + yAxisSupported.hashCode()
         result = 31 * result + zAxisSupported.hashCode()
         result = 31 * result + isAvailable.hashCode()
-        result = 31 * result + accuracy
+        result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
@@ -66,6 +72,14 @@ class LimitedAxesGyroscopeSensorState internal constructor(
             "zRotation=$zRotation, xAxisSupported=$xAxisSupported, " +
             "yAxisSupported=$yAxisSupported, zAxisSupported=$zAxisSupported, " +
             "isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -100,7 +114,9 @@ fun rememberLimitedAxesGyroscopeSensorState(
                 yAxisSupported = sensorStateValues[4] != 0f,
                 zAxisSupported = sensorStateValues[5] != 0f,
                 isAvailable = sensorState.isAvailable,
-                accuracy = sensorState.accuracy
+                accuracy = sensorState.accuracy,
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
             )
         }
     })

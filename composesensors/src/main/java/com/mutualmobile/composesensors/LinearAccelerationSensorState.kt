@@ -23,8 +23,10 @@ class LinearAccelerationSensorState internal constructor(
     val yForce: Float = 0f,
     val zForce: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0
-) {
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is LinearAccelerationSensorState) return false
@@ -34,6 +36,8 @@ class LinearAccelerationSensorState internal constructor(
         if (zForce != other.zForce) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -44,12 +48,22 @@ class LinearAccelerationSensorState internal constructor(
         result = 31 * result + zForce.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
         return "LinearAccelerationSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, " +
             "isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -82,7 +96,9 @@ fun rememberLinearAccelerationSensorState(
                     yForce = sensorStateValues[1],
                     zForce = sensorStateValues[2],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

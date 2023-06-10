@@ -5,6 +5,8 @@ import android.hardware.SensorManager
 enum class SensorDelay {
     /**
      * Get sensor data as fast as possible
+     * - **`<uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>`** may
+     * be required to be added in AndroidManifest.xml for this option to work
      */
     Fastest,
 

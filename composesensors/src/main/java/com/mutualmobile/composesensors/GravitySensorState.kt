@@ -22,7 +22,9 @@ class GravitySensorState internal constructor(
     val zForce: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
-) {
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is GravitySensorState) return false
@@ -31,6 +33,9 @@ class GravitySensorState internal constructor(
         if (yForce != other.yForce) return false
         if (zForce != other.zForce) return false
         if (isAvailable != other.isAvailable) return false
+        if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -40,12 +45,23 @@ class GravitySensorState internal constructor(
         result = 31 * result + yForce.hashCode()
         result = 31 * result + zForce.hashCode()
         result = 31 * result + isAvailable.hashCode()
+        result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
         return "GravitySensorState(xForce=$xForce, yForce=$yForce, " +
-                "zForce=$zForce, isAvailable=$isAvailable, accuracy=$accuracy)"
+            "zForce=$zForce, isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -58,12 +74,12 @@ class GravitySensorState internal constructor(
 @Composable
 fun rememberGravitySensorState(
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): GravitySensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Gravity,
         sensorDelay = sensorDelay,
-        onError = onError,
+        onError = onError
     )
     val gravitySensorState = remember { mutableStateOf(GravitySensorState()) }
 
@@ -77,7 +93,9 @@ fun rememberGravitySensorState(
                     yForce = sensorStateValues[1],
                     zForce = sensorStateValues[2],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

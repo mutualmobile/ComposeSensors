@@ -39,8 +39,10 @@ class UncalibratedAccelerometerSensorState internal constructor(
     val yBias: Float = 0f,
     val zBias: Float = 0f,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0
-) {
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UncalibratedAccelerometerSensorState) return false
@@ -53,6 +55,8 @@ class UncalibratedAccelerometerSensorState internal constructor(
         if (zBias != other.zBias) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -64,8 +68,10 @@ class UncalibratedAccelerometerSensorState internal constructor(
         result = 31 * result + xBias.hashCode()
         result = 31 * result + yBias.hashCode()
         result = 31 * result + zBias.hashCode()
-        result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + isAvailable.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
@@ -73,6 +79,14 @@ class UncalibratedAccelerometerSensorState internal constructor(
         return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, " +
             "zForce=$zForce, xBiased=$xBias, yBiased=$yBias, zBiased=$zBias," +
             "isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
@@ -110,7 +124,9 @@ fun rememberUncalibratedAccelerometerSensorState(
                     yBias = sensorStateValues[4],
                     zBias = sensorStateValues[5],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

@@ -14,33 +14,46 @@ import androidx.compose.runtime.remember
  */
 @Immutable
 class ProximitySensorState internal constructor(
-  val sensorDistance: Float = 0f,
-  val isAvailable: Boolean = false,
-  val accuracy: Int = 0
-) {
-  override fun toString(): String {
-    return "ProximitySensorState(sensorDistance=$sensorDistance, " +
-        "isAvailable=$isAvailable, accuracy=$accuracy)"
-  }
+    val sensorDistance: Float = 0f,
+    val isAvailable: Boolean = false,
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ProximitySensorState) return false
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is ProximitySensorState) return false
+        if (sensorDistance != other.sensorDistance) return false
+        if (isAvailable != other.isAvailable) return false
+        if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
+        return true
+    }
 
-    if (isAvailable != other.isAvailable) return false
-    if (sensorDistance != other.sensorDistance) return false
-    if (accuracy != other.accuracy) return false
-    return true
-  }
+    override fun hashCode(): Int {
+        var result = isAvailable.hashCode()
+        result = 31 * result + sensorDistance.hashCode()
+        result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
+        return result
+    }
 
-  override fun hashCode(): Int {
-    var result = isAvailable.hashCode()
-    result = 31 * result + sensorDistance.hashCode()
-    result = 31 * result + accuracy.hashCode()
-    return result
-  }
+    override fun toString(): String {
+        return "ProximitySensorState(sensorDistance=$sensorDistance, " +
+            "isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
+    }
 }
-
 
 /**
  * Creates and [remember]s instance of [ProximitySensorState].
@@ -50,27 +63,29 @@ class ProximitySensorState internal constructor(
  */
 @Composable
 fun rememberProximitySensorState(
-  sensorDelay: SensorDelay = SensorDelay.Normal,
-  onError: (throwable: Throwable) -> Unit = {},
+    sensorDelay: SensorDelay = SensorDelay.Normal,
+    onError: (throwable: Throwable) -> Unit = {}
 ): ProximitySensorState {
-  val sensorState = rememberSensorState(
-    sensorType = SensorType.Proximity,
-    sensorDelay = sensorDelay,
-    onError = onError,
-  )
+    val sensorState = rememberSensorState(
+        sensorType = SensorType.Proximity,
+        sensorDelay = sensorDelay,
+        onError = onError
+    )
 
-  val proximitySensorState = remember { mutableStateOf(ProximitySensorState()) }
+    val proximitySensorState = remember { mutableStateOf(ProximitySensorState()) }
 
-  LaunchedEffect(key1 = sensorState, block = {
-    val sensorStateValues = sensorState.data
-    if (sensorStateValues.isNotEmpty()) {
-      proximitySensorState.value = ProximitySensorState(
-        sensorDistance = sensorStateValues[0],
-        isAvailable = sensorState.isAvailable,
-        accuracy = sensorState.accuracy
-      )
-    }
-  })
+    LaunchedEffect(key1 = sensorState, block = {
+        val sensorStateValues = sensorState.data
+        if (sensorStateValues.isNotEmpty()) {
+            proximitySensorState.value = ProximitySensorState(
+                sensorDistance = sensorStateValues[0],
+                isAvailable = sensorState.isAvailable,
+                accuracy = sensorState.accuracy,
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        }
+    })
 
-  return proximitySensorState.value
+    return proximitySensorState.value
 }
