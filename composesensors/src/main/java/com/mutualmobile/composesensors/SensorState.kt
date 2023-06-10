@@ -82,10 +82,11 @@ internal class SensorState(
 internal fun rememberSensorState(
     sensorType: SensorType,
     sensorDelay: SensorDelay? = null,
+    autoStart: Boolean = true,
     onError: (throwable: Throwable) -> Unit,
     onMotionEvent: (Long) -> Unit = {}
 ): SensorState {
-    val isListenerStarted = remember { mutableStateOf(false) }
+    val isListenerStarted = remember { mutableStateOf(autoStart) }
     val isSensorAvailable = sensorType.rememberIsSensorAvailable()
     val sensorData: MutableState<List<Float>> = remember { mutableStateOf(emptyList()) }
     val sensorAccuracy: MutableState<Int> = remember { mutableStateOf(0) }
@@ -125,7 +126,7 @@ internal fun rememberSensorState(
         DisposableEffect(
             key1 = sensor,
             key2 = sensorDelay,
-            key3 = isListenerStarted,
+            key3 = isListenerStarted.value,
             effect = {
                 var sensorEventListener: SensorEventListener? = null
                 if (isListenerStarted.value) {
@@ -152,6 +153,7 @@ internal fun rememberSensorState(
 
                 onDispose {
                     sensorManager.unregisterListener(sensorEventListener)
+                    isListenerStarted.value = false
                 }
             }
         )

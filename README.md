@@ -10,9 +10,6 @@ This library provides a convenience wrapper over the [Sensor APIs](https://devel
 ## Demo ❤️
 ![Screen Recording 2023-04-03 at 1 00 08 PM](https://user-images.githubusercontent.com/89389061/229441943-6339d18f-c704-4d92-9fe8-28c2fd94fdeb.gif)
 
-## WIP 🚧
-This library is a work-in-progress and is subject to major changes. Our team is working hard to get it stable as soon as possible. Thank you for your patience 🌺
-
 ## Usage 🚀
 ### Install dependency 📲
 #### Kotlin `build.gradle.kts (:module-name)`
@@ -65,7 +62,7 @@ Ambient Temperature | ✅️ | rememberAmbientTemperatureSensorState()
 Magnetic Field (Uncalibrated) | ✅️️ | rememberUncalibratedMagneticFieldSensorState()
 GameRotation Vector | ✅️ | rememberGameRotationVectorSensorState()
 Gyroscope (Uncalibrated) | ✅️ | rememberUncalibratedGyroscopeSensorState()
-Significant Motion | — | N/A
+Significant Motion | ✅ | rememberSignificantMotionSensorState(onMotionEvent = {})
 Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()

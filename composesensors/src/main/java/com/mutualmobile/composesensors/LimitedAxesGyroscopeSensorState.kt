@@ -85,6 +85,8 @@ class LimitedAxesGyroscopeSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [LimitedAxesGyroscopeSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
@@ -92,12 +94,14 @@ class LimitedAxesGyroscopeSensorState internal constructor(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun rememberLimitedAxesGyroscopeSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): LimitedAxesGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeLimitedAxes,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
 

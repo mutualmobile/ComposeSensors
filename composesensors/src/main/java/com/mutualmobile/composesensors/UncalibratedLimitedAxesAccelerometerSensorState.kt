@@ -93,18 +93,22 @@ class UncalibratedLimitedAxesAccelerometerSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [UncalibratedLimitedAxesAccelerometerSensorState].
- * @param sensorDelay The rate at which the raw sensor data should be received.
- * Defaults to [SensorDelay.Normal].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
+ * @param sensorDelay The rate at which the raw sensor data should be received. Defaults to
+ * [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberUncalibratedLimitedAxesAccelerometerSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): UncalibratedLimitedAxesAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxesUncalibrated,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val accelerometerSensorState =

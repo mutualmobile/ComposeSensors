@@ -59,18 +59,22 @@ class StepCounterSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [StepCounterSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberStepCounterSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): StepCounterSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.StepCounter,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val stepCounterSensorState = remember { mutableStateOf(StepCounterSensorState()) }

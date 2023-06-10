@@ -43,7 +43,6 @@ sealed class SensorType(val name: String) {
 
     object GyroscopeLimitedAxesUncalibrated : SensorType(name = "GyroscopeLimitedAxesUncalibrated")
     object Heading : SensorType(name = "Heading")
-    object All : SensorType(name = "All")
 
     fun toAndroidSensorType(): Int {
         return when (this) {
@@ -97,7 +96,6 @@ sealed class SensorType(val name: String) {
             }
 
             is Heading -> checkApi(Build.VERSION_CODES.TIRAMISU) { Sensor.TYPE_HEADING }
-            is All -> Sensor.TYPE_ALL
         }
     }
 

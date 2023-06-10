@@ -85,14 +85,18 @@ class RelativeHumiditySensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [RelativeHumiditySensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
- * @param actualTemp is passed into the function only if User requires calculations on Dew Point and absolute Humidity
- * This can be accessed using the dot operator. (e.g ->  rememberRelativeHumiditySensorState().absoluteHumidity)
+ * @param actualTemp is passed into the function only if User requires calculations on Dew Point
+ * and absolute Humidity. This can be accessed using the dot operator. (e.g ->
+ * rememberRelativeHumiditySensorState().absoluteHumidity)
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberRelativeHumiditySensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     actualTemp: Float = 0f,
     onError: (throwable: Throwable) -> Unit = {}
@@ -100,6 +104,7 @@ fun rememberRelativeHumiditySensorState(
     val sensorState = rememberSensorState(
         sensorType = SensorType.RelativeHumidity,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val relativeHumiditySensorState = remember { mutableStateOf(RelativeHumiditySensorState()) }

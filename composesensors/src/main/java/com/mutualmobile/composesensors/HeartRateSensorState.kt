@@ -58,18 +58,22 @@ class HeartRateSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [HeartRateSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberHeartRateSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): HeartRateSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.HeartRate,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val heartRateSensorState = remember { mutableStateOf(HeartRateSensorState()) }

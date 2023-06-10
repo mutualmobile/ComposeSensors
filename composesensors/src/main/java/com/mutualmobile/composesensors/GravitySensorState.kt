@@ -67,18 +67,22 @@ class GravitySensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [GravitySensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberGravitySensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): GravitySensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Gravity,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val gravitySensorState = remember { mutableStateOf(GravitySensorState()) }

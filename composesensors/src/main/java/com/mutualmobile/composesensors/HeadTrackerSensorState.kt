@@ -89,6 +89,8 @@ class HeadTrackerSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [HeadTrackerSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
@@ -96,12 +98,14 @@ class HeadTrackerSensorState internal constructor(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun rememberHeadTrackerSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): HeadTrackerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.HeadTracker,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
 

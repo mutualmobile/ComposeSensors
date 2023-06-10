@@ -62,6 +62,8 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [LowLatencyOffBodyDetectSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
@@ -69,12 +71,14 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun rememberLowLatencyOffBodyDetectSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): LowLatencyOffBodyDetectSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.LowLatencyOffBodyDetect,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val lowLatencyOffBodyDetectSensorState =

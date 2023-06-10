@@ -81,18 +81,22 @@ class LimitedAxesAccelerometerSensorState internal constructor(
 
 /**
  * Creates and [remember]s an instance of [LimitedAxesAccelerometerSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberLimitedAxesAccelerometerSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): LimitedAxesAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxes,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val accelerometerSensorState =
