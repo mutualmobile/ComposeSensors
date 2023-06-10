@@ -43,7 +43,6 @@ sealed class SensorType(val name: String) {
 
     object GyroscopeLimitedAxesUncalibrated : SensorType(name = "GyroscopeLimitedAxesUncalibrated")
     object Heading : SensorType(name = "Heading")
-    object All : SensorType(name = "All")
 
     fun toAndroidSensorType(): Int {
         return when (this) {
@@ -73,25 +72,30 @@ sealed class SensorType(val name: String) {
             is LowLatencyOffBodyDetect -> checkApi(Build.VERSION_CODES.O) {
                 Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT
             }
+
             is AccelerometerUncalibrated -> checkApi(Build.VERSION_CODES.O) {
                 Sensor.TYPE_ACCELEROMETER_UNCALIBRATED
             }
+
             is HingeAngle -> checkApi(Build.VERSION_CODES.R) { Sensor.TYPE_HINGE_ANGLE }
             is HeadTracker -> checkApi(Build.VERSION_CODES.TIRAMISU) { Sensor.TYPE_HEAD_TRACKER }
             is AccelerometerLimitedAxes -> checkApi(Build.VERSION_CODES.TIRAMISU) {
                 Sensor.TYPE_ACCELEROMETER_LIMITED_AXES
             }
+
             is GyroscopeLimitedAxes -> checkApi(Build.VERSION_CODES.TIRAMISU) {
                 Sensor.TYPE_GYROSCOPE_LIMITED_AXES
             }
+
             is AccelerometerLimitedAxesUncalibrated -> checkApi(Build.VERSION_CODES.TIRAMISU) {
                 Sensor.TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED
             }
+
             is GyroscopeLimitedAxesUncalibrated -> checkApi(Build.VERSION_CODES.TIRAMISU) {
                 Sensor.TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED
             }
+
             is Heading -> checkApi(Build.VERSION_CODES.TIRAMISU) { Sensor.TYPE_HEADING }
-            is All -> Sensor.TYPE_ALL
         }
     }
 
@@ -106,14 +110,18 @@ sealed class SensorType(val name: String) {
 }
 
 private inline fun <T> checkApi(expectedApi: Int, block: () -> T): T {
-    return if (Build.VERSION.SDK_INT < expectedApi) throw OldApiException(
-        currentApi = Build.VERSION.SDK_INT,
-        expectedApi = expectedApi
-    ) else block()
+    return if (Build.VERSION.SDK_INT < expectedApi) {
+        throw OldApiException(
+            currentApi = Build.VERSION.SDK_INT,
+            expectedApi = expectedApi
+        )
+    } else {
+        block()
+    }
 }
 
 private class OldApiException(currentApi: Int, expectedApi: Int) :
     Exception(
         "The current API ($currentApi) is too low. At least API ($expectedApi) is required to use" +
-                "this sensor."
+            "this sensor."
     )

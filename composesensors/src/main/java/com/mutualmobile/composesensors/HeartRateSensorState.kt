@@ -17,7 +17,9 @@ class HeartRateSensorState internal constructor(
     val heartRate: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
-) {
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HeartRateSensorState) return false
@@ -25,6 +27,8 @@ class HeartRateSensorState internal constructor(
         if (heartRate != other.heartRate) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -33,29 +37,44 @@ class HeartRateSensorState internal constructor(
         var result = heartRate.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "HeartRateSensorState(heartRate=$heartRate isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "HeartRateSensorState(heartRate=$heartRate isAvailable=$isAvailable," +
+            " accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
 /**
  * Creates and [remember]s an instance of [HeartRateSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberHeartRateSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): HeartRateSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.HeartRate,
         sensorDelay = sensorDelay,
-        onError = onError,
+        autoStart = autoStart,
+        onError = onError
     )
     val heartRateSensorState = remember { mutableStateOf(HeartRateSensorState()) }
 
@@ -68,9 +87,11 @@ fun rememberHeartRateSensorState(
                     heartRate = sensorStateValues[0],
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
-        },
+        }
     )
 
     return heartRateSensorState.value

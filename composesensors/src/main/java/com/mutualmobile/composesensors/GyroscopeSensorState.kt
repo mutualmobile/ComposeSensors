@@ -22,7 +22,9 @@ class GyroscopeSensorState internal constructor(
     val zRotation: Float = 0f,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
-) {
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is GyroscopeSensorState) return false
@@ -31,6 +33,8 @@ class GyroscopeSensorState internal constructor(
         if (yRotation != other.yRotation) return false
         if (zRotation != other.zRotation) return false
         if (isAvailable != other.isAvailable) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -40,30 +44,44 @@ class GyroscopeSensorState internal constructor(
         result = 31 * result + yRotation.hashCode()
         result = 31 * result + zRotation.hashCode()
         result = 31 * result + isAvailable.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
         return "GyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, " +
-                "zRotation=$zRotation, isAvailable=$isAvailable, accuracy=$accuracy)"
+            "zRotation=$zRotation, isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
 /**
  * Creates and [remember]s an instance of [GyroscopeSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
 @Composable
 fun rememberGyroscopeSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {},
+    onError: (throwable: Throwable) -> Unit = {}
 ): GyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Gyroscope,
         sensorDelay = sensorDelay,
-        onError = onError,
+        autoStart = autoStart,
+        onError = onError
     )
     val gyroscopeSensorState = remember { mutableStateOf(GyroscopeSensorState()) }
 
@@ -77,7 +95,9 @@ fun rememberGyroscopeSensorState(
                     yRotation = sensorStateValues[1],
                     zRotation = sensorStateValues[2],
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

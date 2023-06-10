@@ -25,15 +25,21 @@ class RelativeHumiditySensorState internal constructor(
     val relativeHumidity: Float = 0f,
     val isAvailable: Boolean = false,
     val actualTemp: Float = 0f,
-    val accuracy: Int = 0
-) {
-    val absoluteHumidity = 216.7 *
-        (
-            relativeHumidity / 100.0 * 6.112 * exp(
-                17.62 * actualTemp /
-                    (243.12 + actualTemp)
-            ) / (273.15 + actualTemp)
-            )
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
+    val absoluteHumidity = 216.7
+        .times(relativeHumidity)
+        .div(100.0)
+        .times(6.112)
+        .times(
+            exp(
+                17.62
+                    .times(actualTemp)
+                    .div(243.12.plus(actualTemp))
+            ).div(273.15.plus(actualTemp))
+        )
 
     private val humidity = ln(relativeHumidity / 100.0) +
         (17.62 * actualTemp) / (243.12 + actualTemp)
@@ -47,6 +53,8 @@ class RelativeHumiditySensorState internal constructor(
         if (relativeHumidity != other.relativeHumidity) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -55,6 +63,8 @@ class RelativeHumiditySensorState internal constructor(
         var result = relativeHumidity.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
@@ -64,42 +74,57 @@ class RelativeHumiditySensorState internal constructor(
             "accuracy=$accuracy)"
     }
 
-    /**
-     * Creates and [remember]s an instance of [RelativeHumiditySensorState].
-     * @param sensorDelay The rate at which the raw sensor data should be received.
-     * Defaults to [SensorDelay.Normal].
-     * @param actualTemp is passed into the function only if User requires calculations on Dew Point and absolute Humidity
-     * This can be accessed using the dot operator. (e.g ->  rememberRelativeHumiditySensorState().absoluteHumidity)
-     * @param onError Callback invoked on every error state.
-     */
-    @Composable
-    fun rememberRelativeHumiditySensorState(
-        sensorDelay: SensorDelay = SensorDelay.Normal,
-        actualTemp: Float = 0F,
-        onError: (throwable: Throwable) -> Unit = {}
-    ): RelativeHumiditySensorState {
-        val sensorState = rememberSensorState(
-            sensorType = SensorType.RelativeHumidity,
-            sensorDelay = sensorDelay,
-            onError = onError
-        )
-        val relativeHumiditySensorState = remember { mutableStateOf(RelativeHumiditySensorState()) }
-
-        LaunchedEffect(
-            key1 = sensorState,
-            block = {
-                val sensorStateValues = sensorState.data
-                if (sensorStateValues.isNotEmpty()) {
-                    relativeHumiditySensorState.value = RelativeHumiditySensorState(
-                        relativeHumidity = sensorStateValues[0],
-                        isAvailable = sensorState.isAvailable,
-                        accuracy = sensorState.accuracy,
-                        actualTemp = actualTemp
-                    )
-                }
-            }
-        )
-
-        return relativeHumiditySensorState.value
+    override fun startListening() {
+        startListeningEvents?.invoke()
     }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
+    }
+}
+
+/**
+ * Creates and [remember]s an instance of [RelativeHumiditySensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
+ * @param sensorDelay The rate at which the raw sensor data should be received.
+ * Defaults to [SensorDelay.Normal].
+ * @param actualTemp is passed into the function only if User requires calculations on Dew Point
+ * and absolute Humidity. This can be accessed using the dot operator. (e.g ->
+ * rememberRelativeHumiditySensorState().absoluteHumidity)
+ * @param onError Callback invoked on every error state.
+ */
+@Composable
+fun rememberRelativeHumiditySensorState(
+    autoStart: Boolean = true,
+    sensorDelay: SensorDelay = SensorDelay.Normal,
+    actualTemp: Float = 0f,
+    onError: (throwable: Throwable) -> Unit = {}
+): RelativeHumiditySensorState {
+    val sensorState = rememberSensorState(
+        sensorType = SensorType.RelativeHumidity,
+        sensorDelay = sensorDelay,
+        autoStart = autoStart,
+        onError = onError
+    )
+    val relativeHumiditySensorState = remember { mutableStateOf(RelativeHumiditySensorState()) }
+
+    LaunchedEffect(
+        key1 = sensorState,
+        block = {
+            val sensorStateValues = sensorState.data
+            if (sensorStateValues.isNotEmpty()) {
+                relativeHumiditySensorState.value = RelativeHumiditySensorState(
+                    relativeHumidity = sensorStateValues[0],
+                    isAvailable = sensorState.isAvailable,
+                    accuracy = sensorState.accuracy,
+                    actualTemp = actualTemp,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            }
+        }
+    )
+
+    return relativeHumiditySensorState.value
 }

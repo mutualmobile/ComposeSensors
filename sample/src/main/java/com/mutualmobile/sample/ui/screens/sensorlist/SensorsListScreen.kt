@@ -30,27 +30,69 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.mutualmobile.composesensors.AccelerometerSensorState
+import com.mutualmobile.composesensors.AmbientTemperatureSensorState
+import com.mutualmobile.composesensors.GameRotationVectorSensorState
+import com.mutualmobile.composesensors.GeomagneticRotationVectorSensorState
+import com.mutualmobile.composesensors.GravitySensorState
+import com.mutualmobile.composesensors.GyroscopeSensorState
+import com.mutualmobile.composesensors.HeadTrackerSensorState
+import com.mutualmobile.composesensors.HeadingSensorState
+import com.mutualmobile.composesensors.HeartBeatSensorState
+import com.mutualmobile.composesensors.HeartRateSensorState
+import com.mutualmobile.composesensors.HingeAngleSensorState
+import com.mutualmobile.composesensors.LightSensorState
+import com.mutualmobile.composesensors.LimitedAxesAccelerometerSensorState
+import com.mutualmobile.composesensors.LimitedAxesGyroscopeSensorState
+import com.mutualmobile.composesensors.LinearAccelerationSensorState
+import com.mutualmobile.composesensors.LowLatencyOffBodyDetectSensorState
+import com.mutualmobile.composesensors.MagneticFieldSensorState
+import com.mutualmobile.composesensors.MotionDetectSensorState
+import com.mutualmobile.composesensors.PressureSensorState
+import com.mutualmobile.composesensors.ProximitySensorState
+import com.mutualmobile.composesensors.RotationVectorSensorState
+import com.mutualmobile.composesensors.SignificantMotionSensorState
+import com.mutualmobile.composesensors.StationaryDetectSensorState
+import com.mutualmobile.composesensors.StepCounterSensorState
+import com.mutualmobile.composesensors.StepDetectorSensorState
+import com.mutualmobile.composesensors.UncalibratedAccelerometerSensorState
+import com.mutualmobile.composesensors.UncalibratedGyroscopeSensorState
+import com.mutualmobile.composesensors.UncalibratedLimitedAxesAccelerometerSensorState
+import com.mutualmobile.composesensors.UncalibratedMagneticFieldSensorState
 import com.mutualmobile.composesensors.rememberAccelerometerSensorState
 import com.mutualmobile.composesensors.rememberAmbientTemperatureSensorState
 import com.mutualmobile.composesensors.rememberGameRotationVectorSensorState
+import com.mutualmobile.composesensors.rememberGeomagneticRotationVectorSensorState
 import com.mutualmobile.composesensors.rememberGravitySensorState
 import com.mutualmobile.composesensors.rememberGyroscopeSensorState
+import com.mutualmobile.composesensors.rememberHeadTrackerSensorState
+import com.mutualmobile.composesensors.rememberHeadingSensorState
+import com.mutualmobile.composesensors.rememberHeartBeatSensorState
 import com.mutualmobile.composesensors.rememberHeartRateSensorState
 import com.mutualmobile.composesensors.rememberHingeAngleSensorState
 import com.mutualmobile.composesensors.rememberLightSensorState
+import com.mutualmobile.composesensors.rememberLimitedAxesAccelerometerSensorState
 import com.mutualmobile.composesensors.rememberLimitedAxesGyroscopeSensorState
 import com.mutualmobile.composesensors.rememberLinearAccelerationSensorState
 import com.mutualmobile.composesensors.rememberLowLatencyOffBodyDetectSensorState
 import com.mutualmobile.composesensors.rememberMagneticFieldSensorState
+import com.mutualmobile.composesensors.rememberMotionDetectSensorState
 import com.mutualmobile.composesensors.rememberPressureSensorState
 import com.mutualmobile.composesensors.rememberProximitySensorState
 import com.mutualmobile.composesensors.rememberRotationVectorSensorState
+import com.mutualmobile.composesensors.rememberSignificantMotionSensorState
+import com.mutualmobile.composesensors.rememberStationaryDetectSensorState
+import com.mutualmobile.composesensors.rememberStepCounterSensorState
+import com.mutualmobile.composesensors.rememberStepDetectorSensorState
+import com.mutualmobile.composesensors.rememberUncalibratedAccelerometerSensorState
+import com.mutualmobile.composesensors.rememberUncalibratedGyroscopeSensorState
+import com.mutualmobile.composesensors.rememberUncalibratedLimitedAxesAccelerometerSensorState
 import com.mutualmobile.composesensors.rememberUncalibratedMagneticFieldSensorState
 import com.mutualmobile.sample.R
 import com.mutualmobile.sample.ui.screens.sensorlist.components.CSButton
@@ -59,6 +101,44 @@ import com.mutualmobile.sample.ui.screens.sensorlist.components.SensorItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+val sensorStates: List<Any>
+    @SuppressLint("NewApi")
+    @Composable
+    get() = listOf(
+        rememberAccelerometerSensorState(),
+        rememberMagneticFieldSensorState(),
+        rememberGyroscopeSensorState(),
+        rememberLightSensorState(),
+        rememberPressureSensorState(),
+        rememberProximitySensorState(),
+        rememberGravitySensorState(),
+        rememberLinearAccelerationSensorState(),
+        rememberRotationVectorSensorState(),
+        rememberAmbientTemperatureSensorState(),
+        rememberUncalibratedMagneticFieldSensorState(),
+        rememberGameRotationVectorSensorState(),
+        rememberUncalibratedGyroscopeSensorState(),
+        rememberSignificantMotionSensorState(onMotionEvent = {}),
+        rememberStepDetectorSensorState(),
+        rememberStepCounterSensorState(),
+        rememberGeomagneticRotationVectorSensorState(),
+        rememberHeartRateSensorState(),
+        rememberStationaryDetectSensorState(),
+        rememberMotionDetectSensorState(),
+        rememberHeartBeatSensorState(),
+        rememberLowLatencyOffBodyDetectSensorState(),
+        rememberUncalibratedAccelerometerSensorState(),
+        rememberHingeAngleSensorState(),
+        rememberHeadTrackerSensorState(),
+        rememberLimitedAxesAccelerometerSensorState(),
+        rememberLimitedAxesGyroscopeSensorState(),
+        rememberUncalibratedLimitedAxesAccelerometerSensorState(),
+        rememberHeadingSensorState()
+    )
+
+// Please note this sample app will only work on Android 13 and above because we're also consuming
+// sensor data that is only available on Android 13 and above and not making API level checks
+// for every sensor yet.
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "NewApi")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -66,25 +146,7 @@ fun SensorsListScreen() {
     var isTopBarTitleCollapsed by remember { mutableStateOf(false) }
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
-
-    // TODO: Keep this updated until a better option is found
-    val totalPageCount = rememberSaveable { 16 }
-    val accelerometerState = rememberAccelerometerSensorState()
-    val magneticFieldState = rememberMagneticFieldSensorState()
-    val gyroscopeState = rememberGyroscopeSensorState()
-    val lightState = rememberLightSensorState()
-    val pressureState = rememberPressureSensorState()
-    val proximityState = rememberProximitySensorState()
-    val gravityState = rememberGravitySensorState()
-    val linearAccelerationState = rememberLinearAccelerationSensorState()
-    val rotationVectorState = rememberRotationVectorSensorState()
-    val ambientTemperatureState = rememberAmbientTemperatureSensorState()
-    val uncalibratedMagneticFieldState = rememberUncalibratedMagneticFieldSensorState()
-    val gameRotationVectorState = rememberGameRotationVectorSensorState()
-    val heartRateState = rememberHeartRateSensorState()
-    val lowLatencyOffBodyDetectState = rememberLowLatencyOffBodyDetectSensorState()
-    val hingeAngleState = rememberHingeAngleSensorState()
-    val limitedAxesGyroscopeState = rememberLimitedAxesGyroscopeSensorState()
+    val totalSensorsCount = rememberUpdatedState(sensorStates.size)
 
     // Trigger TopBar animation once
     LaunchedEffect(Unit) {
@@ -160,17 +222,17 @@ fun SensorsListScreen() {
                     },
                     onLongClick = {
                         coroutineScope.launch {
-                            pagerState.scrollToPage(totalPageCount)
+                            pagerState.scrollToPage(totalSensorsCount.value - 1)
                         }
                     },
                     position = CSButtonPosition.End,
-                    enabled = pagerState.currentPage != totalPageCount - 1
+                    enabled = pagerState.currentPage != totalSensorsCount.value - 1
                 )
             }
         }
     ) {
         HorizontalPager(
-            pageCount = totalPageCount,
+            pageCount = totalSensorsCount.value,
             state = pagerState,
             contentPadding = PaddingValues(32.dp),
             beyondBoundsPageCount = 1,
@@ -181,145 +243,391 @@ fun SensorsListScreen() {
                     pagerState.currentOffsetForPage(index)
                 }
             }
-            SensorItem(
-                name = when (index) {
-                    0 -> "Accelerometer"
-                    1 -> "Magnetic Field"
-                    2 -> "Gyroscope"
-                    3 -> "Light"
-                    4 -> "Pressure"
-                    5 -> "Proximity"
-                    6 -> "Gravity"
-                    7 -> "Linear Acceleration"
-                    8 -> "Rotation Vector"
-                    9 -> "Ambient Temperature"
-                    10 -> "Magnetic Field (Uncalibrated)"
-                    11 -> "Game Rotation Vector"
-                    12 -> "Heart Rate"
-                    13 -> "Low Latency Off-Body Detection"
-                    14 -> "Hinge Angle"
-                    15 -> "Gyroscope (Limited Axes)"
-                    else -> error("Invalid index '$index'")
-                },
-                scrollProgress = scrollProgress,
-                imageRef = when (index) {
-                    0 -> R.drawable.accelerometer
-                    1 -> R.drawable.magnetic_field
-                    2 -> R.drawable.gyroscope
-                    3 -> R.drawable.light
-                    4 -> R.drawable.pressure
-                    5 -> R.drawable.proximity
-                    6 -> R.drawable.gravity
-                    7 -> R.drawable.linear_acceleration
-                    8 -> R.drawable.rotation_vector
-                    9 -> R.drawable.ambient_temperature
-                    10 -> R.drawable.magnetic_field
-                    11 -> R.drawable.game_rotation_vector
-                    12 -> R.drawable.heart_rate
-                    13 -> R.drawable.low_latency_off_body_detect
-                    14 -> R.drawable.hinge_angle
-                    15 -> R.drawable.gyroscope
-                    else -> error("Invalid index '$index'")
-                },
-                sensorValues = when (index) {
-                    0 -> mapOf(
-                        "Force X" to accelerometerState.xForce,
-                        "Force Y" to accelerometerState.yForce,
-                        "Force Z" to accelerometerState.zForce
+            when (val state = sensorStates[index]) {
+                is AccelerometerSensorState -> {
+                    SensorItem(
+                        name = "Accelerometer",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.accelerometer,
+                        sensorValues = mapOf(
+                            "Force X" to state.xForce,
+                            "Force Y" to state.yForce,
+                            "Force Z" to state.zForce
+                        ),
+                        isAvailable = state.isAvailable
                     )
-
-                    1 -> mapOf(
-                        "Strength X" to magneticFieldState.xStrength,
-                        "Strength Y" to magneticFieldState.yStrength,
-                        "Strength Z" to magneticFieldState.zStrength
-                    )
-
-                    2 -> mapOf(
-                        "Rotation X" to gyroscopeState.xRotation,
-                        "Rotation Y" to gyroscopeState.yRotation,
-                        "Rotation Z" to gyroscopeState.zRotation
-                    )
-
-                    3 -> mapOf("Illuminance" to lightState.illuminance)
-
-                    4 -> mapOf("Pressure" to pressureState.pressure)
-
-                    5 -> mapOf("Distance" to proximityState.sensorDistance)
-
-                    6 -> mapOf(
-                        "Force X" to gravityState.xForce,
-                        "Force Y" to gravityState.yForce,
-                        "Force Z" to gravityState.zForce
-                    )
-
-                    7 -> mapOf(
-                        "Force X" to linearAccelerationState.xForce,
-                        "Force Y" to linearAccelerationState.yForce,
-                        "Force Z" to linearAccelerationState.zForce
-                    )
-
-                    8 -> mapOf(
-                        "Vector X" to rotationVectorState.vectorX,
-                        "Vector Y" to rotationVectorState.vectorY,
-                        "Vector Z" to rotationVectorState.vectorZ,
-                        "Scalar" to rotationVectorState.scalar,
-                        "Heading Accuracy" to rotationVectorState.estimatedHeadingAccuracy
-                    )
-
-                    9 -> mapOf("Temperature" to ambientTemperatureState.temperature)
-
-                    10 -> mapOf(
-                        "Strength X" to uncalibratedMagneticFieldState.xStrength,
-                        "Strength Y" to uncalibratedMagneticFieldState.yStrength,
-                        "Strength Z" to uncalibratedMagneticFieldState.zStrength,
-                        "Bias X" to uncalibratedMagneticFieldState.xBias,
-                        "Bias Y" to uncalibratedMagneticFieldState.yBias,
-                        "Bias Z" to uncalibratedMagneticFieldState.zBias
-                    )
-
-                    11 -> mapOf(
-                        "Vector X" to gameRotationVectorState.vectorX,
-                        "Vector Y" to gameRotationVectorState.vectorY,
-                        "Vector Z" to gameRotationVectorState.vectorZ
-                    )
-
-                    12 -> mapOf("Heart Rate" to heartRateState.heartRate)
-
-                    13 -> mapOf("Is On Body?" to lowLatencyOffBodyDetectState.isDeviceOnBody)
-
-                    14 -> mapOf("Angle" to hingeAngleState.angle)
-
-                    15 -> mapOf(
-                        "Rotation X" to limitedAxesGyroscopeState.xRotation,
-                        "Rotation Y" to limitedAxesGyroscopeState.yRotation,
-                        "Rotation Z" to limitedAxesGyroscopeState.zRotation,
-                        "X Supported?" to limitedAxesGyroscopeState.xAxisSupported,
-                        "Y Supported?" to limitedAxesGyroscopeState.yAxisSupported,
-                        "Z Supported?" to limitedAxesGyroscopeState.zAxisSupported
-                    )
-
-                    else -> error("Invalid index '$index'")
-                },
-                isAvailable = when (index) {
-                    0 -> accelerometerState.isAvailable
-                    1 -> magneticFieldState.isAvailable
-                    2 -> gyroscopeState.isAvailable
-                    3 -> lightState.isAvailable
-                    4 -> pressureState.isAvailable
-                    5 -> proximityState.isAvailable
-                    6 -> gravityState.isAvailable
-                    7 -> linearAccelerationState.isAvailable
-                    8 -> rotationVectorState.isAvailable
-                    9 -> ambientTemperatureState.isAvailable
-                    10 -> uncalibratedMagneticFieldState.isAvailable
-                    11 -> gameRotationVectorState.isAvailable
-                    12 -> heartRateState.isAvailable
-                    13 -> lowLatencyOffBodyDetectState.isAvailable
-                    14 -> hingeAngleState.isAvailable
-                    15 -> limitedAxesGyroscopeState.isAvailable
-                    else -> error("Invalid index '$index'")
                 }
-            )
+
+                is MagneticFieldSensorState -> {
+                    SensorItem(
+                        name = "Magnetic Field",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.magnetic_field,
+                        sensorValues = mapOf(
+                            "Strength X" to state.xStrength,
+                            "Strength Y" to state.yStrength,
+                            "Strength Z" to state.zStrength
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is GyroscopeSensorState -> {
+                    SensorItem(
+                        name = "Gyroscope",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.gyroscope,
+                        sensorValues = mapOf(
+                            "Rotation X" to state.xRotation,
+                            "Rotation Y" to state.yRotation,
+                            "Rotation Z" to state.zRotation
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is LightSensorState -> {
+                    SensorItem(
+                        name = "Light",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.light,
+                        sensorValues = mapOf("Illuminance" to state.illuminance),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is PressureSensorState -> {
+                    SensorItem(
+                        name = "Pressure",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.pressure,
+                        sensorValues = mapOf("Pressure" to state.pressure),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is ProximitySensorState -> {
+                    SensorItem(
+                        name = "Proximity",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.proximity,
+                        sensorValues = mapOf("Distance" to state.sensorDistance),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is GravitySensorState -> {
+                    SensorItem(
+                        name = "Gravity",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.gravity,
+                        sensorValues = mapOf(
+                            "Force X" to state.xForce,
+                            "Force Y" to state.yForce,
+                            "Force Z" to state.zForce
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is LinearAccelerationSensorState -> {
+                    SensorItem(
+                        name = "Linear Acceleration",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.linear_acceleration,
+                        sensorValues = mapOf(
+                            "Force X" to state.xForce,
+                            "Force Y" to state.yForce,
+                            "Force Z" to state.zForce
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is RotationVectorSensorState -> {
+                    SensorItem(
+                        name = "Rotation Vector",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.rotation_vector,
+                        sensorValues = mapOf(
+                            "Vector X" to state.vectorX,
+                            "Vector Y" to state.vectorY,
+                            "Vector Z" to state.vectorZ,
+                            "Scalar" to state.scalar,
+                            "Heading Accuracy" to state.estimatedHeadingAccuracy
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is AmbientTemperatureSensorState -> {
+                    SensorItem(
+                        name = "Ambient Temperature",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.ambient_temperature,
+                        sensorValues = mapOf("Temperature" to state.temperature),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is UncalibratedMagneticFieldSensorState -> {
+                    SensorItem(
+                        name = "Magnetic Field (Uncalibrated)",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.magnetic_field,
+                        sensorValues = mapOf(
+                            "Strength X" to state.xStrength,
+                            "Strength Y" to state.yStrength,
+                            "Strength Z" to state.zStrength,
+                            "Bias X" to state.xBias,
+                            "Bias Y" to state.yBias,
+                            "Bias Z" to state.zBias
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is GameRotationVectorSensorState -> {
+                    SensorItem(
+                        name = "Game Rotation Vector",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.game_rotation_vector,
+                        sensorValues = mapOf(
+                            "Vector X" to state.vectorX,
+                            "Vector Y" to state.vectorY,
+                            "Vector Z" to state.vectorZ
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is UncalibratedGyroscopeSensorState -> {
+                    SensorItem(
+                        name = "Gyroscope (Uncalibrated)",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.gyroscope,
+                        sensorValues = mapOf(
+                            "Rotation X" to state.xRotation,
+                            "Rotation Y" to state.yRotation,
+                            "Rotation Z" to state.zRotation,
+                            "Bias X" to state.xBias,
+                            "Bias Y" to state.yBias,
+                            "Bias Z" to state.zBias
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is SignificantMotionSensorState -> {
+                    // Trigger motion event whenever its card is selected
+                    LaunchedEffect(Unit) {
+                        state.requestEventTrigger()
+                    }
+
+                    SensorItem(
+                        name = "Significant Motion",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.significant_motion,
+                        sensorValues = mapOf(
+                            "Listening?" to state.isListening,
+                            "Timestamp (ns)" to state.lastEventTimestamp
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is StepDetectorSensorState -> {
+                    SensorItem(
+                        name = "Step Detector",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.step_detection,
+                        sensorValues = mapOf("Step Count" to state.stepCount),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is StepCounterSensorState -> {
+                    SensorItem(
+                        name = "Step Counter",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.step_counter,
+                        sensorValues = mapOf("Step Count" to state.stepCount),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is GeomagneticRotationVectorSensorState -> {
+                    SensorItem(
+                        name = "Geomagnetic Rotation Vector",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.geomagnetic_rotation_vector,
+                        sensorValues = mapOf(
+                            "Vector X" to state.vectorX,
+                            "Vector Y" to state.vectorY,
+                            "Vector Z" to state.vectorZ
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is HeartRateSensorState -> {
+                    SensorItem(
+                        name = "Heart Rate",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.heart_rate,
+                        sensorValues = mapOf("Heart Rate" to state.heartRate),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is StationaryDetectSensorState -> {
+                    SensorItem(
+                        name = "Stationary Detect",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.stationary_detect,
+                        sensorValues = mapOf("Is device stationary?" to state.isDeviceStationary),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is MotionDetectSensorState -> {
+                    SensorItem(
+                        name = "Motion Detect",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.motion_detect,
+                        sensorValues = mapOf("Is device moving?" to state.isDeviceInMotion),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is HeartBeatSensorState -> {
+                    SensorItem(
+                        name = "Heart Beat",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.heart_rate,
+                        sensorValues = mapOf("Is confident peak?" to state.isConfidentPeak),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is LowLatencyOffBodyDetectSensorState -> {
+                    SensorItem(
+                        name = "Low Latency Off-Body Detect",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.low_latency_off_body_detect,
+                        sensorValues = mapOf("Is On Body?" to state.isDeviceOnBody),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is UncalibratedAccelerometerSensorState -> {
+                    SensorItem(
+                        name = "Accelerometer (Uncalibrated)",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.accelerometer,
+                        sensorValues = mapOf(
+                            "Force X" to state.xForce,
+                            "Force Y" to state.yForce,
+                            "Force Z" to state.zForce,
+                            "Bias X" to state.xBias,
+                            "Bias Y" to state.yBias,
+                            "Bias Z" to state.zBias
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is HingeAngleSensorState -> {
+                    SensorItem(
+                        name = "Hinge Angle",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.hinge_angle,
+                        sensorValues = mapOf("Angle" to state.angle),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is HeadTrackerSensorState -> {
+                    SensorItem(
+                        name = "Head Tracker",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.head_tracker,
+                        sensorValues = mapOf(
+                            "Rotation X" to state.xRotation,
+                            "Rotation Y" to state.yRotation,
+                            "Rotation Z" to state.zRotation,
+                            "Velocity X" to state.xAngularVelocity,
+                            "Velocity Y" to state.yAngularVelocity,
+                            "Velocity Z" to state.zAngularVelocity
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is LimitedAxesAccelerometerSensorState -> {
+                    SensorItem(
+                        name = "Accelerometer (Limited Axes)",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.accelerometer,
+                        sensorValues = mapOf(
+                            "Force X" to state.xForce,
+                            "Force Y" to state.yForce,
+                            "Force Z" to state.zForce,
+                            "X Supported?" to state.xAxisSupported,
+                            "Y Supported?" to state.yAxisSupported,
+                            "Z Supported?" to state.zAxisSupported
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is LimitedAxesGyroscopeSensorState -> {
+                    SensorItem(
+                        name = "Gyroscope (Limited Axes)",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.gyroscope,
+                        sensorValues = mapOf(
+                            "Rotation X" to state.xRotation,
+                            "Rotation Y" to state.yRotation,
+                            "Rotation Z" to state.zRotation,
+                            "X Supported?" to state.xAxisSupported,
+                            "Y Supported?" to state.yAxisSupported,
+                            "Z Supported?" to state.zAxisSupported
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is UncalibratedLimitedAxesAccelerometerSensorState -> {
+                    SensorItem(
+                        name = "Accelerometer (Uncalibrated - Limited Axes)",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.accelerometer,
+                        sensorValues = mapOf(
+                            "Rotation X" to state.xForce,
+                            "Rotation Y" to state.yForce,
+                            "Rotation Z" to state.zForce,
+                            "Bias X" to state.xBias,
+                            "Bias Y" to state.yBias,
+                            "Bias Z" to state.zBias,
+                            "X Supported?" to state.xAxisSupported,
+                            "Y Supported?" to state.yAxisSupported,
+                            "Z Supported?" to state.zAxisSupported
+                        ),
+                        isAvailable = state.isAvailable
+                    )
+                }
+
+                is HeadingSensorState -> {
+                    SensorItem(
+                        name = "Heading",
+                        scrollProgress = scrollProgress,
+                        imageRef = R.drawable.heading,
+                        sensorValues = mapOf("Degrees" to state.degrees),
+                        isAvailable = state.isAvailable
+                    )
+                }
+            }
         }
     }
 }

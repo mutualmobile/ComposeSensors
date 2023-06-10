@@ -20,8 +20,10 @@ import androidx.compose.runtime.remember
 class LowLatencyOffBodyDetectSensorState internal constructor(
     val isDeviceOnBody: Boolean = false,
     val isAvailable: Boolean = false,
-    val accuracy: Int = 0
-) {
+    val accuracy: Int = 0,
+    private val startListeningEvents: (() -> Unit)? = null,
+    private val stopListeningEvents: (() -> Unit)? = null
+) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is LowLatencyOffBodyDetectSensorState) return false
@@ -29,6 +31,8 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
         if (isDeviceOnBody != other.isDeviceOnBody) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
+        if (startListeningEvents != other.startListeningEvents) return false
+        if (stopListeningEvents != other.stopListeningEvents) return false
 
         return true
     }
@@ -37,16 +41,29 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
         var result = isDeviceOnBody.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
+        result = 31 * result + startListeningEvents.hashCode()
+        result = 31 * result + stopListeningEvents.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "LowLatencyOffBodyDetectSensorState(isDeviceOnBody=$isDeviceOnBody, isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "LowLatencyOffBodyDetectSensorState(isDeviceOnBody=$isDeviceOnBody," +
+            " isAvailable=$isAvailable, accuracy=$accuracy)"
+    }
+
+    override fun startListening() {
+        startListeningEvents?.invoke()
+    }
+
+    override fun stopListening() {
+        stopListeningEvents?.invoke()
     }
 }
 
 /**
  * Creates and [remember]s an instance of [LowLatencyOffBodyDetectSensorState].
+ * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
+ * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
@@ -54,12 +71,14 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun rememberLowLatencyOffBodyDetectSensorState(
+    autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
 ): LowLatencyOffBodyDetectSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.LowLatencyOffBodyDetect,
         sensorDelay = sensorDelay,
+        autoStart = autoStart,
         onError = onError
     )
     val lowLatencyOffBodyDetectSensorState =
@@ -73,7 +92,9 @@ fun rememberLowLatencyOffBodyDetectSensorState(
                 lowLatencyOffBodyDetectSensorState.value = LowLatencyOffBodyDetectSensorState(
                     isDeviceOnBody = sensorStateValues[0].toInt() == 1,
                     isAvailable = sensorState.isAvailable,
-                    accuracy = sensorState.accuracy
+                    accuracy = sensorState.accuracy,
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
                 )
             }
         }

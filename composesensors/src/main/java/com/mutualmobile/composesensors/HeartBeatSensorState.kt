@@ -1,5 +1,7 @@
 package com.mutualmobile.composesensors
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -7,19 +9,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 /**
- * An acceleration sensor determines the acceleration that is applied to a device by measuring the
- * forces that are applied to the sensor itself.
- * @param xForce Acceleration force along the x axis (including gravity) in m/s^2. Defaults to 0f.
- * @param yForce Acceleration force along the y axis (including gravity) in m/s^2. Defaults to 0f.
- * @param zForce Acceleration force along the z axis (including gravity) in m/s^2. Defaults to 0f.
- * @param isAvailable Whether the current device has an accelerometer sensor. Defaults to false.
- * @param accuracy Accuracy factor of the accelerometer sensor. Defaults to 0.
+ * The HeartBeat sensor returns an event everytime a heart beat peak is detected. Peak here ideally
+ * corresponds to the positive peak in the QRS complex of an ECG signal.
+ *
+ * For more info, please refer the [Android Documentation Reference](https://developer.android.com/reference/android/hardware/SensorEvent#sensor.type_heart_beat:)
+ *
+ * @param isConfidentPeak A confidence value of 0.0 (false) indicates complete uncertainty - that a peak
+ * is as likely to be at the indicated timestamp as anywhere else. A confidence value of 1.0 (true)
+ * indicates complete certainly - that a peak is completely unlikely to be anywhere else on the QRS
+ * complex. Defaults to false.
+ * @param isAvailable Whether the current device has a heart beat sensor. Defaults to false.
+ * @param accuracy Accuracy factor of the heart beat sensor. Defaults to 0.
  */
+@RequiresApi(Build.VERSION_CODES.N)
 @Immutable
-class AccelerometerSensorState internal constructor(
-    val xForce: Float = 0f,
-    val yForce: Float = 0f,
-    val zForce: Float = 0f,
+class HeartBeatSensorState internal constructor(
+    val isConfidentPeak: Boolean = false,
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
@@ -27,11 +32,9 @@ class AccelerometerSensorState internal constructor(
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AccelerometerSensorState) return false
+        if (other !is HeartBeatSensorState) return false
 
-        if (xForce != other.xForce) return false
-        if (yForce != other.yForce) return false
-        if (zForce != other.zForce) return false
+        if (isConfidentPeak != other.isConfidentPeak) return false
         if (isAvailable != other.isAvailable) return false
         if (accuracy != other.accuracy) return false
         if (startListeningEvents != other.startListeningEvents) return false
@@ -41,9 +44,7 @@ class AccelerometerSensorState internal constructor(
     }
 
     override fun hashCode(): Int {
-        var result = xForce.hashCode()
-        result = 31 * result + yForce.hashCode()
-        result = 31 * result + zForce.hashCode()
+        var result = isConfidentPeak.hashCode()
         result = 31 * result + isAvailable.hashCode()
         result = 31 * result + accuracy.hashCode()
         result = 31 * result + startListeningEvents.hashCode()
@@ -52,8 +53,8 @@ class AccelerometerSensorState internal constructor(
     }
 
     override fun toString(): String {
-        return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+        return "HeartBeatSensorState(isConfidentPeak=$isConfidentPeak isAvailable=$isAvailable, " +
+            "accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -66,36 +67,35 @@ class AccelerometerSensorState internal constructor(
 }
 
 /**
- * Creates and [remember]s an instance of [AccelerometerSensorState].
+ * Creates and [remember]s an instance of [HeartBeatSensorState].
  * @param autoStart Start listening to sensor events as soon as sensor state is initialised.
  * Defaults to true.
  * @param sensorDelay The rate at which the raw sensor data should be received.
  * Defaults to [SensorDelay.Normal].
  * @param onError Callback invoked on every error state.
  */
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun rememberAccelerometerSensorState(
+fun rememberHeartBeatSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     onError: (throwable: Throwable) -> Unit = {}
-): AccelerometerSensorState {
+): HeartBeatSensorState {
     val sensorState = rememberSensorState(
-        sensorType = SensorType.Accelerometer,
+        sensorType = SensorType.HeartBeat,
         sensorDelay = sensorDelay,
         autoStart = autoStart,
         onError = onError
     )
-    val accelerometerSensorState = remember { mutableStateOf(AccelerometerSensorState()) }
+    val confidenceSensorState = remember { mutableStateOf(HeartBeatSensorState()) }
 
     LaunchedEffect(
         key1 = sensorState,
         block = {
             val sensorStateValues = sensorState.data
             if (sensorStateValues.isNotEmpty()) {
-                accelerometerSensorState.value = AccelerometerSensorState(
-                    xForce = sensorStateValues[0],
-                    yForce = sensorStateValues[1],
-                    zForce = sensorStateValues[2],
+                confidenceSensorState.value = HeartBeatSensorState(
+                    isConfidentPeak = sensorStateValues[0] == 1f,
                     isAvailable = sensorState.isAvailable,
                     accuracy = sensorState.accuracy,
                     startListeningEvents = sensorState::startListening,
@@ -105,5 +105,5 @@ fun rememberAccelerometerSensorState(
         }
     )
 
-    return accelerometerSensorState.value
+    return confidenceSensorState.value
 }
