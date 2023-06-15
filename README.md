@@ -67,7 +67,7 @@ Step Detector | ✅️ | rememberStepDetectorSensorState()
 Step Counter | ✅️ | rememberStepCounterSensorState()
 Geomagnetic Rotation Vector | ✅️️ | rememberGeomagneticRotationVectorSensorState()
 Heart Rate | ✅️ | rememberHeartRateSensorState()
-Pose6DOF | — | N/A
+Pose6DOF | ✅ | rememberPose6DOFSensorState()
 Stationary Detect | ✅️ | rememberStationaryDetectSensorState()
 Motion Detect | ✅️ | rememberMotionDetectSensorState()
 Heart Beat | ✅ | rememberHeartBeatSensorState()
@@ -78,7 +78,7 @@ Head Tracker | ✅️ | rememberHeadTrackerSensorState()
 Accelerometer Limited Axes | ✅️ | rememberLimitedAxesAccelerometerSensorState()
 Gyroscope Limited Axes | ✅️️ | rememberLimitedAxesGyroscopeSensorState()
 Accelerometer Limited Axes (Uncalibrated) | ✅ | rememberUncalibratedLimitedAxesAccelerometerSensorState()
-Gyroscope Limited Axes (Uncalibrated) | — | N/A
+Gyroscope Limited Axes (Uncalibrated) | ✅ | rememberUncalibratedLimitedAxesGyroscopeSensorState()
 Heading | ✅ | rememberHeadingSensorState()
 
 ## License 🔖
