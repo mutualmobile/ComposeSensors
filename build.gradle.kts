@@ -1,6 +1,6 @@
 buildscript {
     val compose_version by extra("1.4.3")
-    val wear_compose_version by extra("1.0.0")
+    val wear_compose_version by extra("1.1.2")
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
