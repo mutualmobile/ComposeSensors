@@ -9,40 +9,40 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 
 sealed class SensorType(val name: String) {
-    object Accelerometer : SensorType(name = "Accelerometer")
-    object MagneticField : SensorType(name = "MagneticField")
-    object Gyroscope : SensorType(name = "Gyroscope")
-    object Light : SensorType(name = "Light")
-    object Pressure : SensorType(name = "Pressure")
-    object Proximity : SensorType(name = "Proximity")
-    object Gravity : SensorType(name = "Gravity")
-    object LinearAcceleration : SensorType(name = "LinearAcceleration")
-    object RotationVector : SensorType(name = "RotationVector")
-    object RelativeHumidity : SensorType(name = "RelativeHumidity")
-    object AmbientTemperature : SensorType(name = "AmbientTemperature")
-    object MagneticFieldUncalibrated : SensorType(name = "MagneticFieldUncalibrated")
-    object GameRotationVector : SensorType(name = "GameRotationVector")
-    object GyroscopeUncalibrated : SensorType(name = "GyroscopeUncalibrated")
-    object SignificantMotion : SensorType(name = "SignificantMotion")
-    object StepDetector : SensorType(name = "StepDetector")
-    object StepCounter : SensorType(name = "StepCounter")
-    object GeomagneticRotationVector : SensorType(name = "GeomagneticRotationVector")
-    object HeartRate : SensorType(name = "HeartRate")
-    object Pose6DOF : SensorType(name = "Pose6DOF")
-    object StationaryDetect : SensorType(name = "StationaryDetect")
-    object MotionDetect : SensorType(name = "MotionDetect")
-    object HeartBeat : SensorType(name = "HeartBeat")
-    object LowLatencyOffBodyDetect : SensorType(name = "LowLatencyOffBodyDetect")
-    object AccelerometerUncalibrated : SensorType(name = "AccelerometerUncalibrated")
-    object HingeAngle : SensorType(name = "HingeAngle")
-    object HeadTracker : SensorType(name = "HeadTracker")
-    object AccelerometerLimitedAxes : SensorType(name = "AccelerometerLimitedAxes")
-    object GyroscopeLimitedAxes : SensorType(name = "GyroscopeLimitedAxes")
-    object AccelerometerLimitedAxesUncalibrated :
+    data object Accelerometer : SensorType(name = "Accelerometer")
+    data object MagneticField : SensorType(name = "MagneticField")
+    data object Gyroscope : SensorType(name = "Gyroscope")
+    data object Light : SensorType(name = "Light")
+    data object Pressure : SensorType(name = "Pressure")
+    data object Proximity : SensorType(name = "Proximity")
+    data object Gravity : SensorType(name = "Gravity")
+    data object LinearAcceleration : SensorType(name = "LinearAcceleration")
+    data object RotationVector : SensorType(name = "RotationVector")
+    data object RelativeHumidity : SensorType(name = "RelativeHumidity")
+    data object AmbientTemperature : SensorType(name = "AmbientTemperature")
+    data object MagneticFieldUncalibrated : SensorType(name = "MagneticFieldUncalibrated")
+    data object GameRotationVector : SensorType(name = "GameRotationVector")
+    data object GyroscopeUncalibrated : SensorType(name = "GyroscopeUncalibrated")
+    data object SignificantMotion : SensorType(name = "SignificantMotion")
+    data object StepDetector : SensorType(name = "StepDetector")
+    data object StepCounter : SensorType(name = "StepCounter")
+    data object GeomagneticRotationVector : SensorType(name = "GeomagneticRotationVector")
+    data object HeartRate : SensorType(name = "HeartRate")
+    data object Pose6DOF : SensorType(name = "Pose6DOF")
+    data object StationaryDetect : SensorType(name = "StationaryDetect")
+    data object MotionDetect : SensorType(name = "MotionDetect")
+    data object HeartBeat : SensorType(name = "HeartBeat")
+    data object LowLatencyOffBodyDetect : SensorType(name = "LowLatencyOffBodyDetect")
+    data object AccelerometerUncalibrated : SensorType(name = "AccelerometerUncalibrated")
+    data object HingeAngle : SensorType(name = "HingeAngle")
+    data object HeadTracker : SensorType(name = "HeadTracker")
+    data object AccelerometerLimitedAxes : SensorType(name = "AccelerometerLimitedAxes")
+    data object GyroscopeLimitedAxes : SensorType(name = "GyroscopeLimitedAxes")
+    data object AccelerometerLimitedAxesUncalibrated :
         SensorType(name = "AccelerometerLimitedAxesUncalibrated")
 
-    object GyroscopeLimitedAxesUncalibrated : SensorType(name = "GyroscopeLimitedAxesUncalibrated")
-    object Heading : SensorType(name = "Heading")
+    data object GyroscopeLimitedAxesUncalibrated : SensorType(name = "GyroscopeLimitedAxesUncalibrated")
+    data object Heading : SensorType(name = "Heading")
 
     fun toAndroidSensorType(): Int {
         return when (this) {
@@ -123,5 +123,5 @@ private inline fun <T> checkApi(expectedApi: Int, block: () -> T): T {
 private class OldApiException(currentApi: Int, expectedApi: Int) :
     Exception(
         "The current API ($currentApi) is too low. At least API ($expectedApi) is required to use" +
-            "this sensor."
+            " this sensor."
     )

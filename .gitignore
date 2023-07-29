@@ -16,3 +16,5 @@ local.properties
 /.idea/
 /.secrets
 /.env
+/keystore.properties
+/keystore/keystore.jks
