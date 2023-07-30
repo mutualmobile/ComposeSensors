@@ -6,6 +6,7 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white">
+    <img src="https://img.shields.io/badge/Compose-093042?style=for-the-badge&logo=jetpackcompose&logoColor=3DDC84">
     <a href="https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~">
         <img src="https://img.shields.io/nexus/r/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge">
     </a>
