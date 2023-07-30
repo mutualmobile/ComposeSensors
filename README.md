@@ -1,13 +1,26 @@
-# Compose Sensors
-<img src="https://raw.githubusercontent.com/mutualmobile/ComposeSensors/main/art/thumnail.png" width=200 />
+<h1 align="center">Compose Sensors</h1>
 
-[![Sonatype](https://img.shields.io/nexus/r/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org%2F)](https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~)
+<p align="center">
+  <img width="200" src="https://raw.githubusercontent.com/mutualmobile/ComposeSensors/main/art/thumnail.png">
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white">
+    <a href="https://oss.sonatype.org/#nexus-search;gav~com.mutualmobile~composesensors~~~">
+        <img src="https://img.shields.io/nexus/r/com.mutualmobile/composesensors?server=https%3A%2F%2Foss.sonatype.org&style=for-the-badge">
+    </a>
+    <a href="https://androidweekly.net/issues/issue-575">
+        <img src="https://img.shields.io/badge/575-brightgreen?style=for-the-badge&label=Android%20Weekly">
+    </a>
+</p>
 
 Accessing sensor data of your Android devices just became quick and easy ⚡️
 
 This library provides a convenience wrapper over the [Sensor APIs](https://developer.android.com/guide/topics/sensors/sensors_overview) for Android to be used with Jetpack Compose.
 
 ## Demo ❤️
+Because `A picture is worth a thousand words`
+
 ![Screen Recording 2023-04-03 at 1 00 08 PM](https://user-images.githubusercontent.com/89389061/229441943-6339d18f-c704-4d92-9fe8-28c2fd94fdeb.gif)
 
 ## Usage 🚀
@@ -48,38 +61,38 @@ Text(
 ComposeSensors supports the following Android sensors:
 Sensor | Composable
 ------------- | -------------
-Accelerometer | rememberAccelerometerSensorState()
-Magnetic Field | rememberMagneticFieldSensorState()
-Gyroscope | rememberGyroscopeSensorState()
-Light  | rememberLightSensorState()
-Pressure | rememberPressureSensorState()
-Proximity | rememberProximitySensorState()
-Gravity | rememberGravitySensorState()
-Linear Acceleration | rememberLinearAccelerationSensorState()
-Rotation Vector | rememberRotationVectorSensorState()
-Relative Humidity | rememberRelativeHumiditySensorState()
-Ambient Temperature | rememberAmbientTemperatureSensorState()
-Magnetic Field (Uncalibrated)️ | rememberUncalibratedMagneticFieldSensorState()
-GameRotation Vector | rememberGameRotationVectorSensorState()
-Gyroscope (Uncalibrated) | rememberUncalibratedGyroscopeSensorState()
-Significant Motion| rememberSignificantMotionSensorState(onMotionEvent = {})
-Step Detector | rememberStepDetectorSensorState()
-Step Counter | rememberStepCounterSensorState()
-Geomagnetic Rotation Vector | rememberGeomagneticRotationVectorSensorState()
-Heart Rate | rememberHeartRateSensorState()
-Pose6DOF| rememberPose6DOFSensorState()
-Stationary Detect | rememberStationaryDetectSensorState()
-Motion Detect | rememberMotionDetectSensorState()
-Heart Beat| rememberHeartBeatSensorState()
-Low Latency Off-Body Detect | rememberLowLatencyOffBodyDetectSensorState()
-Accelerometer (Uncalibrated) | rememberUncalibratedAccelerometerSensorState()
-Hinge Angle | rememberHingeAngleSensorState()
-Head Tracker | rememberHeadTrackerSensorState()
-Accelerometer Limited Axes | rememberLimitedAxesAccelerometerSensorState()
-Gyroscope Limited Axes | rememberLimitedAxesGyroscopeSensorState()
-Accelerometer Limited Axes (Uncalibrated) | rememberUncalibratedLimitedAxesAccelerometerSensorState()
-Gyroscope Limited Axes (Uncalibrated) | rememberUncalibratedLimitedAxesGyroscopeSensorState()
-Heading | rememberHeadingSensorState()
+Accelerometer | `rememberAccelerometerSensorState()`
+Magnetic Field | `rememberMagneticFieldSensorState()`
+Gyroscope | `rememberGyroscopeSensorState()`
+Light  | `rememberLightSensorState()`
+Pressure | `rememberPressureSensorState()`
+Proximity | `rememberProximitySensorState()`
+Gravity | `rememberGravitySensorState()`
+Linear Acceleration | `rememberLinearAccelerationSensorState()`
+Rotation Vector | `rememberRotationVectorSensorState()`
+Relative Humidity | `rememberRelativeHumiditySensorState()`
+Ambient Temperature | `rememberAmbientTemperatureSensorState()`
+Magnetic Field (Uncalibrated)️ | `rememberUncalibratedMagneticFieldSensorState()`
+GameRotation Vector | `rememberGameRotationVectorSensorState()`
+Gyroscope (Uncalibrated) | `rememberUncalibratedGyroscopeSensorState()`
+Significant Motion| `rememberSignificantMotionSensorState(onMotionEvent = {})`
+Step Detector | `rememberStepDetectorSensorState()`
+Step Counter | `rememberStepCounterSensorState()`
+Geomagnetic Rotation Vector | `rememberGeomagneticRotationVectorSensorState()`
+Heart Rate | `rememberHeartRateSensorState()`
+Pose6DOF| `rememberPose6DOFSensorState()`
+Stationary Detect | `rememberStationaryDetectSensorState()`
+Motion Detect | `rememberMotionDetectSensorState()`
+Heart Beat| `rememberHeartBeatSensorState()`
+Low Latency Off-Body Detect | `rememberLowLatencyOffBodyDetectSensorState()`
+Accelerometer (Uncalibrated) | `rememberUncalibratedAccelerometerSensorState()`
+Hinge Angle | `rememberHingeAngleSensorState()`
+Head Tracker | `rememberHeadTrackerSensorState()`
+Accelerometer Limited Axes | `rememberLimitedAxesAccelerometerSensorState()`
+Gyroscope Limited Axes | `rememberLimitedAxesGyroscopeSensorState()`
+Accelerometer Limited Axes (Uncalibrated) | `rememberUncalibratedLimitedAxesAccelerometerSensorState()`
+Gyroscope Limited Axes (Uncalibrated) | `rememberUncalibratedLimitedAxesGyroscopeSensorState()`
+Heading | `rememberHeadingSensorState()`
 
 ## License 🔖
 ```
