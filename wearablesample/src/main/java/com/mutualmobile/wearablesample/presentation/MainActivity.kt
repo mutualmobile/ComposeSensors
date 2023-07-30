@@ -83,8 +83,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     AnimatedContent(
-                        targetState = isPermissionGranted,
-                        label = "animated container"
+                        targetState = isPermissionGranted
                     ) { animatedIsGranted ->
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
