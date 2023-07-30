@@ -18,7 +18,7 @@ class PressureSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -44,7 +44,7 @@ class PressureSensorState internal constructor(
 
     override fun toString(): String {
         return "PressureSensorState(pressure=$pressure, isAvailable=$isAvailable," +
-            " accuracy=$accuracy)"
+                " accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -68,7 +68,7 @@ class PressureSensorState internal constructor(
 fun rememberPressureSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): PressureSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Pressure,
@@ -76,7 +76,14 @@ fun rememberPressureSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val pressureSensorState = remember { mutableStateOf(PressureSensorState()) }
+    val pressureSensorState = remember {
+        mutableStateOf(
+            PressureSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

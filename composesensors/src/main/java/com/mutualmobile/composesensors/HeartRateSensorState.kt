@@ -44,7 +44,7 @@ class HeartRateSensorState internal constructor(
 
     override fun toString(): String {
         return "HeartRateSensorState(heartRate=$heartRate isAvailable=$isAvailable," +
-            " accuracy=$accuracy)"
+                " accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -76,7 +76,14 @@ fun rememberHeartRateSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val heartRateSensorState = remember { mutableStateOf(HeartRateSensorState()) }
+    val heartRateSensorState = remember {
+        mutableStateOf(
+            HeartRateSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

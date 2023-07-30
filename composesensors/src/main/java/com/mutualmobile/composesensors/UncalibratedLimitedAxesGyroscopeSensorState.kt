@@ -53,7 +53,7 @@ class UncalibratedLimitedAxesGyroscopeSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -95,9 +95,9 @@ class UncalibratedLimitedAxesGyroscopeSensorState internal constructor(
 
     override fun toString(): String {
         return "UncalibratedGyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation," +
-            " zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
-            " xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported," +
-            " zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
+                " zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
+                " xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported," +
+                " zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -122,7 +122,7 @@ class UncalibratedLimitedAxesGyroscopeSensorState internal constructor(
 fun rememberUncalibratedLimitedAxesGyroscopeSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): UncalibratedLimitedAxesGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeLimitedAxesUncalibrated,
@@ -131,7 +131,14 @@ fun rememberUncalibratedLimitedAxesGyroscopeSensorState(
         onError = onError
     )
     val uncalibratedLimitedAxesGyroscopeSensorState =
-        remember { mutableStateOf(UncalibratedLimitedAxesGyroscopeSensorState()) }
+        remember {
+            mutableStateOf(
+                UncalibratedLimitedAxesGyroscopeSensorState(
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            )
+        }
 
     LaunchedEffect(
         key1 = sensorState,

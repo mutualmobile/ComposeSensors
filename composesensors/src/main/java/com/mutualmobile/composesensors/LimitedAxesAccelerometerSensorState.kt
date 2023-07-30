@@ -29,7 +29,7 @@ class LimitedAxesAccelerometerSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
 
     override fun equals(other: Any?): Boolean {
@@ -66,8 +66,8 @@ class LimitedAxesAccelerometerSensorState internal constructor(
 
     override fun toString(): String {
         return "LimitedAxesAccelerometerSensorState(xForce=$xForce, yForce=$yForce, " +
-            "zForce=$zForce, xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
-            "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zForce=$zForce, xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
+                "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -91,7 +91,7 @@ class LimitedAxesAccelerometerSensorState internal constructor(
 fun rememberLimitedAxesAccelerometerSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): LimitedAxesAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxes,
@@ -100,7 +100,14 @@ fun rememberLimitedAxesAccelerometerSensorState(
         onError = onError
     )
     val accelerometerSensorState =
-        remember { mutableStateOf(LimitedAxesAccelerometerSensorState()) }
+        remember {
+            mutableStateOf(
+                LimitedAxesAccelerometerSensorState(
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            )
+        }
 
     LaunchedEffect(
         key1 = sensorState,

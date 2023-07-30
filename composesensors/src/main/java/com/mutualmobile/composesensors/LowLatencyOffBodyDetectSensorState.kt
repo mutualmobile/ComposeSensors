@@ -22,7 +22,7 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -48,7 +48,7 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
 
     override fun toString(): String {
         return "LowLatencyOffBodyDetectSensorState(isDeviceOnBody=$isDeviceOnBody," +
-            " isAvailable=$isAvailable, accuracy=$accuracy)"
+                " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -73,7 +73,7 @@ class LowLatencyOffBodyDetectSensorState internal constructor(
 fun rememberLowLatencyOffBodyDetectSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): LowLatencyOffBodyDetectSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.LowLatencyOffBodyDetect,
@@ -82,7 +82,14 @@ fun rememberLowLatencyOffBodyDetectSensorState(
         onError = onError
     )
     val lowLatencyOffBodyDetectSensorState =
-        remember { mutableStateOf(LowLatencyOffBodyDetectSensorState()) }
+        remember {
+            mutableStateOf(
+                LowLatencyOffBodyDetectSensorState(
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            )
+        }
 
     LaunchedEffect(
         key1 = sensorState,

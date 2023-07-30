@@ -23,7 +23,7 @@ class HeadingSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -51,7 +51,7 @@ class HeadingSensorState internal constructor(
 
     override fun toString(): String {
         return "HeadingSensorState(degrees=$degrees, headingAccuracy=$headingAccuracy, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -75,7 +75,7 @@ class HeadingSensorState internal constructor(
 fun rememberHeadingSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): HeadingSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Heading,
@@ -84,7 +84,14 @@ fun rememberHeadingSensorState(
         onError = onError
     )
 
-    val headingSensorState = remember { mutableStateOf(HeadingSensorState()) }
+    val headingSensorState = remember {
+        mutableStateOf(
+            HeadingSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

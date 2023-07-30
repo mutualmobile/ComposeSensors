@@ -152,8 +152,10 @@ internal fun rememberSensorState(
                 }
 
                 onDispose {
-                    sensorManager.unregisterListener(sensorEventListener)
-                    isListenerStarted.value = false
+                    sensorEventListener?.let { safeListener ->
+                        sensorManager.unregisterListener(safeListener)
+                        isListenerStarted.value = false
+                    }
                 }
             }
         )

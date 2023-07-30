@@ -33,7 +33,7 @@ class UncalibratedGyroscopeSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -69,8 +69,8 @@ class UncalibratedGyroscopeSensorState internal constructor(
 
     override fun toString(): String {
         return "GyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, " +
-            "zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
-            " isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zRotation=$zRotation," + "xBias=$xBias," + "yBias=$yBias," + "zBias=$zBias," +
+                " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -94,7 +94,7 @@ class UncalibratedGyroscopeSensorState internal constructor(
 fun rememberUncalibratedGyroscopeSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): UncalibratedGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeUncalibrated,
@@ -103,7 +103,14 @@ fun rememberUncalibratedGyroscopeSensorState(
         onError = onError
     )
     val uncalibratedGyroscopeSensorState =
-        remember { mutableStateOf(UncalibratedGyroscopeSensorState()) }
+        remember {
+            mutableStateOf(
+                UncalibratedGyroscopeSensorState(
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            )
+        }
 
     LaunchedEffect(
         key1 = sensorState,

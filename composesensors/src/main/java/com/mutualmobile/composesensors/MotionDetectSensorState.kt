@@ -29,7 +29,7 @@ class MotionDetectSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -55,7 +55,7 @@ class MotionDetectSensorState internal constructor(
 
     override fun toString(): String {
         return "MotionDetectSensorState(isDeviceInMotion=$isDeviceInMotion," +
-            " isAvailable=$isAvailable, accuracy=$accuracy)"
+                " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -80,7 +80,7 @@ class MotionDetectSensorState internal constructor(
 fun rememberMotionDetectSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): MotionDetectSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.MotionDetect,
@@ -88,7 +88,14 @@ fun rememberMotionDetectSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val confidenceSensorState = remember { mutableStateOf(MotionDetectSensorState()) }
+    val confidenceSensorState = remember {
+        mutableStateOf(
+            MotionDetectSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

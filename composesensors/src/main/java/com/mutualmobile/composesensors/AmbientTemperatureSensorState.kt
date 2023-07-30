@@ -18,7 +18,7 @@ class AmbientTemperatureSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -43,7 +43,7 @@ class AmbientTemperatureSensorState internal constructor(
 
     override fun toString(): String {
         return "AmbientTemperatureSensorState(temperature=$temperature, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -67,7 +67,7 @@ class AmbientTemperatureSensorState internal constructor(
 fun rememberAmbientTemperatureSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): AmbientTemperatureSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AmbientTemperature,
@@ -77,7 +77,12 @@ fun rememberAmbientTemperatureSensorState(
     )
 
     val ambientTemperatureSensorState = remember {
-        mutableStateOf(AmbientTemperatureSensorState())
+        mutableStateOf(
+            AmbientTemperatureSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
     }
 
     LaunchedEffect(key1 = sensorState, block = {

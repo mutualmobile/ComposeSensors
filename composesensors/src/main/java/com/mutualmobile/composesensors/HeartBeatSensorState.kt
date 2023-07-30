@@ -28,7 +28,7 @@ class HeartBeatSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -54,7 +54,7 @@ class HeartBeatSensorState internal constructor(
 
     override fun toString(): String {
         return "HeartBeatSensorState(isConfidentPeak=$isConfidentPeak isAvailable=$isAvailable, " +
-            "accuracy=$accuracy)"
+                "accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -79,7 +79,7 @@ class HeartBeatSensorState internal constructor(
 fun rememberHeartBeatSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): HeartBeatSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.HeartBeat,
@@ -87,7 +87,14 @@ fun rememberHeartBeatSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val confidenceSensorState = remember { mutableStateOf(HeartBeatSensorState()) }
+    val confidenceSensorState = remember {
+        mutableStateOf(
+            HeartBeatSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

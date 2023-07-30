@@ -30,7 +30,7 @@ class LimitedAxesGyroscopeSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
 
     override fun equals(other: Any?): Boolean {
@@ -69,9 +69,9 @@ class LimitedAxesGyroscopeSensorState internal constructor(
 
     override fun toString(): String {
         return "LimitedAxesGyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, " +
-            "zRotation=$zRotation, xAxisSupported=$xAxisSupported, " +
-            "yAxisSupported=$yAxisSupported, zAxisSupported=$zAxisSupported, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zRotation=$zRotation, xAxisSupported=$xAxisSupported, " +
+                "yAxisSupported=$yAxisSupported, zAxisSupported=$zAxisSupported, " +
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -96,7 +96,7 @@ class LimitedAxesGyroscopeSensorState internal constructor(
 fun rememberLimitedAxesGyroscopeSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): LimitedAxesGyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.GyroscopeLimitedAxes,
@@ -105,7 +105,14 @@ fun rememberLimitedAxesGyroscopeSensorState(
         onError = onError
     )
 
-    val gyroscopeLimitedAxesSensor = remember { mutableStateOf(LimitedAxesGyroscopeSensorState()) }
+    val gyroscopeLimitedAxesSensor = remember {
+        mutableStateOf(
+            LimitedAxesGyroscopeSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(key1 = sensorState, block = {
         val sensorStateValues = sensorState.data

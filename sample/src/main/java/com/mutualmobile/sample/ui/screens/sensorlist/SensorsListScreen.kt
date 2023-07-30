@@ -57,6 +57,7 @@ import com.mutualmobile.composesensors.MotionDetectSensorState
 import com.mutualmobile.composesensors.PressureSensorState
 import com.mutualmobile.composesensors.ProximitySensorState
 import com.mutualmobile.composesensors.RotationVectorSensorState
+import com.mutualmobile.composesensors.SensorStateListener
 import com.mutualmobile.composesensors.SignificantMotionSensorState
 import com.mutualmobile.composesensors.StationaryDetectSensorState
 import com.mutualmobile.composesensors.StepCounterSensorState
@@ -101,7 +102,7 @@ import com.mutualmobile.sample.ui.screens.sensorlist.components.SensorItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-val sensorStates: List<Any>
+private val sensorStateList: List<SensorStateListener>
     @SuppressLint("NewApi")
     @Composable
     get() = listOf(
@@ -146,7 +147,7 @@ fun SensorsListScreen() {
     var isTopBarTitleCollapsed by remember { mutableStateOf(false) }
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
-    val totalSensorsCount = rememberUpdatedState(sensorStates.size)
+    val sensorStates by rememberUpdatedState(sensorStateList)
 
     // Trigger TopBar animation once
     LaunchedEffect(Unit) {
@@ -154,6 +155,16 @@ fun SensorsListScreen() {
         isTopBarTitleCollapsed = true
         delay(2000)
         isTopBarTitleCollapsed = false
+    }
+
+    LaunchedEffect(pagerState.currentPage) {
+        sensorStates.forEachIndexed { index, listener ->
+            if (pagerState.currentPage == index) {
+                listener.startListening()
+            } else {
+                listener.stopListening()
+            }
+        }
     }
 
     Scaffold(
@@ -222,17 +233,17 @@ fun SensorsListScreen() {
                     },
                     onLongClick = {
                         coroutineScope.launch {
-                            pagerState.scrollToPage(totalSensorsCount.value - 1)
+                            pagerState.scrollToPage(sensorStates.size - 1)
                         }
                     },
                     position = CSButtonPosition.End,
-                    enabled = pagerState.currentPage != totalSensorsCount.value - 1
+                    enabled = pagerState.currentPage != sensorStates.size - 1
                 )
             }
         }
     ) {
         HorizontalPager(
-            pageCount = totalSensorsCount.value,
+            pageCount = sensorStates.size,
             state = pagerState,
             contentPadding = PaddingValues(32.dp),
             beyondBoundsPageCount = 1,

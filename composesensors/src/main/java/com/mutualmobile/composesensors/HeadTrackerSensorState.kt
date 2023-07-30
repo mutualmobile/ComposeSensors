@@ -34,7 +34,7 @@ class HeadTrackerSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
 
     override fun equals(other: Any?): Boolean {
@@ -73,9 +73,9 @@ class HeadTrackerSensorState internal constructor(
 
     override fun toString(): String {
         return "HeadTrackerSensorState(xRotation=$xRotation, yRotation=$yRotation," +
-            " zRotation=$zRotation, xAngularVelocity=$xAngularVelocity," +
-            " yAngularVelocity=$yAngularVelocity, zAngularVelocity=$zAngularVelocity," +
-            " isAvailable=$isAvailable, accuracy=$accuracy)"
+                " zRotation=$zRotation, xAngularVelocity=$xAngularVelocity," +
+                " yAngularVelocity=$yAngularVelocity, zAngularVelocity=$zAngularVelocity," +
+                " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -100,7 +100,7 @@ class HeadTrackerSensorState internal constructor(
 fun rememberHeadTrackerSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): HeadTrackerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.HeadTracker,
@@ -109,7 +109,14 @@ fun rememberHeadTrackerSensorState(
         onError = onError
     )
 
-    val headTrackerSensor = remember { mutableStateOf(HeadTrackerSensorState()) }
+    val headTrackerSensor = remember {
+        mutableStateOf(
+            HeadTrackerSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(key1 = sensorState, block = {
         val sensorStateValues = sensorState.data

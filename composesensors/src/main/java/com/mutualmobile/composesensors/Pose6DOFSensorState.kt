@@ -54,7 +54,7 @@ class Pose6DOFSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -108,15 +108,15 @@ class Pose6DOFSensorState internal constructor(
 
     override fun toString(): String {
         return "Pose6DOFSensorState(xScaledSinValue=$xScaledSinValue," +
-            " yScaledSinValue=$yScaledSinValue, zScaledSinValue=$zScaledSinValue, " +
-            " cosValue=$cosValue, xTranslation=$xTranslation, yTranslation=$yTranslation," +
-            " zTranslation=$zTranslation, xScaledSinDeltaRotation=$xScaledSinDeltaRotation," +
-            " yScaledSinDeltaRotation=$yScaledSinDeltaRotation," +
-            " zScaledSinDeltaRotation=$zScaledSinDeltaRotation," +
-            " cosDeltaRotation=$cosDeltaRotation, xDeltaTranslation=$xDeltaTranslation," +
-            " yDeltaTranslation=$yDeltaTranslation, zDeltaTranslation=$zDeltaTranslation," +
-            " sequenceNumber=$sequenceNumber, isAvailable=$isAvailable, " +
-            "accuracy=$accuracy)"
+                " yScaledSinValue=$yScaledSinValue, zScaledSinValue=$zScaledSinValue, " +
+                " cosValue=$cosValue, xTranslation=$xTranslation, yTranslation=$yTranslation," +
+                " zTranslation=$zTranslation, xScaledSinDeltaRotation=$xScaledSinDeltaRotation," +
+                " yScaledSinDeltaRotation=$yScaledSinDeltaRotation," +
+                " zScaledSinDeltaRotation=$zScaledSinDeltaRotation," +
+                " cosDeltaRotation=$cosDeltaRotation, xDeltaTranslation=$xDeltaTranslation," +
+                " yDeltaTranslation=$yDeltaTranslation, zDeltaTranslation=$zDeltaTranslation," +
+                " sequenceNumber=$sequenceNumber, isAvailable=$isAvailable, " +
+                "accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -141,7 +141,7 @@ class Pose6DOFSensorState internal constructor(
 fun rememberPose6DOFSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): Pose6DOFSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Pose6DOF,
@@ -149,7 +149,14 @@ fun rememberPose6DOFSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val pose6DOFSensorState = remember { mutableStateOf(Pose6DOFSensorState()) }
+    val pose6DOFSensorState = remember {
+        mutableStateOf(
+            Pose6DOFSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

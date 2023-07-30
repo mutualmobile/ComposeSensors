@@ -19,7 +19,7 @@ class StepDetectorSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,7 +45,7 @@ class StepDetectorSensorState internal constructor(
 
     override fun toString(): String {
         return "StepDetectorSensorState(stepCount=$stepCount isAvailable=$isAvailable," +
-            " accuracy=$accuracy)"
+                " accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -69,7 +69,7 @@ class StepDetectorSensorState internal constructor(
 fun rememberStepDetectorSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): StepDetectorSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.StepDetector,
@@ -77,7 +77,14 @@ fun rememberStepDetectorSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val stepDetectorSensorState = remember { mutableStateOf(StepDetectorSensorState()) }
+    val stepDetectorSensorState = remember {
+        mutableStateOf(
+            StepDetectorSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

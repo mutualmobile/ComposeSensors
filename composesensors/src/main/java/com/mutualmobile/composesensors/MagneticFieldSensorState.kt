@@ -22,7 +22,7 @@ class MagneticFieldSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -52,7 +52,7 @@ class MagneticFieldSensorState internal constructor(
 
     override fun toString(): String {
         return "MagneticFieldSensorState(xStrength=$xStrength, yStrength=$yStrength, " +
-            "zStrength=$zStrength, isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zStrength=$zStrength, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -76,7 +76,7 @@ class MagneticFieldSensorState internal constructor(
 fun rememberMagneticFieldSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): MagneticFieldSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.MagneticField,
@@ -84,7 +84,14 @@ fun rememberMagneticFieldSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val magneticFieldSensorState = remember { mutableStateOf(MagneticFieldSensorState()) }
+    val magneticFieldSensorState = remember {
+        mutableStateOf(
+            MagneticFieldSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

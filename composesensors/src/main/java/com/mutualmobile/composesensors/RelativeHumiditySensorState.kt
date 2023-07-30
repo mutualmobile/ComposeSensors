@@ -27,7 +27,7 @@ class RelativeHumiditySensorState internal constructor(
     val actualTemp: Float = 0f,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     val absoluteHumidity = 216.7
         .times(relativeHumidity)
@@ -42,7 +42,7 @@ class RelativeHumiditySensorState internal constructor(
         )
 
     private val humidity = ln(relativeHumidity / 100.0) +
-        (17.62 * actualTemp) / (243.12 + actualTemp)
+            (17.62 * actualTemp) / (243.12 + actualTemp)
 
     val dewPointTemperature = 243.12 * (humidity / (17.62 - humidity))
 
@@ -70,8 +70,8 @@ class RelativeHumiditySensorState internal constructor(
 
     override fun toString(): String {
         return "HumiditySensorState(relativeHumidity=$relativeHumidity, " +
-            "isAvailable=$isAvailable, " +
-            "accuracy=$accuracy)"
+                "isAvailable=$isAvailable, " +
+                "accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -99,7 +99,7 @@ fun rememberRelativeHumiditySensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
     actualTemp: Float = 0f,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): RelativeHumiditySensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.RelativeHumidity,
@@ -107,7 +107,14 @@ fun rememberRelativeHumiditySensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val relativeHumiditySensorState = remember { mutableStateOf(RelativeHumiditySensorState()) }
+    val relativeHumiditySensorState = remember {
+        mutableStateOf(
+            RelativeHumiditySensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

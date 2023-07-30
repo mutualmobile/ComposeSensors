@@ -27,7 +27,7 @@ class StationaryDetectSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -53,7 +53,7 @@ class StationaryDetectSensorState internal constructor(
 
     override fun toString(): String {
         return "StationaryDetectSensorState(isDeviceStationary=$isDeviceStationary," +
-            " isAvailable=$isAvailable, accuracy=$accuracy)"
+                " isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -78,7 +78,7 @@ class StationaryDetectSensorState internal constructor(
 fun rememberStationaryDetectSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): StationaryDetectSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.StationaryDetect,
@@ -86,7 +86,14 @@ fun rememberStationaryDetectSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val confidenceSensorState = remember { mutableStateOf(StationaryDetectSensorState()) }
+    val confidenceSensorState = remember {
+        mutableStateOf(
+            StationaryDetectSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

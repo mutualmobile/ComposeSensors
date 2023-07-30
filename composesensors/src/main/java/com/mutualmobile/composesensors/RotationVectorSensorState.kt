@@ -26,7 +26,7 @@ class RotationVectorSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -59,9 +59,9 @@ class RotationVectorSensorState internal constructor(
 
     override fun toString(): String {
         return "RotationVectorSensorState(vectorX=$vectorX, " +
-            "vectorY=$vectorY, vectorZ=$vectorZ, scalar=$scalar, " +
-            "estimatedHeadingAccuracy=$estimatedHeadingAccuracy, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                "vectorY=$vectorY, vectorZ=$vectorZ, scalar=$scalar, " +
+                "estimatedHeadingAccuracy=$estimatedHeadingAccuracy, " +
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -85,7 +85,7 @@ class RotationVectorSensorState internal constructor(
 fun rememberRotationVectorSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): RotationVectorSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.RotationVector,
@@ -94,7 +94,14 @@ fun rememberRotationVectorSensorState(
         onError = onError
     )
 
-    val rotationVectorSensorState = remember { mutableStateOf(RotationVectorSensorState()) }
+    val rotationVectorSensorState = remember {
+        mutableStateOf(
+            RotationVectorSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(key1 = sensorState, block = {
         val sensorStateValues = sensorState.data

@@ -23,7 +23,7 @@ class AccelerometerSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -53,7 +53,7 @@ class AccelerometerSensorState internal constructor(
 
     override fun toString(): String {
         return "AccelerometerSensorState(xForce=$xForce, yForce=$yForce, zForce=$zForce, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -77,7 +77,7 @@ class AccelerometerSensorState internal constructor(
 fun rememberAccelerometerSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): AccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Accelerometer,
@@ -85,7 +85,14 @@ fun rememberAccelerometerSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val accelerometerSensorState = remember { mutableStateOf(AccelerometerSensorState()) }
+    val accelerometerSensorState = remember {
+        mutableStateOf(
+            AccelerometerSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

@@ -18,7 +18,7 @@ class LightSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -44,7 +44,7 @@ class LightSensorState internal constructor(
 
     override fun toString(): String {
         return "LightSensorState(illuminance=$illuminance, isAvailable=$isAvailable, " +
-            "accuracy=$accuracy)"
+                "accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -68,7 +68,7 @@ class LightSensorState internal constructor(
 fun rememberLightSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): LightSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Light,
@@ -76,7 +76,14 @@ fun rememberLightSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val lightSensorState = remember { mutableStateOf(LightSensorState()) }
+    val lightSensorState = remember {
+        mutableStateOf(
+            LightSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

@@ -23,7 +23,7 @@ class GravitySensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -53,7 +53,7 @@ class GravitySensorState internal constructor(
 
     override fun toString(): String {
         return "GravitySensorState(xForce=$xForce, yForce=$yForce, " +
-            "zForce=$zForce, isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zForce=$zForce, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -77,7 +77,7 @@ class GravitySensorState internal constructor(
 fun rememberGravitySensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): GravitySensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Gravity,
@@ -85,7 +85,14 @@ fun rememberGravitySensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val gravitySensorState = remember { mutableStateOf(GravitySensorState()) }
+    val gravitySensorState = remember {
+        mutableStateOf(
+            GravitySensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

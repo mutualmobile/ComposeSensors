@@ -35,7 +35,7 @@ class UncalibratedLimitedAxesAccelerometerSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -77,9 +77,9 @@ class UncalibratedLimitedAxesAccelerometerSensorState internal constructor(
 
     override fun toString(): String {
         return "UncalibratedLimitedAxesAccelerometerSensorState(xForce=$xForce, yForce=$yForce, " +
-            "zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
-            "xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
-            "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zForce=$zForce, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
+                "xAxisSupported=$xAxisSupported, yAxisSupported=$yAxisSupported, " +
+                "zAxisSupported=$zAxisSupported, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -103,7 +103,7 @@ class UncalibratedLimitedAxesAccelerometerSensorState internal constructor(
 fun rememberUncalibratedLimitedAxesAccelerometerSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): UncalibratedLimitedAxesAccelerometerSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.AccelerometerLimitedAxesUncalibrated,
@@ -112,7 +112,14 @@ fun rememberUncalibratedLimitedAxesAccelerometerSensorState(
         onError = onError
     )
     val accelerometerSensorState =
-        remember { mutableStateOf(UncalibratedLimitedAxesAccelerometerSensorState()) }
+        remember {
+            mutableStateOf(
+                UncalibratedLimitedAxesAccelerometerSensorState(
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            )
+        }
 
     LaunchedEffect(
         key1 = sensorState,

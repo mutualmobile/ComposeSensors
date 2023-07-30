@@ -23,7 +23,7 @@ class GyroscopeSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -51,7 +51,7 @@ class GyroscopeSensorState internal constructor(
 
     override fun toString(): String {
         return "GyroscopeSensorState(xRotation=$xRotation, yRotation=$yRotation, " +
-            "zRotation=$zRotation, isAvailable=$isAvailable, accuracy=$accuracy)"
+                "zRotation=$zRotation, isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -75,7 +75,7 @@ class GyroscopeSensorState internal constructor(
 fun rememberGyroscopeSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): GyroscopeSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Gyroscope,
@@ -83,7 +83,14 @@ fun rememberGyroscopeSensorState(
         autoStart = autoStart,
         onError = onError
     )
-    val gyroscopeSensorState = remember { mutableStateOf(GyroscopeSensorState()) }
+    val gyroscopeSensorState = remember {
+        mutableStateOf(
+            GyroscopeSensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(
         key1 = sensorState,

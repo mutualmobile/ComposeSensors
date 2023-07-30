@@ -18,7 +18,7 @@ class ProximitySensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -43,7 +43,7 @@ class ProximitySensorState internal constructor(
 
     override fun toString(): String {
         return "ProximitySensorState(sensorDistance=$sensorDistance, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -67,7 +67,7 @@ class ProximitySensorState internal constructor(
 fun rememberProximitySensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): ProximitySensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.Proximity,
@@ -76,7 +76,14 @@ fun rememberProximitySensorState(
         onError = onError
     )
 
-    val proximitySensorState = remember { mutableStateOf(ProximitySensorState()) }
+    val proximitySensorState = remember {
+        mutableStateOf(
+            ProximitySensorState(
+                startListeningEvents = sensorState::startListening,
+                stopListeningEvents = sensorState::stopListening
+            )
+        )
+    }
 
     LaunchedEffect(key1 = sensorState, block = {
         val sensorStateValues = sensorState.data

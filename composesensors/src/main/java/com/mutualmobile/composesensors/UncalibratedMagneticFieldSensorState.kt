@@ -30,7 +30,7 @@ class UncalibratedMagneticFieldSensorState internal constructor(
     val isAvailable: Boolean = false,
     val accuracy: Int = 0,
     private val startListeningEvents: (() -> Unit)? = null,
-    private val stopListeningEvents: (() -> Unit)? = null
+    private val stopListeningEvents: (() -> Unit)? = null,
 ) : SensorStateListener {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -66,8 +66,8 @@ class UncalibratedMagneticFieldSensorState internal constructor(
 
     override fun toString(): String {
         return "UncalibratedMagneticFieldSensorState(xStrength=$xStrength, yStrength=$yStrength," +
-            " zStrength=$zStrength, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
-            "isAvailable=$isAvailable, accuracy=$accuracy)"
+                " zStrength=$zStrength, xBias=$xBias, yBias=$yBias, zBias=$zBias, " +
+                "isAvailable=$isAvailable, accuracy=$accuracy)"
     }
 
     override fun startListening() {
@@ -91,7 +91,7 @@ class UncalibratedMagneticFieldSensorState internal constructor(
 fun rememberUncalibratedMagneticFieldSensorState(
     autoStart: Boolean = true,
     sensorDelay: SensorDelay = SensorDelay.Normal,
-    onError: (throwable: Throwable) -> Unit = {}
+    onError: (throwable: Throwable) -> Unit = {},
 ): UncalibratedMagneticFieldSensorState {
     val sensorState = rememberSensorState(
         sensorType = SensorType.MagneticFieldUncalibrated,
@@ -101,7 +101,14 @@ fun rememberUncalibratedMagneticFieldSensorState(
     )
 
     val uncalibratedMagneticFieldSensorState =
-        remember { mutableStateOf(UncalibratedMagneticFieldSensorState()) }
+        remember {
+            mutableStateOf(
+                UncalibratedMagneticFieldSensorState(
+                    startListeningEvents = sensorState::startListening,
+                    stopListeningEvents = sensorState::stopListening
+                )
+            )
+        }
 
     LaunchedEffect(
         key1 = sensorState,
