@@ -145,9 +145,9 @@ private val sensorStateList: List<SensorStateListener>
 @Composable
 fun SensorsListScreen() {
     var isTopBarTitleCollapsed by remember { mutableStateOf(false) }
-    val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     val sensorStates by rememberUpdatedState(sensorStateList)
+    val pagerState = rememberPagerState { sensorStates.size }
 
     // Trigger TopBar animation once
     LaunchedEffect(Unit) {
@@ -243,7 +243,6 @@ fun SensorsListScreen() {
         }
     ) {
         HorizontalPager(
-            pageCount = sensorStates.size,
             state = pagerState,
             contentPadding = PaddingValues(32.dp),
             beyondBoundsPageCount = 1,
