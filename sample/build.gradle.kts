@@ -71,7 +71,7 @@ android {
 }
 
 dependencies {
-    val composeVersion = "1.5.0"
+    val composeVersion = "1.5.4"
     val material3Version = "1.1.1"
     val lifecycleRuntimeKtxVersion = "2.6.1"
     val coreKtxVersion = "1.10.1"
