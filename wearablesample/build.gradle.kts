@@ -70,7 +70,7 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":composesensors")))
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("com.google.android.gms:play-services-wearable:18.1.0")
     implementation("androidx.percentlayout:percentlayout:1.0.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -78,8 +78,8 @@ dependencies {
     implementation("androidx.wear.compose:compose-material:${rootProject.extra["wear_compose_version"]}")
     implementation("androidx.wear.compose:compose-foundation:${rootProject.extra["wear_compose_version"]}")
     implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")

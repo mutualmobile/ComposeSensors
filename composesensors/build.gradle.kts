@@ -40,13 +40,13 @@ android {
 }
 
 dependencies {
-    val coreKtxVersion = "1.10.1"
+    val coreKtxVersion = "1.12.0"
     val appCompatVersion = "1.6.1"
-    val materialVersion = "1.9.0"
+    val materialVersion = "1.10.0"
     val jUnitVersion = "4.13.2"
     val androidJUnitVersion = "1.1.5"
     val espressoVersion = "3.5.1"
-    val composeVersion = "1.5.0"
+    val composeVersion = "1.5.4"
 
     implementation("androidx.compose.runtime:runtime:$composeVersion")
     implementation("androidx.compose.ui:ui:$composeVersion")
