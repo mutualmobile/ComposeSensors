@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    val coreKtxVersion = "1.10.1"
+    val coreKtxVersion = "1.12.0"
     val appCompatVersion = "1.6.1"
     val materialVersion = "1.9.0"
     val jUnitVersion = "4.13.2"
