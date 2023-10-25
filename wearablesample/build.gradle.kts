@@ -25,7 +25,7 @@ android {
         if (propertiesFile.exists()) {
             create("release") {
                 // Load keystore
-                val keystoreProperties = Properties().apply{
+                val keystoreProperties = Properties().apply {
                     load(propertiesFile.reader())
                 }
                 storeFile = File(keystoreProperties.getProperty("storeFile"))
