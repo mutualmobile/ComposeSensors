@@ -75,7 +75,7 @@ dependencies {
     val material3Version = "1.1.1"
     val lifecycleRuntimeKtxVersion = "2.6.1"
     val coreKtxVersion = "1.10.1"
-    val activityComposeVersion = "1.7.2"
+    val activityComposeVersion = "1.8.0"
     val jUnitVersion = "4.13.2"
     val androidJUnitVersion = "1.1.5"
     val espressoVersion = "3.5.1"
