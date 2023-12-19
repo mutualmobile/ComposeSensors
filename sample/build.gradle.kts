@@ -60,7 +60,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"
+        kotlinCompilerExtensionVersion = "1.5.7"
     }
     packaging {
         resources {
@@ -74,7 +74,7 @@ dependencies {
     val material3Version = "1.1.2"
     val lifecycleRuntimeKtxVersion = "2.6.2"
     val coreKtxVersion = "1.12.0"
-    val activityComposeVersion = "1.8.1"
+    val activityComposeVersion = "1.8.2"
     val jUnitVersion = "4.13.2"
     val androidJUnitVersion = "1.1.5"
     val espressoVersion = "3.5.1"
