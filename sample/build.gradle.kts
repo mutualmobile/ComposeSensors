@@ -60,7 +60,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -70,9 +70,9 @@ android {
 }
 
 dependencies {
-    val composeVersion = "1.5.4"
-    val material3Version = "1.1.2"
-    val lifecycleRuntimeKtxVersion = "2.6.2"
+    val composeVersion = "1.6.4"
+    val material3Version = "1.2.1"
+    val lifecycleRuntimeKtxVersion = "2.7.0"
     val coreKtxVersion = "1.12.0"
     val activityComposeVersion = "1.8.2"
     val jUnitVersion = "4.13.2"

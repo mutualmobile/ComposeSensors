@@ -1,10 +1,10 @@
 buildscript {
-    val compose_version by extra("1.5.4")
-    val wear_compose_version by extra("1.2.1")
+    val compose_version by extra("1.6.4")
+    val wear_compose_version by extra("1.3.0")
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "8.2.0" apply false
-    id("com.android.library") version "8.2.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.21" apply false
+    id("com.android.application") version "8.3.1" apply false
+    id("com.android.library") version "8.3.1" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
 }
