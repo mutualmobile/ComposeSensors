@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.vanniktech.maven.publish") version "0.28.0"
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
 android {
@@ -35,18 +35,18 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 
 dependencies {
-    val coreKtxVersion = "1.12.0"
-    val appCompatVersion = "1.6.1"
-    val materialVersion = "1.11.0"
+    val coreKtxVersion = "1.13.1"
+    val appCompatVersion = "1.7.0"
+    val materialVersion = "1.12.0"
     val jUnitVersion = "4.13.2"
-    val androidJUnitVersion = "1.1.5"
-    val espressoVersion = "3.5.1"
-    val composeVersion = "1.6.4"
+    val androidJUnitVersion = "1.2.1"
+    val espressoVersion = "3.6.1"
+    val composeVersion = "1.7.4"
 
     implementation("androidx.compose.runtime:runtime:$composeVersion")
     implementation("androidx.compose.ui:ui:$composeVersion")
