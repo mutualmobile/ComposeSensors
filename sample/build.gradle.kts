@@ -60,7 +60,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
@@ -70,14 +70,14 @@ android {
 }
 
 dependencies {
-    val composeVersion = "1.6.4"
-    val material3Version = "1.2.1"
-    val lifecycleRuntimeKtxVersion = "2.7.0"
-    val coreKtxVersion = "1.12.0"
-    val activityComposeVersion = "1.8.2"
+    val composeVersion = "1.7.4"
+    val material3Version = "1.3.0"
+    val lifecycleRuntimeKtxVersion = "2.8.6"
+    val coreKtxVersion = "1.13.1"
+    val activityComposeVersion = "1.9.3"
     val jUnitVersion = "4.13.2"
-    val androidJUnitVersion = "1.1.5"
-    val espressoVersion = "3.5.1"
+    val androidJUnitVersion = "1.2.1"
+    val espressoVersion = "3.6.1"
     val splashScreenVersion = "1.0.1"
 
     implementation(project(mapOf("path" to ":composesensors")))
