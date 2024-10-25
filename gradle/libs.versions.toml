@@ -1,0 +1,55 @@
+[versions]
+agp = "8.7.1"
+android-lifecycle-runtime = "2.8.6"
+androidCore = "1.13.1"
+appCompat = "1.7.0"
+compose-wear = "1.4.0"
+composeActivity = "1.9.3"
+composeBom = "2024.10.00"
+espresso = "3.6.1"
+junit = "4.13.2"
+junit-android = "1.2.1"
+jvmTarget = "17"
+kotlin = "2.0.21"
+legacySupport = "1.0.0"
+material = "1.12.0"
+mavenPublish = "0.30.0"
+minSdk = "21"
+minSdkWear = "26"
+percentLayout = "1.0.0"
+playServicesWearable = "18.2.0"
+splashScreen = "1.0.1"
+targetSdk = "35"
+
+[libraries]
+android-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle-runtime" }
+android-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "android-lifecycle-runtime" }
+androidCore = { module = "androidx.core:core-ktx", version.ref = "androidCore" }
+appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "composeActivity" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-runtime = { module = "androidx.compose.runtime:runtime" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-ui-testManifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-wear-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "compose-wear" }
+compose-wear-material = { module = "androidx.wear.compose:compose-material", version.ref = "compose-wear" }
+espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-android = { module = "androidx.test.ext:junit", version.ref = "junit-android" }
+junit-compose = { module = "androidx.compose.ui:ui-test-junit4" }
+legacySupport = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupport" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+percentLayout = { module = "androidx.percentlayout:percentlayout", version.ref = "percentLayout" }
+playServicesWearable = { module = "com.google.android.gms:play-services-wearable", version.ref = "playServicesWearable" }
+splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+composePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "ComposeSensors"
-include(":sample")
 include(":composesensors")
+include(":sample")
 include(":wearablesample")

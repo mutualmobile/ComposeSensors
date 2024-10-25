@@ -10,12 +10,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -53,7 +53,7 @@ fun CSButton(
             .combinedClickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = if (enabled) {
-                    rememberRipple(color = MaterialTheme.colorScheme.onPrimary)
+                    ripple(color = MaterialTheme.colorScheme.onPrimary)
                 } else {
                     null
                 },
@@ -61,7 +61,8 @@ fun CSButton(
                 onLongClick = { if (enabled) onLongClick() }
             ),
         color = animateColorAsState(
-            targetValue = MaterialTheme.colorScheme.primary.copy(alpha = if (enabled) 1f else 0.5f)
+            targetValue = MaterialTheme.colorScheme.primary.copy(alpha = if (enabled) 1f else 0.5f),
+            label = "Animated Color"
         ).value,
         contentColor = MaterialTheme.colorScheme.surface
     ) {

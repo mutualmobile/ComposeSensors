@@ -4,7 +4,7 @@
  * changes to the libraries and their usages.
  */
 
-package com.mutualmobile.wearablesample.presentation
+package com.mutualmobile.composesensors.wearablesample.presentation
 
 import android.Manifest
 import android.app.Activity
@@ -34,16 +34,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.mutualmobile.composesensors.rememberHeartRateSensorState
-import com.mutualmobile.wearablesample.presentation.theme.ComposeSensorsTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -83,7 +82,8 @@ class MainActivity : ComponentActivity() {
                     }
 
                     AnimatedContent(
-                        targetState = isPermissionGranted
+                        targetState = isPermissionGranted,
+                        label = "Permission Animation"
                     ) { animatedIsGranted ->
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally

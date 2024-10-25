@@ -1,18 +1,19 @@
 import java.util.Properties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.composePlugin)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
-    namespace = "com.mutualmobile.wearablesample"
-    compileSdk = 34
+    namespace = "com.mutualmobile.composesensors.wearablesample"
+    compileSdk = libs.versions.targetSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.mutualmobile.wearablesample"
-        minSdk = 26
-        targetSdk = 34
+        applicationId = "com.mutualmobile.composesensors.wearablesample"
+        minSdk = libs.versions.minSdkWear.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
         vectorDrawables {
@@ -48,17 +49,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
@@ -68,19 +66,22 @@ android {
 }
 
 dependencies {
-
-    implementation(project(mapOf("path" to ":composesensors")))
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("com.google.android.gms:play-services-wearable:18.2.0")
-    implementation("androidx.percentlayout:percentlayout:1.0.0")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
-    implementation("androidx.wear.compose:compose-material:${rootProject.extra["wear_compose_version"]}")
-    implementation("androidx.wear.compose:compose-foundation:${rootProject.extra["wear_compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
-    implementation("androidx.activity:activity-compose:1.9.3")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
-    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")
+    androidTestImplementation(libs.junit.android)
+    androidTestImplementation(platform(libs.compose.bom))
+    debugImplementation(libs.compose.ui.testManifest)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.android.lifecycle.runtime)
+    implementation(libs.android.lifecycle.runtime.compose)
+    implementation(libs.androidCore)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.wear.foundation)
+    implementation(libs.compose.wear.material)
+    implementation(libs.legacySupport)
+    implementation(libs.percentLayout)
+    implementation(libs.playServicesWearable)
+    implementation(platform(libs.compose.bom))
+    implementation(project(":composesensors"))
+    testImplementation(platform(libs.compose.bom))
 }
