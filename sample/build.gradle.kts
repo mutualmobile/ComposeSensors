@@ -1,27 +1,25 @@
 import java.util.Properties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.composePlugin)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
     namespace = "com.mutualmobile.sample"
-    compileSdk = 34
-
+    compileSdk = libs.versions.targetSdk.get().toInt()
     defaultConfig {
         applicationId = "com.mutualmobile.sample"
-        minSdk = 21
-        targetSdk = 34
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
-
     signingConfigs {
         val propertiesFile = File("keystore.properties")
         if (propertiesFile.exists()) {
@@ -37,7 +35,6 @@ android {
             }
         }
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -45,22 +42,22 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            runCatching { signingConfigs.getByName("release") }
-                .onSuccess { safeConfig -> signingConfig = safeConfig }
+            runCatching {
+                signingConfigs.getByName("release")
+            }.onSuccess { config ->
+                signingConfig = config
+            }
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -70,29 +67,22 @@ android {
 }
 
 dependencies {
-    val composeVersion = "1.6.4"
-    val material3Version = "1.2.1"
-    val lifecycleRuntimeKtxVersion = "2.7.0"
-    val coreKtxVersion = "1.12.0"
-    val activityComposeVersion = "1.8.2"
-    val jUnitVersion = "4.13.2"
-    val androidJUnitVersion = "1.1.5"
-    val espressoVersion = "3.5.1"
-    val splashScreenVersion = "1.0.1"
-
-    implementation(project(mapOf("path" to ":composesensors")))
-    implementation("androidx.core:core-ktx:$coreKtxVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
-    implementation("androidx.activity:activity-compose:$activityComposeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.ui:ui-graphics:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.compose.material3:material3:$material3Version")
-    testImplementation("junit:junit:$jUnitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$androidJUnitVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
-    implementation("androidx.core:core-splashscreen:$splashScreenVersion")
+    androidTestImplementation(libs.espresso)
+    androidTestImplementation(libs.junit.android)
+    androidTestImplementation(libs.junit.compose)
+    androidTestImplementation(platform(libs.compose.bom))
+    debugImplementation(libs.compose.ui.testManifest)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.android.lifecycle.runtime)
+    implementation(libs.androidCore)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.splashScreen)
+    implementation(platform(libs.compose.bom))
+    implementation(project(":composesensors"))
+    testImplementation(libs.junit)
+    testImplementation(platform(libs.compose.bom))
 }

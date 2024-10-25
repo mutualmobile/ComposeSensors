@@ -1,20 +1,18 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("com.vanniktech.maven.publish") version "0.28.0"
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composePlugin)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.mavenPublish)
 }
 
 android {
     namespace = "com.mutualmobile.composesensors"
-    compileSdk = 34
-
+    compileSdk = libs.versions.targetSdk.get().toInt()
     defaultConfig {
-        minSdk = 21
-
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -25,35 +23,27 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
-    }
 }
 
 dependencies {
-    val coreKtxVersion = "1.12.0"
-    val appCompatVersion = "1.6.1"
-    val materialVersion = "1.11.0"
-    val jUnitVersion = "4.13.2"
-    val androidJUnitVersion = "1.1.5"
-    val espressoVersion = "3.5.1"
-    val composeVersion = "1.6.4"
-
-    implementation("androidx.compose.runtime:runtime:$composeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.core:core-ktx:$coreKtxVersion")
-    implementation("androidx.appcompat:appcompat:$appCompatVersion")
-    implementation("com.google.android.material:material:$materialVersion")
-    testImplementation("junit:junit:$jUnitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$androidJUnitVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
+    androidTestImplementation(libs.espresso)
+    androidTestImplementation(libs.junit.android)
+    androidTestImplementation(platform(libs.compose.bom))
+    implementation(libs.androidCore)
+    implementation(libs.appCompat)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.ui)
+    implementation(libs.material)
+    implementation(platform(libs.compose.bom))
+    testImplementation(libs.junit)
+    testImplementation(platform(libs.compose.bom))
 }

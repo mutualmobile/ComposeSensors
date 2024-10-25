@@ -16,8 +16,8 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
@@ -203,7 +203,7 @@ fun SensorsListScreen() {
             ) {
                 CSButton(
                     text = "Previous",
-                    icon = Icons.Default.KeyboardArrowLeft,
+                    icon = Icons.AutoMirrored.Default.KeyboardArrowLeft,
                     onClick = {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(
@@ -222,7 +222,7 @@ fun SensorsListScreen() {
                 )
                 CSButton(
                     text = "Next",
-                    icon = Icons.Default.KeyboardArrowRight,
+                    icon = Icons.AutoMirrored.Default.KeyboardArrowRight,
                     onClick = {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(
@@ -245,7 +245,7 @@ fun SensorsListScreen() {
         HorizontalPager(
             state = pagerState,
             contentPadding = PaddingValues(32.dp),
-            beyondBoundsPageCount = 1,
+            beyondViewportPageCount = 1,
             userScrollEnabled = false
         ) { index ->
             val scrollProgress = remember {
